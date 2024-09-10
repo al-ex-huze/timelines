@@ -1,11 +1,8 @@
+import * as React from "react";
+import CssBaseline from "@mui/material/CssBaseline";
 
-function App() {
+const App = () => {
+    return <CssBaseline />;
+};
 
-  return (
-    <>
-      
-    </>
-  )
-}
-
-export default App
+export default App;
