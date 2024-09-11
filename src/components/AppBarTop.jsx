@@ -1,4 +1,5 @@
 import * as React from "react";
+
 import AppBar from "@mui/material/AppBar";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
@@ -169,43 +170,52 @@ const AppBarTop = ({
                     <Box sx={{ flexGrow: 0, display: "flex" }}>
                         {forceMobile ? (
                             <>
-                                {openMobileBottom ? (
+                                <Tooltip title="Simulate Swipe">
+                                    {openMobileBottom ? (
+                                        <IconButton
+                                            onClick={handleBottomDrawerClose}
+                                        >
+                                            <SwipeDownAltIcon
+                                                height={25}
+                                                width={25}
+                                            />
+                                        </IconButton>
+                                    ) : (
+                                        <IconButton
+                                            onClick={handleBottomDrawerOpen}
+                                        >
+                                            <SwipeUpAltIcon
+                                                height={25}
+                                                width={25}
+                                            />
+                                        </IconButton>
+                                    )}
+                                </Tooltip>
+                                <Tooltip title="Force Mobile/Desktop">
                                     <IconButton
-                                        onClick={handleBottomDrawerClose}
+                                        onClick={handleForceMobile}
+                                        sx={{
+                                            mr: 1,
+                                        }}
                                     >
-                                        <SwipeDownAltIcon
+                                        <PersonalVideoIcon
                                             height={25}
                                             width={25}
                                         />
                                     </IconButton>
-                                ) : (
-                                    <IconButton
-                                        onClick={handleBottomDrawerOpen}
-                                    >
-                                        <SwipeUpAltIcon
-                                            height={25}
-                                            width={25}
-                                        />
-                                    </IconButton>
-                                )}
+                                </Tooltip>
+                            </>
+                        ) : (
+                            <Tooltip title="Force Mobile/Desktop">
                                 <IconButton
                                     onClick={handleForceMobile}
                                     sx={{
                                         mr: 1,
                                     }}
                                 >
-                                    <PersonalVideoIcon height={25} width={25} />
+                                    <PhoneAndroidIcon height={25} width={25} />
                                 </IconButton>
-                            </>
-                        ) : (
-                            <IconButton
-                                onClick={handleForceMobile}
-                                sx={{
-                                    mr: 1,
-                                }}
-                            >
-                                <PhoneAndroidIcon height={25} width={25} />
-                            </IconButton>
+                            </Tooltip>
                         )}
                         <Tooltip title="Profile Settings">
                             <IconButton

@@ -1,4 +1,5 @@
 import * as React from "react";
+
 import { useTheme } from "@mui/material/styles";
 import Divider from "@mui/material/Divider";
 import List from "@mui/material/List";
@@ -7,14 +8,16 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 
-import { drawersListArrayCharts, drawersListArrayControls } from "./DrawersList";
+import {
+    drawersListArrayCharts,
+    drawersListArrayControls,
+} from "./DrawersList";
 
 const SideDrawerContents = ({ open }) => {
     const theme = useTheme();
 
     return (
         <>
-           
             <List>
                 {drawersListArrayCharts.map((element, index) => (
                     <ListItem
@@ -40,8 +43,8 @@ const SideDrawerContents = ({ open }) => {
                             <ListItemIcon
                                 sx={[
                                     {
-                                        minWidth: 0,                                        justifyContent: "center",
-
+                                        minWidth: 0,
+                                        justifyContent: "center",
                                     },
                                     open
                                         ? {
