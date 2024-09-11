@@ -1,10 +1,7 @@
 import * as React from "react";
-import { styled, useTheme } from "@mui/material/styles";
-import List from "@mui/material/List";
+import { useTheme } from "@mui/material/styles";
 import Divider from "@mui/material/Divider";
-import IconButton from "@mui/material/IconButton";
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
@@ -12,32 +9,12 @@ import ListItemText from "@mui/material/ListItemText";
 
 import { drawersListArrayCharts, drawersListArrayControls } from "./DrawersList";
 
-const DrawerHeader = styled("div")(({ theme }) => ({
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "flex-end",
-    padding: theme.spacing(0, 1),
-    ...theme.mixins.toolbar,
-}));
-
-const SideDrawerContents = ({ open, handleDrawerOpen, handleDrawerClose }) => {
+const SideDrawerContents = ({ open }) => {
     const theme = useTheme();
 
     return (
         <>
-            <DrawerHeader></DrawerHeader>
-            <DrawerHeader>
-                {open ? (
-                    <IconButton onClick={handleDrawerClose}>
-                        <ChevronLeftIcon />
-                    </IconButton>
-                ) : (
-                    <IconButton onClick={handleDrawerOpen}>
-                        <ChevronRightIcon />
-                    </IconButton>
-                )}
-            </DrawerHeader>
-            <Divider />
+           
             <List>
                 {drawersListArrayCharts.map((element, index) => (
                     <ListItem

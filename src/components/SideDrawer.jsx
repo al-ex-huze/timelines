@@ -1,5 +1,9 @@
 import * as React from "react";
 import { styled } from "@mui/material/styles";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import Divider from "@mui/material/Divider";
+import IconButton from "@mui/material/IconButton";
 import MuiDrawer from "@mui/material/Drawer";
 
 import SideDrawerContents from "./SideDrawerContents";
@@ -52,10 +56,15 @@ const CollapsibleDrawer = styled(MuiDrawer, {
     ],
 }));
 
-const SideDrawer = ({
-    open,
-    setOpen,
-}) => {
+const DrawerHeader = styled("div")(({ theme }) => ({
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "flex-end",
+    padding: theme.spacing(0, 1),
+    ...theme.mixins.toolbar,
+}));
+
+const SideDrawer = ({ open, setOpen }) => {
     const handleDrawerOpen = () => {
         setOpen(true);
     };
@@ -63,7 +72,7 @@ const SideDrawer = ({
     const handleDrawerClose = () => {
         setOpen(false);
     };
-    
+
     return (
         <CollapsibleDrawer
             variant="permanent"
@@ -72,6 +81,19 @@ const SideDrawer = ({
                 keepMounted: true,
             }}
         >
+            <DrawerHeader />
+            <DrawerHeader>
+                {open ? (
+                    <IconButton onClick={handleDrawerClose}>
+                        <ChevronLeftIcon />
+                    </IconButton>
+                ) : (
+                    <IconButton onClick={handleDrawerOpen}>
+                        <ChevronRightIcon />
+                    </IconButton>
+                )}
+            </DrawerHeader>
+            <Divider />
             <SideDrawerContents
                 open={open}
                 handleDrawerOpen={handleDrawerOpen}
