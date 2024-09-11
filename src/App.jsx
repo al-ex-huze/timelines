@@ -4,7 +4,7 @@ import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
 
 import AppBarTop from "./components/AppBarTop";
-import SideDrawerResponder from "./components/SideDrawer";
+import DrawerController from "./components/DrawerController";
 
 const App = () => {
     const [open, setOpen] = React.useState(true);
@@ -16,7 +16,7 @@ const App = () => {
             <Box sx={{ display: "flex" }}>
                 <CssBaseline />
                 <AppBarTop open={open} />
-                <SideDrawerResponder open={open} setOpen={setOpen} />
+                <DrawerController open={open} setOpen={setOpen} />
             </Box>
         </>
     );

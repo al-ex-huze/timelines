@@ -26,7 +26,7 @@ const closedMixin = (theme) => ({
     },
 });
 
-const Drawer = styled(MuiDrawer, {
+const SideDrawer = styled(MuiDrawer, {
     shouldForwardProp: (prop) => prop !== "open",
 })(({ theme }) => ({
     width: drawerWidth,
@@ -51,7 +51,7 @@ const Drawer = styled(MuiDrawer, {
     ],
 }));
 
-const SideDrawer = ({ open, setOpen }) => {
+const DrawerController = ({ open, setOpen }) => {
     const theme = useTheme();
 
     const handleDrawerOpen = () => {
@@ -64,7 +64,7 @@ const SideDrawer = ({ open, setOpen }) => {
     };
 
     return (
-            <Drawer
+            <SideDrawer
                 variant="permanent"
                 open={open}
                 ModalProps={{
@@ -77,8 +77,8 @@ const SideDrawer = ({ open, setOpen }) => {
                     handleDrawerOpen={handleDrawerOpen}
                     handleDrawerClose={handleDrawerClose}
                 />
-            </Drawer>
+            </SideDrawer>
     );
 };
 
-export default SideDrawer;
+export default DrawerController;
