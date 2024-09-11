@@ -1,4 +1,5 @@
 import * as React from "react";
+
 import AppBar from "@mui/material/AppBar";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
@@ -57,41 +58,11 @@ const AppBarTop = ({
         >
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
-                    {forceMobile ? (
-                        <>
-                            <IconButton
-                                onClick={handleForceMobile}
-                                sx={{
-                                    display: { xs: "none", md: "flex" },
-                                    mr: 1,
-                                }}
-                            >
-                                <PersonalVideoIcon height={25} width={25} />
-                            </IconButton>
-                            {openMobileBottom ? (
-                                <IconButton onClick={handleBottomDrawerClose}>
-                                    <SwipeDownAltIcon height={25} width={25} />
-                                </IconButton>
-                            ) : (
-                                <IconButton onClick={handleBottomDrawerOpen}>
-                                    <SwipeUpAltIcon height={25} width={25} />
-                                </IconButton>
-                            )}
-                        </>
-                    ) : (
-                        <IconButton
-                            onClick={handleForceMobile}
-                            sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
-                        >
-                            <PhoneAndroidIcon height={25} width={25} />
-                        </IconButton>
-                    )}
-
                     <IconButton
                         sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
                     >
                         <img
-                            src="https://alimageexbuckhuetzepub.s3.eu-north-1.amazonaws.com/ah1200bg2001.svg"
+                            src="https://alimageexbuckhuetzepub.s3.eu-north-1.amazonaws.com/ah3fff.png"
                             height={25}
                             width={25}
                         />
@@ -159,7 +130,7 @@ const AppBarTop = ({
                         sx={{ display: { xs: "flex", md: "none" }, mr: 2 }}
                     >
                         <img
-                            src="https://alimageexbuckhuetzepub.s3.eu-north-1.amazonaws.com/ah1200bg2001.svg"
+                            src="https://alimageexbuckhuetzepub.s3.eu-north-1.amazonaws.com/ah3fff.png"
                             height={25}
                             width={25}
                         />
@@ -196,7 +167,56 @@ const AppBarTop = ({
                             </Button>
                         ))}
                     </Box>
-                    <Box sx={{ flexGrow: 0 }}>
+                    <Box sx={{ flexGrow: 0, display: "flex" }}>
+                        {forceMobile ? (
+                            <>
+                                <Tooltip title="Simulate Swipe">
+                                    {openMobileBottom ? (
+                                        <IconButton
+                                            onClick={handleBottomDrawerClose}
+                                        >
+                                            <SwipeDownAltIcon
+                                                height={25}
+                                                width={25}
+                                            />
+                                        </IconButton>
+                                    ) : (
+                                        <IconButton
+                                            onClick={handleBottomDrawerOpen}
+                                        >
+                                            <SwipeUpAltIcon
+                                                height={25}
+                                                width={25}
+                                            />
+                                        </IconButton>
+                                    )}
+                                </Tooltip>
+                                <Tooltip title="Force Mobile/Desktop">
+                                    <IconButton
+                                        onClick={handleForceMobile}
+                                        sx={{
+                                            mr: 1,
+                                        }}
+                                    >
+                                        <PersonalVideoIcon
+                                            height={25}
+                                            width={25}
+                                        />
+                                    </IconButton>
+                                </Tooltip>
+                            </>
+                        ) : (
+                            <Tooltip title="Force Mobile/Desktop">
+                                <IconButton
+                                    onClick={handleForceMobile}
+                                    sx={{
+                                        mr: 1,
+                                    }}
+                                >
+                                    <PhoneAndroidIcon height={25} width={25} />
+                                </IconButton>
+                            </Tooltip>
+                        )}
                         <Tooltip title="Profile Settings">
                             <IconButton
                                 onClick={handleOpenUserMenu}
