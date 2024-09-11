@@ -1,17 +1,16 @@
 import * as React from "react";
 import AppBar from "@mui/material/AppBar";
+import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
+import Button from "@mui/material/Button";
+import Container from "@mui/material/Container";
 import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
-import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import AdbIcon from "@mui/icons-material/Adb";
+import Toolbar from "@mui/material/Toolbar";
+import Tooltip from "@mui/material/Tooltip";
+import Typography from "@mui/material/Typography";
 
 const pages = ["Timelines", "Calendar", "Blog"];
 const settings = ["Profile", "Account", "Logout"];
@@ -36,27 +35,12 @@ const AppBarTop = () => {
     };
 
     return (
-        <AppBar position="static">
+        <AppBar
+            position="fixed"
+            sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        >
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
-                    <IconButton
-                        sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
-                    >
-                        <img
-                            src="https://alimageexbuckhuetzepub.s3.eu-north-1.amazonaws.com/ah4003153.svg"
-                            height={25}
-                            width={25}
-                        />
-                    </IconButton>
-                    <IconButton
-                        sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
-                    >
-                        <img
-                            src="https://alimageexbuckhuetzepub.s3.eu-north-1.amazonaws.com/ah40031532.svg"
-                            height={25}
-                            width={25}
-                        />
-                    </IconButton>
                     <IconButton
                         sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
                     >
@@ -66,6 +50,21 @@ const AppBarTop = () => {
                             width={25}
                         />
                     </IconButton>
+                    <Typography
+                        variant="h5"
+                        noWrap
+                        sx={{
+                            mr: 2,
+                            display: { xs: "none", md: "flex" },
+                            fontFamily: "monospace",
+                            fontWeight: 700,
+                            letterSpacing: ".3rem",
+                            color: "inherit",
+                            textDecoration: "none",
+                        }}
+                    >
+                        HUZE VIEWS
+                    </Typography>
                     <Box
                         sx={{
                             flexGrow: 1,
@@ -114,29 +113,27 @@ const AppBarTop = () => {
                         sx={{ display: { xs: "flex", md: "none" }, mr: 2 }}
                     >
                         <img
-                            src="https://alimageexbuckhuetzepub.s3.eu-north-1.amazonaws.com/ah4003153.svg"
-                            height={25}
-                            width={25}
-                        />
-                    </IconButton>
-                    <IconButton
-                        sx={{ display: { xs: "flex", md: "none" }, mr: 2 }}
-                    >
-                        <img
-                            src="https://alimageexbuckhuetzepub.s3.eu-north-1.amazonaws.com/ah40031532.svg"
-                            height={25}
-                            width={25}
-                        />
-                    </IconButton>
-                    <IconButton
-                        sx={{ display: { xs: "flex", md: "none" }, mr: 2 }}
-                    >
-                        <img
                             src="https://alimageexbuckhuetzepub.s3.eu-north-1.amazonaws.com/ah1200bg2001.svg"
                             height={25}
                             width={25}
                         />
                     </IconButton>
+                    <Typography
+                        variant="h6"
+                        noWrap
+                        sx={{
+                            mr: 2,
+                            display: { xs: "flex", md: "none" },
+                            flexGrow: 1,
+                            fontFamily: "monospace",
+                            fontWeight: 700,
+                            letterSpacing: ".3rem",
+                            color: "inherit",
+                            textDecoration: "none",
+                        }}
+                    >
+                        HUZE VIEWS
+                    </Typography>
                     <Box
                         sx={{
                             flexGrow: 1,
