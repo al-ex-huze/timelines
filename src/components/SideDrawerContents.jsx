@@ -22,17 +22,15 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 
 const SideDrawerContents = ({
     open,
-    setOpen,
     handleDrawerOpen,
     handleDrawerClose,
 }) => {
     const theme = useTheme();
 
     return (
-
-            <>
-
-            <DrawerHeader></DrawerHeader><DrawerHeader>
+        <>
+            <DrawerHeader></DrawerHeader>
+            <DrawerHeader>
                 {open ? (
                     <IconButton onClick={handleDrawerClose}>
                         <ChevronLeftIcon />
@@ -42,7 +40,9 @@ const SideDrawerContents = ({
                         <ChevronRightIcon />
                     </IconButton>
                 )}
-            </DrawerHeader><Divider /><List>
+            </DrawerHeader>
+            <Divider />
+            <List>
                 {[
                     "Inbox",
                     "Starred",
@@ -65,11 +65,11 @@ const SideDrawerContents = ({
                                 },
                                 open
                                     ? {
-                                        justifyContent: "initial",
-                                    }
+                                          justifyContent: "initial",
+                                      }
                                     : {
-                                        justifyContent: "center",
-                                    },
+                                          justifyContent: "center",
+                                      },
                             ]}
                         >
                             <ListItemIcon
@@ -80,11 +80,11 @@ const SideDrawerContents = ({
                                     },
                                     open
                                         ? {
-                                            mr: 3,
-                                        }
+                                              mr: 3,
+                                          }
                                         : {
-                                            mr: "auto",
-                                        },
+                                              mr: "auto",
+                                          },
                                 ]}
                             >
                                 {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
@@ -94,16 +94,19 @@ const SideDrawerContents = ({
                                 sx={[
                                     open
                                         ? {
-                                            opacity: 1,
-                                        }
+                                              opacity: 1,
+                                          }
                                         : {
-                                            opacity: 0,
-                                        },
-                                ]} />
+                                              opacity: 0,
+                                          },
+                                ]}
+                            />
                         </ListItemButton>
                     </ListItem>
                 ))}
-            </List><Divider /><List>
+            </List>
+            <Divider />
+            <List>
                 {[
                     "All mail",
                     "Trash",
@@ -127,11 +130,11 @@ const SideDrawerContents = ({
                                 },
                                 open
                                     ? {
-                                        justifyContent: "initial",
-                                    }
+                                          justifyContent: "initial",
+                                      }
                                     : {
-                                        justifyContent: "center",
-                                    },
+                                          justifyContent: "center",
+                                      },
                             ]}
                         >
                             <ListItemIcon
@@ -142,11 +145,11 @@ const SideDrawerContents = ({
                                     },
                                     open
                                         ? {
-                                            mr: 3,
-                                        }
+                                              mr: 3,
+                                          }
                                         : {
-                                            mr: "auto",
-                                        },
+                                              mr: "auto",
+                                          },
                                 ]}
                             >
                                 {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
@@ -156,16 +159,18 @@ const SideDrawerContents = ({
                                 sx={[
                                     open
                                         ? {
-                                            opacity: 1,
-                                        }
+                                              opacity: 1,
+                                          }
                                         : {
-                                            opacity: 0,
-                                        },
-                                ]} />
+                                              opacity: 0,
+                                          },
+                                ]}
+                            />
                         </ListItemButton>
                     </ListItem>
                 ))}
-            </List></>
+            </List>
+        </>
     );
 };
 

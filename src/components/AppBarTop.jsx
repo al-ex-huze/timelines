@@ -12,16 +12,28 @@ import Toolbar from "@mui/material/Toolbar";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 
+import PersonalVideoIcon from "@mui/icons-material/PersonalVideo";
+import PhoneAndroidIcon from "@mui/icons-material/PhoneAndroid";
+import SwipeUpAltIcon from "@mui/icons-material/SwipeUpAlt";
+import SwipeDownAltIcon from "@mui/icons-material/SwipeDownAlt";
+
 const pages = ["Timelines", "Calendar", "Blog"];
 const settings = ["Profile", "Account", "Logout"];
 
-const AppBarTop = () => {
+const AppBarTop = ({
+    forceMobile,
+    setForceMobile,
+    openMobileBottom,
+    handleBottomDrawerClose,
+    handleBottomDrawerOpen,
+}) => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
     };
+
     const handleOpenUserMenu = (event) => {
         setAnchorElUser(event.currentTarget);
     };
@@ -34,6 +46,10 @@ const AppBarTop = () => {
         setAnchorElUser(null);
     };
 
+    const handleForceMobile = () => {
+        setForceMobile(!forceMobile);
+    };
+
     return (
         <AppBar
             position="fixed"
@@ -41,6 +57,36 @@ const AppBarTop = () => {
         >
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
+                    {forceMobile ? (
+                        <>
+                            <IconButton
+                                onClick={handleForceMobile}
+                                sx={{
+                                    display: { xs: "none", md: "flex" },
+                                    mr: 1,
+                                }}
+                            >
+                                <PersonalVideoIcon height={25} width={25} />
+                            </IconButton>
+                            {openMobileBottom ? (
+                                <IconButton onClick={handleBottomDrawerClose}>
+                                    <SwipeDownAltIcon height={25} width={25} />
+                                </IconButton>
+                            ) : (
+                                <IconButton onClick={handleBottomDrawerOpen}>
+                                    <SwipeUpAltIcon height={25} width={25} />
+                                </IconButton>
+                            )}
+                        </>
+                    ) : (
+                        <IconButton
+                            onClick={handleForceMobile}
+                            sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
+                        >
+                            <PhoneAndroidIcon height={25} width={25} />
+                        </IconButton>
+                    )}
+
                     <IconButton
                         sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
                     >

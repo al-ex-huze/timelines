@@ -1,7 +1,9 @@
 import * as React from "react";
 import { styled, useTheme } from "@mui/material/styles";
 import MuiDrawer from "@mui/material/Drawer";
+import BottomDrawer from "./BottomDrawer";
 import SideDrawerContents from "./SideDrawerContents";
+import { isMobile } from "react-device-detect";
 
 const drawerWidth = 240;
 
@@ -51,7 +53,14 @@ const SideDrawer = styled(MuiDrawer, {
     ],
 }));
 
-const DrawerController = ({ open, setOpen }) => {
+const DrawerController = ({
+    open,
+    setOpen,
+    forceMobile,
+    openMobileBottom,
+    setOpenMobileBottom,
+    toggleBottomDrawer,
+}) => {
     const theme = useTheme();
 
     const handleDrawerOpen = () => {
@@ -64,20 +73,28 @@ const DrawerController = ({ open, setOpen }) => {
     };
 
     return (
-            <SideDrawer
-                variant="permanent"
-                open={open}
-                ModalProps={{
-                    keepMounted: true,
-                }}
-            >
-                <SideDrawerContents
-                    open={open}
-                    setOpen={setOpen}
-                    handleDrawerOpen={handleDrawerOpen}
-                    handleDrawerClose={handleDrawerClose}
+        <>
+            {forceMobile ? (
+                <BottomDrawer
+                    openMobileBottom={openMobileBottom}
+                    setOpenMobileBottom={setOpenMobileBottom}
                 />
-            </SideDrawer>
+            ) : (
+                <SideDrawer
+                    variant="permanent"
+                    open={open}
+                    ModalProps={{
+                        keepMounted: true,
+                    }}
+                >
+                    <SideDrawerContents
+                        open={open}
+                        handleDrawerOpen={handleDrawerOpen}
+                        handleDrawerClose={handleDrawerClose}
+                    />
+                </SideDrawer>
+            )}
+        </>
     );
 };
 
