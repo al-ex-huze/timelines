@@ -1,5 +1,4 @@
 import * as React from "react";
-import { isMobile } from "react-device-detect";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
 

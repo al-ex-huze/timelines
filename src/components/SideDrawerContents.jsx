@@ -40,8 +40,8 @@ const SideDrawerContents = ({ open }) => {
                             <ListItemIcon
                                 sx={[
                                     {
-                                        minWidth: 0,
-                                        justifyContent: "center",
+                                        minWidth: 0,                                        justifyContent: "center",
+
                                     },
                                     open
                                         ? {

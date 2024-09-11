@@ -1,8 +1,9 @@
 import * as React from "react";
 
+import { isMobile } from "react-device-detect";
+
 import SideDrawer from "./SideDrawer";
 import BottomDrawer from "./BottomDrawer";
-
 
 const DrawerController = ({
     open,
@@ -13,7 +14,7 @@ const DrawerController = ({
 }) => {
     return (
         <>
-            {forceMobile ? (
+            {forceMobile || isMobile ? (
                 <BottomDrawer
                     openMobileBottom={openMobileBottom}
                     setOpenMobileBottom={setOpenMobileBottom}
