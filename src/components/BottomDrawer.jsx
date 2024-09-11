@@ -5,6 +5,8 @@ import { grey } from "@mui/material/colors";
 import Skeleton from "@mui/material/Skeleton";
 import SwipeableDrawer from "@mui/material/SwipeableDrawer";
 
+import BottomDrawerContents from "./BottomDrawerContents";
+
 const drawerBleeding = 56;
 
 const StyledBox = styled("div")(({ theme }) => ({
@@ -27,7 +29,15 @@ const Puller = styled("div")(({ theme }) => ({
     }),
 }));
 
-function BottomDrawer({ openMobileBottom, setOpenMobileBottom }) {
+const ListBox = styled("div")(({ theme }) => ({
+    backgroundColor: "#fff",
+    ...theme.applyStyles("dark", {
+        backgroundColor: grey[800],
+    }),
+    overflow: "scroll",
+}));
+
+const BottomDrawer = ({ openMobileBottom, setOpenMobileBottom }) => {
     const toggleDrawer = (newOpen) => () => {
         setOpenMobileBottom(newOpen);
     };
@@ -37,7 +47,7 @@ function BottomDrawer({ openMobileBottom, setOpenMobileBottom }) {
             <Global
                 styles={{
                     ".MuiDrawer-root > .MuiPaper-root": {
-                        height: `calc(50% - ${drawerBleeding}px)`,
+                        height: `calc(80% - ${drawerBleeding}px)`,
                         overflow: "visible",
                     },
                 }}
@@ -55,7 +65,7 @@ function BottomDrawer({ openMobileBottom, setOpenMobileBottom }) {
             >
                 <StyledBox
                     sx={{
-                        position: "absolute",
+                        position: "relative",
                         top: -drawerBleeding,
                         borderTopLeftRadius: 8,
                         borderTopRightRadius: 8,
@@ -66,14 +76,13 @@ function BottomDrawer({ openMobileBottom, setOpenMobileBottom }) {
                 >
                     <Puller />
                 </StyledBox>
-                <StyledBox
-                    sx={{ px: 2, pb: 2, height: "100%", overflow: "auto" }}
-                >
-                    <Skeleton variant="rectangular" height="100%" />
-                </StyledBox>
+                <ListBox>
+                    <BottomDrawerContents />
+                    <Skeleton variant="rectangular" height="auto" />
+                </ListBox>
             </SwipeableDrawer>
         </>
     );
-}
+};
 
 export default BottomDrawer;

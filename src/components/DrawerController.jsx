@@ -78,7 +78,8 @@ const DrawerController = ({
                 <BottomDrawer
                     openMobileBottom={openMobileBottom}
                     setOpenMobileBottom={setOpenMobileBottom}
-                />
+                >
+                </BottomDrawer>
             ) : (
                 <SideDrawer
                     variant="permanent"
