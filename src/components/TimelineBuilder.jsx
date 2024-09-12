@@ -21,7 +21,7 @@ const TimelineBuilder = ({
     const [sortByIsAsc] = React.useState(true);
 
     React.useEffect(() => {
-        console.log("ChartBuilder UseEffect()");
+        console.log("TimelineBuilder UseEffect()");
         setIsLoading(true);
         getEvents(timelineSingleName, sortByQuery, sortByIsAsc)
             .then((events) => {

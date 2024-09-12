@@ -11,9 +11,26 @@ export const getEvents = (timelineFilter, sortByQuery, sortByIsAsc) => {
 
     if (sortByQuery) params.sort_by = sortByQuery;
     if (timelineFilter) params.timeline = timelineFilter;
-    
+
     return beApi.get("/api/events", { params: params }).then((response) => {
-        // console.log("response " + JSON.stringify(response));
         return response.data.events;
+    });
+};
+
+export const getEventByID = (eventID) => {
+    return beApi.get(`/api/events/${eventID}`).then((response) => {
+        return response.data.event;
+    });
+};
+
+export const getTimelines = () => {
+    return beApi.get("/api/timelines").then((response) => {
+        return response.data.timelines;
+    });
+};
+
+export const getTimelineByName = (timeline_name) => {
+    return beApi.get(`/api/timelines/${timeline_name}`).then((response) => {
+        return response.data.timeline;
     });
 };
