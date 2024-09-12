@@ -6,9 +6,6 @@ import Grid from "@mui/material/Grid2";
 import Paper from "@mui/material/Paper";
 
 import { DragOverlay } from "@dnd-kit/core";
-1;
-import Draggable from "./Draggable";
-import Droppable from "./Droppable";
 
 import SortableItem from "./SortableItem";
 import DraggableItem from "./DraggableItem";
@@ -45,13 +42,15 @@ const Timelines = ({ activeId, items }) => {
                 alignItems="stretch"
             >
                 {items.map((uniqueName, index) => (
-                    <Grid key={index} size={{ xs: 2, sm: 4, md: 4 }}>
-                        {index + 1}
-                        <SortableItem
-                            key={uniqueName}
-                            uniqueName={uniqueName}
-                            index={index}
-                        />
+                    <Grid key={index} size="auto">
+                        <Item>
+                            {index + 1}
+                            <SortableItem
+                                key={uniqueName}
+                                uniqueName={uniqueName}
+                                index={index}
+                            />
+                        </Item>
                     </Grid>
                 ))}
                 <DragOverlay adjustScale={true}>

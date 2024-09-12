@@ -1,6 +1,5 @@
 import * as React from "react";
 
-import { useTheme } from "@mui/material/styles";
 import Divider from "@mui/material/Divider";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -14,7 +13,6 @@ import {
 } from "./DrawersList";
 
 const SideDrawerContents = ({ open }) => {
-    const theme = useTheme();
 
     return (
         <>

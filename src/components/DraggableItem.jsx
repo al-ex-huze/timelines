@@ -6,11 +6,13 @@ const DraggableItem = forwardRef(
             opacity: faded ? "0.2" : "1",
             transformOrigin: "0 0",
             height: index === 0 ? 200 : 200,
+            width: index === 0 ? 400 : 200,
             gridRowStart: index === 0 ? "span 2" : null,
             gridColumnStart: index === 0 ? "span 2" : null, 
             backgroundSize: "cover",
             backgroundPosition: "center",
             backgroundColor: "grey",
+            borderRadius :"8px",
             ...style,
         };
 
