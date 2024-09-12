@@ -19,7 +19,7 @@ const Item = styled(Paper)(({ theme }) => ({
     }),
 }));
 
-const DnDGrid = ({ activeId, eventID, items }) => {
+const DnDGrid = ({ items }) => {
     return (
         <Grid
             container

@@ -22,7 +22,7 @@ import AppBarTop from "./components/AppBarTop";
 import DrawerController from "./components/DrawerController";
 import Timelines from "./components/Timelines";
 
-const App = (props) => {
+const App = () => {
     const [open, setOpen] = React.useState(true);
     const [forceMobile, setForceMobile] = React.useState(false);
     const [openMobileBottom, setOpenMobileBottom] = React.useState(false);
@@ -39,6 +39,11 @@ const App = (props) => {
         setOpenMobileBottom(false);
     };
 
+    const [activeId, setActiveId] = React.useState(null);
+    const [items, setItems] = React.useState([]);
+
+    const sensors = useSensors(useSensor(MouseSensor), useSensor(TouchSensor));
+
     const handleDragStart = (event) => {
         setActiveId(event.active.id);
     };
@@ -50,7 +55,6 @@ const App = (props) => {
             setItems((items) => {
                 const oldIndex = items.indexOf(active.id);
                 const newIndex = items.indexOf(over.id);
-
                 return arrayMove(items, oldIndex, newIndex);
             });
         }
@@ -61,12 +65,6 @@ const App = (props) => {
     const handleDragCancel = () => {
         setActiveId(null);
     };
-
-    const testItems = ["One"];
-
-    const [activeId, setActiveId] = React.useState(null);
-    const [items, setItems] = React.useState(testItems);
-    const sensors = useSensors(useSensor(MouseSensor), useSensor(TouchSensor));
 
     return (
         <>
@@ -98,7 +96,11 @@ const App = (props) => {
                         items={items}
                         strategy={rectSortingStrategy}
                     >
-                        <Timelines activeId={activeId} items={items} />
+                        <Timelines
+                            activeId={activeId}
+                            items={items}
+                            setItems={setItems}
+                        />
                     </SortableContext>
                 </DndContext>
             </Box>

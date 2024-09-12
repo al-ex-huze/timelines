@@ -40,7 +40,7 @@ const TimelineChartTogglePanel = ({
             <Tooltip title="Group/Ungroup Rows">
                 {groupNames ? (
                     <IconButton onClick={toggleGroupNames}>
-                        <UnfoldLessIcon UnfoldMoreIcon />
+                        <UnfoldLessIcon />
                     </IconButton>
                 ) : (
                     <IconButton onClick={toggleGroupNames}>

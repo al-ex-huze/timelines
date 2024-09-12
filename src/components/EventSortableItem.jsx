@@ -5,7 +5,10 @@ import { CSS } from "@dnd-kit/utilities";
 import EventDraggableItem from "./EventDraggableItem";
 
 const EventSortableItem = (props) => {
+
     const sortable = useSortable({ id: props.uniqueName });
+    const selectedeventid = props.selectedeventid
+
     const {
         attributes,
         listeners,
@@ -24,6 +27,7 @@ const EventSortableItem = (props) => {
         <EventDraggableItem
             ref={setNodeRef}
             style={style}
+            selectedeventid={selectedeventid}
             {...props}
             {...attributes}
             {...listeners}

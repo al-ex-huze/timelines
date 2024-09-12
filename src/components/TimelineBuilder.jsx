@@ -13,6 +13,8 @@ const TimelineBuilder = ({
     timeline_name,
     timelineSingleName,
     setTimelineSingleName,
+    items,
+    setItems
 }) => {
     const [isLoading, setIsLoading] = React.useState(false);
     const [eventsData, setEventsData] = React.useState([]);
@@ -46,6 +48,8 @@ const TimelineBuilder = ({
                         setEventID={setEventID}
                         timelineSingleName={timelineSingleName}
                         setTimelineSingleName={setTimelineSingleName}
+                        items={items}
+                        setItems={setItems}
                     />
                 </>
             ) : null}

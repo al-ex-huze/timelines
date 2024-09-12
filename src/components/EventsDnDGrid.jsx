@@ -19,7 +19,8 @@ const Item = styled(Paper)(({ theme }) => ({
     }),
 }));
 
-const EventsDnDGrid = ({ activeId, eventID, items }) => {
+const EventsDnDGrid = ({ activeId, items }) => {
+    if (items.length === 0) return null
     return (
         <Grid
             container
@@ -28,14 +29,14 @@ const EventsDnDGrid = ({ activeId, eventID, items }) => {
             display="flex"
             alignItems="stretch"
         >
-            {items.map((uniqueName, index) => (
+            {items.map((selectedeventid, index) => (
                 <Grid key={index} size="auto">
                     <Item>
                         <EventSortableItem
-                            key={uniqueName}
-                            uniqueName={uniqueName}
+                            key={selectedeventid}
+                            uniqueName={`${selectedeventid}`}
                             index={index}
-                            eventID={eventID}
+                            selectedeventid={`${selectedeventid}`}
                         />
                     </Item>
                 </Grid>

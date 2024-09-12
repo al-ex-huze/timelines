@@ -12,22 +12,24 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 import { getEventByID } from "../../api";
 
-const EventCard = ({ eventID }) => {
-    const [eventSingle, setEventSingle] = React.useState()
+const EventCard = ({ selectedeventid }) => {
+    const [eventSingle, setEventSingle] = React.useState();
     const [isLoading, setIsLoading] = React.useState(false);
 
     React.useEffect(() => {
         setIsLoading(true);
         console.log("EventCard Use Effect()");
-        if (eventID !== 0) {
-            getEventByID(eventID).then((event) => {
+        if (selectedeventid !== 0) {
+            getEventByID(selectedeventid).then((event) => {
                 setEventSingle(event);
+                console.log(event.title);
                 setIsLoading(false);
             });
         }
-    }, [eventID]);
+    }, [selectedeventid]);
 
-    if (eventID === 0) return null;
+    if (selectedeventid === 0) return null;
+    if (eventSingle === undefined) return null;
     if (isLoading) return <p>Loading Event</p>;
     return (
         <Card sx={{ width: 345, maxWidth: 345, height: 345, maxHeight: 345 }}>
