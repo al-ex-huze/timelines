@@ -1,0 +1,36 @@
+import axios from "axios";
+
+const beApi = axios.create({
+    baseURL: "https://be-pp-timeline.fly.dev",
+});
+
+export const getEvents = (timelineFilter, sortByQuery, sortByIsAsc) => {
+    let orderDirection = "";
+    sortByIsAsc ? (orderDirection = "asc") : (orderDirection = "desc");
+    let params = { timeline: timelineFilter, order: orderDirection };
+
+    if (sortByQuery) params.sort_by = sortByQuery;
+    if (timelineFilter) params.timeline = timelineFilter;
+
+    return beApi.get("/api/events", { params: params }).then((response) => {
+        return response.data.events;
+    });
+};
+
+export const getEventByID = (eventID) => {
+    return beApi.get(`/api/events/${eventID}`).then((response) => {
+        return response.data.event;
+    });
+};
+
+export const getTimelines = () => {
+    return beApi.get("/api/timelines").then((response) => {
+        return response.data.timelines;
+    });
+};
+
+export const getTimelineByName = (timeline_name) => {
+    return beApi.get(`/api/timelines/${timeline_name}`).then((response) => {
+        return response.data.timeline;
+    });
+};

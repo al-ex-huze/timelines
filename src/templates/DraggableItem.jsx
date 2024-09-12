@@ -5,8 +5,8 @@ const DraggableItem = forwardRef(
         const inlineStyles = {
             opacity: faded ? "0.2" : "1",
             transformOrigin: "0 0",
-            height: index === 0 ? 200 : 200,
-            width: index === 0 ? 400 : 200,
+            height: index === 0 ? 800 : 400,
+            width: index === 0 ? 800 : 400,
             gridRowStart: index === 0 ? "span 2" : null,
             gridColumnStart: index === 0 ? "span 2" : null, 
             backgroundSize: "cover",
@@ -18,7 +18,6 @@ const DraggableItem = forwardRef(
 
         return (
             <div ref={ref} style={inlineStyles} {...props}>
-                {uniqueName}
             </div>
         );
     }
