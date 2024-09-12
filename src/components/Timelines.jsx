@@ -11,6 +11,8 @@ const Offset = styled("div")(({ theme }) => theme.mixins.toolbar);
 const Timelines = ({ activeId, items }) => {
     const [eventID, setEventID] = React.useState(0);
 
+    const [selectedEvents, setSelectedEvents] = React.useState([]);
+
     return (
         <Box
             sx={{
@@ -21,11 +23,15 @@ const Timelines = ({ activeId, items }) => {
             }}
         >
             <Offset sx={{ mb: 1 }} />
-            <TimelineBuilder setEventID={setEventID} />
+            <TimelineBuilder
+                setEventID={setEventID}
+                setSelectedEvents={setSelectedEvents}
+            />
             <EventsDnDGrid
                 activeId={activeId}
                 eventID={eventID}
                 items={items}
+                selectedEvents={selectedEvents}
             />
         </Box>
     );

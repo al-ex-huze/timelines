@@ -6,7 +6,7 @@ import Paper from "@mui/material/Paper";
 
 import { DragOverlay } from "@dnd-kit/core";
 
-import EventSortableItem from "./EventSortableItem";
+import EventSortableItem from "../components/EventSortableItem";
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: "#fff",
