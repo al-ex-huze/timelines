@@ -62,7 +62,8 @@ const App = (props) => {
         setActiveId(null);
     };
 
-    const testItems = ["One", "Two", "Three", "Four", "Five", "Six"];
+    // const testItems = ["One", "Two", "Three", "Four", "Five", "Six"];
+    const testItems = ["One"];
 
     const [activeId, setActiveId] = React.useState(null);
     const [items, setItems] = React.useState(testItems);

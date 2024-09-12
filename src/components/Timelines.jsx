@@ -7,8 +7,8 @@ import Paper from "@mui/material/Paper";
 
 import { DragOverlay } from "@dnd-kit/core";
 
-import SortableItem from "./SortableItem";
 import DraggableItem from "./DraggableItem";
+import SortableItem from "./SortableItem";
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: "#fff",
@@ -53,14 +53,14 @@ const Timelines = ({ activeId, items }) => {
                         </Item>
                     </Grid>
                 ))}
-                <DragOverlay adjustScale={true}>
+                {/* <DragOverlay adjustScale={true}>
                     {activeId ? (
                         <DraggableItem
                             uniqueName={activeId}
                             index={items.indexOf(activeId)}
                         />
                     ) : null}
-                </DragOverlay>
+                </DragOverlay> */}
             </Grid>
         </Box>
     );
