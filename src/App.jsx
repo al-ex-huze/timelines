@@ -1,12 +1,14 @@
 import * as React from "react";
 
-import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
+
+import Box from "@mui/material/Box";
 
 import AppBarTop from "./components/AppBarTop";
 import DrawerController from "./components/DrawerController";
+import Timelines from "./components/Timelines";
 
-const App = () => {
+const App = (props) => {
     const [open, setOpen] = React.useState(true);
     const [forceMobile, setForceMobile] = React.useState(false);
     const [openMobileBottom, setOpenMobileBottom] = React.useState(false);
@@ -28,7 +30,6 @@ const App = () => {
             <Box sx={{ display: "flex" }}>
                 <CssBaseline />
                 <AppBarTop
-                    open={open}
                     forceMobile={forceMobile}
                     setForceMobile={setForceMobile}
                     openMobileBottom={openMobileBottom}
@@ -43,6 +44,7 @@ const App = () => {
                     setOpenMobileBottom={setOpenMobileBottom}
                     toggleBottomDrawer={toggleBottomDrawer}
                 />
+                <Timelines />
             </Box>
         </>
     );
