@@ -2,6 +2,7 @@ import * as React from "react";
 
 import { getEvents } from "../../api";
 
+import CircularLoader from "./CircularLoader";
 import TimelineChart from "./TimelineChart";
 
 const TimelineBuilder = ({
@@ -14,7 +15,7 @@ const TimelineBuilder = ({
     timelineSingleName,
     setTimelineSingleName,
     items,
-    setItems
+    setItems,
 }) => {
     const [isLoading, setIsLoading] = React.useState(false);
     const [eventsData, setEventsData] = React.useState([]);
@@ -35,7 +36,7 @@ const TimelineBuilder = ({
             });
     }, [sortByQuery, sortByIsAsc]);
 
-    if (isLoading) return <p>Loading Data</p>;
+    if (isLoading) return <CircularLoader />;
     return (
         <>
             {eventsData[0] !== undefined ? (
