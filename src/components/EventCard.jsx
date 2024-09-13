@@ -1,20 +1,22 @@
 import * as React from "react";
+import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
-import FavoriteIcon from "@mui/icons-material/Favorite";
 import IconButton from "@mui/material/IconButton";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
-import ShareIcon from "@mui/icons-material/Share";
 import Typography from "@mui/material/Typography";
+import Tooltip from "@mui/material/Tooltip";
+
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import OpenWithIcon from "@mui/icons-material/OpenWith";
 
 import { getEventByID } from "../../api";
 
 import CircularLoader from "./CircularLoader";
 
-const EventCard = ({ selectedeventid }) => {
+const EventCard = ({ selectedeventid, ...props }) => {
     const [eventSingle, setEventSingle] = React.useState();
     const [isLoading, setIsLoading] = React.useState(false);
 
@@ -35,15 +37,27 @@ const EventCard = ({ selectedeventid }) => {
     if (isLoading) return <CircularLoader />;
 
     return (
-        <Card sx={{ width: 345, maxWidth: 345, height: 345, maxHeight: 345 }}>
+        <Card sx={{ width: 300, maxWidth: 300, height: 300, maxHeight: 300 }}>
             <CardHeader
                 action={
-                    <IconButton aria-label="settings">
-                        <MoreVertIcon />
-                    </IconButton>
+                    <>
+                        <IconButton aria-label="settings">
+                            <MoreVertIcon />
+                        </IconButton>
+                        <Tooltip title="Drag Card"></Tooltip>
+                        <IconButton
+                            sx={{ borderRadius: "8ppx" }}
+                            aria-label="move-card"
+                        >
+                            <OpenWithIcon
+                                {...props}
+
+                            />
+                        </IconButton>
+                    </>
                 }
                 title={`${eventSingle.title}`}
-                subheader={`${eventSingle.event_id}`}
+                // subheader={`${eventSingle.event_id}`}
             />
             <CardMedia
                 component="img"
@@ -63,11 +77,12 @@ const EventCard = ({ selectedeventid }) => {
                 </Typography>
             </CardContent>
             <CardActions disableSpacing>
-                <IconButton aria-label="add to favorites">
-                    <FavoriteIcon />
-                </IconButton>
-                <IconButton aria-label="share">
-                    <ShareIcon />
+                <Tooltip title="Drag Card"></Tooltip>
+                <IconButton
+                    sx={{ borderRadius: "8px" }}
+                    aria-label="move-card"
+                >
+                    <OpenWithIcon {...props} sx={{ width: 50, height: 50 }} />
                 </IconButton>
             </CardActions>
         </Card>

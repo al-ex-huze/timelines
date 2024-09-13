@@ -7,8 +7,8 @@ const EventDraggableItem = forwardRef(
         const inlineStyles = {
             opacity: faded ? "0.2" : "1",
             transformOrigin: "0 0",
-            height: index === 0 ? 345 : 345,
-            width: index === 0 ? 345 : 345,
+            height: index === 0 ? 300 : 300,
+            width: index === 0 ? 300 : 300,
             gridRowStart: index === 0 ? "span 2" : null,
             gridColumnStart: index === 0 ? "span 2" : null,
             backgroundSize: "cover",
@@ -19,8 +19,9 @@ const EventDraggableItem = forwardRef(
         };
 
         return (
-            <div ref={ref} style={inlineStyles} {...props}>
-                <EventCard selectedeventid={selectedeventid} />
+            <div ref={ref} style={inlineStyles} >
+                <EventCard selectedeventid={selectedeventid} {...props}>
+                </EventCard>
             </div>
         );
     }

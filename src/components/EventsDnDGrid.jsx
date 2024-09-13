@@ -4,18 +4,16 @@ import { experimentalStyled as styled } from "@mui/material/styles";
 import Grid from "@mui/material/Grid2";
 import Paper from "@mui/material/Paper";
 
-import { DragOverlay } from "@dnd-kit/core";
-
 import EventSortableItem from "./EventSortableItem";
 
-const Item = styled(Paper)(({ theme }) => ({
+const GridPlot = styled(Paper)(({ theme }) => ({
     backgroundColor: "#fff",
     ...theme.typography.body2,
-    padding: theme.spacing(2),
+    padding: 2,
     textAlign: "center",
     color: theme.palette.text.secondary,
     ...theme.applyStyles("dark", {
-        backgroundColor: "#1A2027",
+        backgroundColor: "#20313C",
     }),
 }));
 
@@ -31,14 +29,14 @@ const EventsDnDGrid = ({ activeId, items }) => {
         >
             {items.map((selectedeventid, index) => (
                 <Grid key={index} size="auto">
-                    <Item>
+                    <GridPlot>
                         <EventSortableItem
                             key={selectedeventid}
                             uniqueName={`${selectedeventid}`}
                             index={index}
                             selectedeventid={`${selectedeventid}`}
                         />
-                    </Item>
+                    </GridPlot>
                 </Grid>
             ))}
         </Grid>

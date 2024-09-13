@@ -91,6 +91,14 @@ export const themeDark = createTheme({
         },
     },
     components: {
+        MuiMenu: {
+            styleOverrides: {
+                paper: {
+                        background: "#20313C",
+                    },
+                
+            },
+        },
         MuiAppBar: {
             styleOverrides: {
                 colorPrimary: {
@@ -101,7 +109,7 @@ export const themeDark = createTheme({
         MuiCard: {
             styleOverrides: {
                 colorPrimary: {
-                    background: "#000d15",
+                    background: "#00192A",
                 },
             },
         },
@@ -147,3 +155,20 @@ export const themeDark = createTheme({
         },
     },
 });
+
+/* rich black darkest : #000D15;
+    rich black darker : #001320;
+    rich black blue : #00192A;
+    prussian blue darker: #00253F;
+    prussian blue: #003153;
+    paynes gray: #40657E;
+    cadet grey: #8098A9;
+    french grey: #C0CCD4; */
+
+    /*
+    rich black darker : #001320;
+    gunmetal: #20313C;
+    charcoal: #404e58;
+    slate grey: #808990;
+    very french grey: #C0C4C8;
+    */
