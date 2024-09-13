@@ -15,7 +15,9 @@ import Typography from "@mui/material/Typography";
 
 import PersonalVideoIcon from "@mui/icons-material/PersonalVideo";
 import PhoneAndroidIcon from "@mui/icons-material/PhoneAndroid";
+import SwipeUpIcon from "@mui/icons-material/SwipeUp";
 import SwipeUpAltIcon from "@mui/icons-material/SwipeUpAlt";
+import SwipeDownIcon from "@mui/icons-material/SwipeDown";
 import SwipeDownAltIcon from "@mui/icons-material/SwipeDownAlt";
 import ThemeToggleSwitch from "./ThemeToggleSwitch";
 
@@ -59,7 +61,7 @@ const AppBarTop = ({
         >
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
-                <ThemeToggleSwitch />
+                    <ThemeToggleSwitch />
                     <IconButton
                         sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
                     >
@@ -177,18 +179,20 @@ const AppBarTop = ({
                                         <IconButton
                                             onClick={handleBottomDrawerClose}
                                         >
-                                            <SwipeDownAltIcon
+                                            <SwipeDownIcon
                                                 height={25}
                                                 width={25}
+                                                sx={{ color: "#ffffff" }}
                                             />
                                         </IconButton>
                                     ) : (
                                         <IconButton
                                             onClick={handleBottomDrawerOpen}
                                         >
-                                            <SwipeUpAltIcon
+                                            <SwipeUpIcon
                                                 height={25}
                                                 width={25}
+                                                sx={{ color: "#ffffff" }}
                                             />
                                         </IconButton>
                                     )}
@@ -203,6 +207,7 @@ const AppBarTop = ({
                                         <PersonalVideoIcon
                                             height={25}
                                             width={25}
+                                            sx={{ color: "#ffffff" }}
                                         />
                                     </IconButton>
                                 </Tooltip>
@@ -215,7 +220,11 @@ const AppBarTop = ({
                                         mr: 1,
                                     }}
                                 >
-                                    <PhoneAndroidIcon height={25} width={25} />
+                                    <PhoneAndroidIcon
+                                        height={25}
+                                        width={25}
+                                        sx={{ color: "#ffffff" }}
+                                    />
                                 </IconButton>
                             </Tooltip>
                         )}
