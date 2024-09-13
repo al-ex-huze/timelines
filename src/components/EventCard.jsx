@@ -4,13 +4,15 @@ import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import ShareIcon from "@mui/icons-material/Share";
+import IconButton from "@mui/material/IconButton";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import ShareIcon from "@mui/icons-material/Share";
+import Typography from "@mui/material/Typography";
 
 import { getEventByID } from "../../api";
+
+import CircularLoader from "./CircularLoader";
 
 const EventCard = ({ selectedeventid }) => {
     const [eventSingle, setEventSingle] = React.useState();
@@ -30,7 +32,8 @@ const EventCard = ({ selectedeventid }) => {
 
     if (selectedeventid === 0) return null;
     if (eventSingle === undefined) return null;
-    if (isLoading) return <p>Loading Event</p>;
+    if (isLoading) return <CircularLoader />;
+
     return (
         <Card sx={{ width: 345, maxWidth: 345, height: 345, maxHeight: 345 }}>
             <CardHeader

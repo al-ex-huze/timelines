@@ -17,6 +17,7 @@ import PersonalVideoIcon from "@mui/icons-material/PersonalVideo";
 import PhoneAndroidIcon from "@mui/icons-material/PhoneAndroid";
 import SwipeUpAltIcon from "@mui/icons-material/SwipeUpAlt";
 import SwipeDownAltIcon from "@mui/icons-material/SwipeDownAlt";
+import ThemeToggleSwitch from "./ThemeToggleSwitch";
 
 const pages = ["Timelines", "Calendar", "Blog"];
 const settings = ["Profile", "Account", "Logout"];
@@ -58,6 +59,7 @@ const AppBarTop = ({
         >
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
+                <ThemeToggleSwitch />
                     <IconButton
                         sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
                     >

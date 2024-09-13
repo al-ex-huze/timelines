@@ -1,8 +1,11 @@
 import * as React from "react";
 
 import CssBaseline from "@mui/material/CssBaseline";
+import { ThemeProvider } from "@mui/material/styles";
 
 import Box from "@mui/material/Box";
+
+import { ThemeContext } from "./contexts/ThemeContext";
 
 import {
     closestCenter,
@@ -12,6 +15,7 @@ import {
     useSensor,
     useSensors,
 } from "@dnd-kit/core";
+
 import {
     arrayMove,
     SortableContext,
@@ -23,6 +27,8 @@ import DrawerController from "./components/DrawerController";
 import Timelines from "./components/Timelines";
 
 const App = () => {
+    const { theme } = React.useContext(ThemeContext);
+
     const [open, setOpen] = React.useState(true);
     const [forceMobile, setForceMobile] = React.useState(false);
     const [openMobileBottom, setOpenMobileBottom] = React.useState(false);
@@ -67,9 +73,9 @@ const App = () => {
     };
 
     return (
-        <>
+        <ThemeProvider theme={theme}>
+            <CssBaseline />
             <Box sx={{ display: "flex" }}>
-                <CssBaseline />
                 <AppBarTop
                     forceMobile={forceMobile}
                     setForceMobile={setForceMobile}
@@ -104,7 +110,7 @@ const App = () => {
                     </SortableContext>
                 </DndContext>
             </Box>
-        </>
+        </ThemeProvider>
     );
 };
 
