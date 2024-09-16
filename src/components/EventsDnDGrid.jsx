@@ -7,9 +7,9 @@ import Paper from "@mui/material/Paper";
 import EventSortableItem from "./EventSortableItem";
 
 const GridPlot = styled(Paper)(({ theme }) => ({
-    backgroundColor: "#fff",
+    backgroundColor: "#C0C4C8",
     ...theme.typography.body2,
-    padding: 2,
+    padding: 1,
     textAlign: "center",
     color: theme.palette.text.secondary,
     ...theme.applyStyles("dark", {
@@ -25,6 +25,7 @@ const EventsDnDGrid = ({ activeId, items }) => {
             spacing={{ xs: 2, md: 3 }}
             columns={{ xs: 4, sm: 8, md: 12 }}
             display="flex"
+            justifyContent="center"
             alignItems="stretch"
         >
             {items.map((selectedeventid, index) => (

@@ -15,6 +15,7 @@ const EventDraggableItem = forwardRef(
             backgroundPosition: "center",
             backgroundColor: "grey",
             borderRadius: "8px",
+            outline: "none",
             ...style,
         };
 

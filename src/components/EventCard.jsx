@@ -15,6 +15,7 @@ import OpenWithIcon from "@mui/icons-material/OpenWith";
 import { getEventByID } from "../../api";
 
 import CircularLoader from "./CircularLoader";
+import { BorderStyleOutlined } from "@mui/icons-material";
 
 const EventCard = ({ selectedeventid, ...props }) => {
     const [eventSingle, setEventSingle] = React.useState();
@@ -37,27 +38,22 @@ const EventCard = ({ selectedeventid, ...props }) => {
     if (isLoading) return <CircularLoader />;
 
     return (
-        <Card sx={{ width: 300, maxWidth: 300, height: 300, maxHeight: 300 }}>
+        <Card
+            variant="outlined"
+            sx={{ width: 300, maxWidth: 300, height: 300, maxHeight: 300 }}
+        >
             <CardHeader
                 action={
                     <>
                         <IconButton aria-label="settings">
                             <MoreVertIcon />
                         </IconButton>
-                        <Tooltip title="Drag Card"></Tooltip>
-                        <IconButton
-                            sx={{ borderRadius: "8ppx" }}
-                            aria-label="move-card"
-                        >
-                            <OpenWithIcon
-                                {...props}
-
-                            />
-                        </IconButton>
+                        <Tooltip title="Drag Card">
+                            <OpenWithIcon {...props} />
+                        </Tooltip>
                     </>
                 }
                 title={`${eventSingle.title}`}
-                // subheader={`${eventSingle.event_id}`}
             />
             <CardMedia
                 component="img"
@@ -69,24 +65,22 @@ const EventCard = ({ selectedeventid, ...props }) => {
                 <Typography variant="body2" sx={{ color: "text.secondary" }}>
                     {eventSingle.body}
                 </Typography>
-                <Typography variant="body1" sx={{ color: "text.secondary" }}>
+                {/* <Typography variant="body1" sx={{ color: "text.secondary" }}>
                     {eventSingle.skills}
                 </Typography>
                 <Typography variant="body1" sx={{ color: "text.secondary" }}>
                     {eventSingle.topics}
-                </Typography>
+                </Typography> */}
             </CardContent>
-            <CardActions disableSpacing>
-                <Tooltip title="Drag Card"></Tooltip>
-                <IconButton
-                    sx={{ borderRadius: "8px" }}
-                    aria-label="move-card"
-                >
-                    <OpenWithIcon {...props} sx={{ width: 50, height: 50 }} />
-                </IconButton>
-            </CardActions>
+            <CardActions disableSpacing></CardActions>
         </Card>
     );
 };
 
 export default EventCard;
+
+//<Tooltip title="Drag Card">
+//    <IconButton sx={{ borderRadius: "8px" }} aria-label="move-card">
+//        <OpenWithIcon {...props} sx={{ width: 50, height: 50 }} />
+//    </IconButton>
+//</Tooltip>;
