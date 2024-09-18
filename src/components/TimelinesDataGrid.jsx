@@ -1,14 +1,9 @@
 import * as React from "react";
 import { DataGrid } from "@mui/x-data-grid";
 
-const rows = [
-    { id: 1, col1: "Hello", col2: "World" },
-    { id: 2, col1: "MUI X", col2: "is awesome" },
-    { id: 3, col1: "Material UI", col2: "is amazing" },
-    { id: 4, col1: "MUI", col2: "" },
-    { id: 5, col1: "Joy UI", col2: "is awesome" },
-    { id: 6, col1: "MUI Base", col2: "is amazing" },
-];
+import { getTimelines } from "../../api";
+
+import CircularLoader from "./CircularLoader";
 
 const columns = [
     { field: "id", hide: true },
@@ -17,8 +12,28 @@ const columns = [
 ];
 
 const TimelinesDataGrid = () => {
+    const [isLoading, setIsLoading] = React.useState(false);
+    const [timelinesData, setTimelinesData] = React.useState([]);
+    const [columns, setColumns] = React.useState([]);
+    const [rows, setRows] = React.useState([]);
+
+    React.useEffect(() => {
+        setIsLoading(true);
+        console.log("TimelinesDataGrid Use Effect()");
+        getTimelines().then((data) => {
+            const dataWithID = data.map((datum, index) => ({
+                ...datum,
+                id: index,
+            }));
+            setRows(dataWithID);
+            console.log(dataWithID);
+            setIsLoading(false);
+        });
+    }, []);
+
+    if (isLoading) return <CircularLoader />;
     return (
-        <div style={{ height: 300, width: "100%" }}>
+        <div style={{ height: "100%", width: "100%" }}>
             <DataGrid rows={rows} columns={columns} />
         </div>
     );
