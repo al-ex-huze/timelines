@@ -5,12 +5,7 @@ import TimelineChartTogglePanel from "./TimelineChartTogglePanel";
 
 import Box from "@mui/material/Box";
 
-const TimelineChart = ({
-    eventsData,
-    setEventID,
-    items,
-    setItems,
-}) => {
+const TimelineChart = ({ eventsData, setEventID, items, setItems }) => {
     const [groupRowsState, setGroupRowsState] = React.useState(true);
     const [groupNames, setGroupNames] = React.useState(true);
     let series = [];
@@ -63,9 +58,12 @@ const TimelineChart = ({
                     // );
                     setItems([
                         ...items,
-                        String(opts.w.globals.initialSeries[opts.seriesIndex].data[
-                            opts.dataPointIndex
-                        ].ID),
+                        {
+                            id: String(
+                                opts.w.globals.initialSeries[opts.seriesIndex]
+                                    .data[opts.dataPointIndex].ID
+                            ),
+                        },
                     ]);
                 },
             },

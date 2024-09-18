@@ -7,18 +7,12 @@ import TimelineChart from "./TimelineChart";
 
 const TimelineBuilder = ({
     setEventID,
-    timelinesData,
-    timelineSingleData,
-    setTimelineSingleData,
-    setLineChartSelectedWeek,
-    timeline_name,
-    timelineSingleName,
-    setTimelineSingleName,
+    eventsData,
+    setEventsData,
     items,
     setItems,
 }) => {
     const [isLoading, setIsLoading] = React.useState(false);
-    const [eventsData, setEventsData] = React.useState([]);
 
     const [sortByQuery] = React.useState("");
     const [sortByIsAsc] = React.useState(true);
@@ -26,7 +20,7 @@ const TimelineBuilder = ({
     React.useEffect(() => {
         console.log("TimelineBuilder UseEffect()");
         setIsLoading(true);
-        getEvents(timelineSingleName, sortByQuery, sortByIsAsc)
+        getEvents("", sortByQuery, sortByIsAsc)
             .then((events) => {
                 setEventsData(events);
                 setIsLoading(false);
@@ -42,13 +36,8 @@ const TimelineBuilder = ({
             {eventsData[0] !== undefined ? (
                 <>
                     <TimelineChart
-                        timelinesData={timelinesData}
-                        timelineSingleData={timelineSingleData}
-                        setTimelineSingleData={setTimelineSingleData}
                         eventsData={eventsData}
                         setEventID={setEventID}
-                        timelineSingleName={timelineSingleName}
-                        setTimelineSingleName={setTimelineSingleName}
                         items={items}
                         setItems={setItems}
                     />

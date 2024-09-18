@@ -28,14 +28,13 @@ const EventsDnDGrid = ({ activeId, items }) => {
             justifyContent="center"
             alignItems="stretch"
         >
-            {items.map((selectedeventid, index) => (
+            {items.map((item, index) => (
                 <Grid key={index} size="auto">
                     <GridPlot>
                         <EventSortableItem
-                            key={selectedeventid}
-                            uniqueName={`${selectedeventid}`}
+                            key={item.id}
                             index={index}
-                            selectedeventid={`${selectedeventid}`}
+                            id={`${item.id}`}
                         />
                     </GridPlot>
                 </Grid>

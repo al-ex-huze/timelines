@@ -7,21 +7,6 @@ import Box from "@mui/material/Box";
 
 import { ThemeContext } from "./contexts/ThemeContext";
 
-import {
-    closestCenter,
-    DndContext,
-    MouseSensor,
-    TouchSensor,
-    useSensor,
-    useSensors,
-} from "@dnd-kit/core";
-
-import {
-    arrayMove,
-    SortableContext,
-    rectSortingStrategy,
-} from "@dnd-kit/sortable";
-
 import AppBarTop from "./components/AppBarTop";
 import DrawerController from "./components/DrawerController";
 import Timelines from "./components/Timelines";
@@ -45,33 +30,6 @@ const App = () => {
         setOpenMobileBottom(false);
     };
 
-    const [activeId, setActiveId] = React.useState(null);
-    const [items, setItems] = React.useState([]);
-
-    const sensors = useSensors(useSensor(MouseSensor), useSensor(TouchSensor));
-
-    const handleDragStart = (event) => {
-        setActiveId(event.active.id);
-    };
-
-    const handleDragEnd = (event) => {
-        const { active, over } = event;
-
-        if (active.id !== over.id) {
-            setItems((items) => {
-                const oldIndex = items.indexOf(active.id);
-                const newIndex = items.indexOf(over.id);
-                return arrayMove(items, oldIndex, newIndex);
-            });
-        }
-
-        setActiveId(null);
-    };
-
-    const handleDragCancel = () => {
-        setActiveId(null);
-    };
-
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
@@ -91,24 +49,7 @@ const App = () => {
                     setOpenMobileBottom={setOpenMobileBottom}
                     toggleBottomDrawer={toggleBottomDrawer}
                 />
-                <DndContext
-                    collisionDetection={closestCenter}
-                    onDragStart={handleDragStart}
-                    onDragEnd={handleDragEnd}
-                    onDragCancel={handleDragCancel}
-                    sensors={sensors}
-                >
-                    <SortableContext
-                        items={items}
-                        strategy={rectSortingStrategy}
-                    >
-                        <Timelines
-                            activeId={activeId}
-                            items={items}
-                            setItems={setItems}
-                        />
-                    </SortableContext>
-                </DndContext>
+                <Timelines />
             </Box>
         </ThemeProvider>
     );

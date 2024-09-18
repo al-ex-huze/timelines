@@ -1,5 +1,4 @@
 import * as React from "react";
-import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
@@ -15,25 +14,24 @@ import OpenWithIcon from "@mui/icons-material/OpenWith";
 import { getEventByID } from "../../api";
 
 import CircularLoader from "./CircularLoader";
-import { BorderStyleOutlined } from "@mui/icons-material";
 
-const EventCard = ({ id, ...props }) => {
+const EventSingleCard = ({ selectedeventid, ...props }) => {
     const [eventSingle, setEventSingle] = React.useState();
     const [isLoading, setIsLoading] = React.useState(false);
 
     React.useEffect(() => {
         setIsLoading(true);
-        console.log("EventCard Use Effect()");
-        if (id !== 0) {
-            getEventByID(id).then((event) => {
+        console.log("EventSingleCard Use Effect()");
+        if (selectedeventid !== 0) {
+            getEventByID(selectedeventid).then((event) => {
                 setEventSingle(event);
                 console.log(event.title);
                 setIsLoading(false);
             });
         }
-    }, [id]);
+    }, [selectedeventid]);
 
-    if (id === 0) return null;
+    if (selectedeventid === 0) return null;
     if (eventSingle === undefined) return null;
     if (isLoading) return <CircularLoader />;
 
@@ -48,9 +46,9 @@ const EventCard = ({ id, ...props }) => {
                         <IconButton>
                             <MoreVertIcon />
                         </IconButton>
-                        {/* <Tooltip title="Drag Card"> */}
+                        <Tooltip title="Drag Card">
                             <OpenWithIcon {...props} />
-                        {/* </Tooltip> */}
+                        </Tooltip>
                     </>
                 }
                 title={`${eventSingle.title}`}
@@ -77,7 +75,7 @@ const EventCard = ({ id, ...props }) => {
     );
 };
 
-export default EventCard;
+export default EventSingleCard;
 
 //<Tooltip title="Drag Card">
 //    <IconButton sx={{ borderRadius: "8px" }} aria-label="move-card">

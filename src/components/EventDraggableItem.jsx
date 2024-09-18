@@ -3,7 +3,7 @@ import React, { forwardRef } from "react";
 import EventCard from "./EventCard";
 
 const EventDraggableItem = forwardRef(
-    ({ uniqueName, index, faded, style, selectedeventid, ...props }, ref) => {
+    ({ uniqueName, index, faded, style, id, ...props }, ref) => {
         const inlineStyles = {
             opacity: faded ? "0.2" : "1",
             transformOrigin: "0 0",
@@ -21,7 +21,7 @@ const EventDraggableItem = forwardRef(
 
         return (
             <div ref={ref} style={inlineStyles} >
-                <EventCard selectedeventid={selectedeventid} {...props}>
+                <EventCard id={id} {...props}>
                 </EventCard>
             </div>
         );
