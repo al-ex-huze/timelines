@@ -35,6 +35,7 @@ const EventsDnDGrid = ({ activeId, items }) => {
                             key={item.id}
                             index={index}
                             id={`${item.id}`}
+                            item={item}
                         />
                     </GridPlot>
                 </Grid>

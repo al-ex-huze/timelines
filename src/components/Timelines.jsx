@@ -39,7 +39,6 @@ const Timelines = () => {
     const handleDragEnd = (event) => {
         const { active, over } = event;
 
-        console.log("active: " + active.id + "   , over: " + over.id);
         if (active.id !== over.id) {
             setItems((items) => {
                 const oldIndex = items.findIndex(

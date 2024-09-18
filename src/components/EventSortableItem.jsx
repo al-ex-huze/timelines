@@ -6,7 +6,7 @@ import EventDraggableItem from "./EventDraggableItem";
 
 const EventSortableItem = (props) => {
     const sortable = useSortable({ id: props.id });
-    const id = props.id;
+    const item = props.item;
 
     const {
         attributes,
@@ -26,7 +26,7 @@ const EventSortableItem = (props) => {
         <EventDraggableItem
             ref={setNodeRef}
             style={style}
-            id={id}
+            item={item}
             {...props}
             {...attributes}
             {...listeners}
