@@ -1,4 +1,5 @@
 import * as React from "react";
+import Link from "@mui/material/Link";
 
 import AppBar from "@mui/material/AppBar";
 import Avatar from "@mui/material/Avatar";
@@ -123,9 +124,17 @@ const AppBarTop = ({
                                     key={page}
                                     onClick={handleCloseNavMenu}
                                 >
-                                    <Typography sx={{ textAlign: "center" }}>
-                                        {page}
-                                    </Typography>
+                                    <Link
+                                        href={`/${page.toLowerCase()}`}
+                                        color="inherit"
+                                        underline="hover"
+                                    >
+                                        <Typography
+                                            sx={{ textAlign: "center" }}
+                                        >
+                                            {page}
+                                        </Typography>
+                                    </Link>
                                 </MenuItem>
                             ))}
                         </Menu>
@@ -167,7 +176,13 @@ const AppBarTop = ({
                                 onClick={handleCloseNavMenu}
                                 sx={{ my: 2, color: "white", display: "block" }}
                             >
-                                {page}
+                                <Link
+                                    href={`/${page.toLowerCase()}`}
+                                    color="inherit"
+                                    underline="hover"
+                                >
+                                    {page}
+                                </Link>
                             </Button>
                         ))}
                     </Box>
