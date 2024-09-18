@@ -5,19 +5,14 @@ import TimelineChartTogglePanel from "./TimelineChartTogglePanel";
 
 import Box from "@mui/material/Box";
 
-const TimelineChart = ({
-    eventsData,
-    setEventID,
-    items,
-    setItems,
-}) => {
+const TimelineChart = ({ eventsData, setEventId, items, setItems }) => {
     const [groupRowsState, setGroupRowsState] = React.useState(true);
     const [groupNames, setGroupNames] = React.useState(true);
     let series = [];
     let options = {};
 
     series = [
-        ...eventsData.map((event) => {
+        ...eventsData.map((event, index) => {
             return {
                 name: event.title,
                 data: [
@@ -29,10 +24,12 @@ const TimelineChart = ({
                                 ? new Date(event.end_date).getTime()
                                 : new Date().getTime(),
                         ],
-                        ID: event.event_id,
+                        Id: event.event_id,
+                        Index: index,
                         Timeline: event.timeline,
                         Title: event.title,
                         Body: event.body,
+                        Image: event.event_img_url_1
                     },
                 ],
             };
@@ -56,16 +53,26 @@ const TimelineChart = ({
             },
             events: {
                 dataPointSelection: function (_event, _chartContext, opts) {
-                    // console.log(
-                    //     opts.w.globals.initialSeries[opts.seriesIndex].data[
-                    //         opts.dataPointIndex
-                    //     ].ID
-                    // );
                     setItems([
                         ...items,
-                        String(opts.w.globals.initialSeries[opts.seriesIndex].data[
-                            opts.dataPointIndex
-                        ].ID),
+                        {
+                            id: String(
+                                opts.w.globals.initialSeries[opts.seriesIndex]
+                                    .data[opts.dataPointIndex].Id
+                            ),
+                            title: String(
+                                opts.w.globals.initialSeries[opts.seriesIndex]
+                                    .data[opts.dataPointIndex].Title
+                            ),
+                            body: String(
+                                opts.w.globals.initialSeries[opts.seriesIndex]
+                                    .data[opts.dataPointIndex].Body
+                            ),
+                            image_url_1: String(
+                                opts.w.globals.initialSeries[opts.seriesIndex]
+                                    .data[opts.dataPointIndex].Image
+                            ),
+                        },
                     ]);
                 },
             },

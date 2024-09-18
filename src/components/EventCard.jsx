@@ -3,73 +3,40 @@ import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
-import CardActions from "@mui/material/CardActions";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import IconButton from "@mui/material/IconButton";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
-import ShareIcon from "@mui/icons-material/Share";
 import Typography from "@mui/material/Typography";
+import Tooltip from "@mui/material/Tooltip";
 
-import { getEventByID } from "../../api";
+import OpenWithIcon from "@mui/icons-material/OpenWith";
 
-import CircularLoader from "./CircularLoader";
-
-const EventCard = ({ selectedeventid }) => {
-    const [eventSingle, setEventSingle] = React.useState();
-    const [isLoading, setIsLoading] = React.useState(false);
-
-    React.useEffect(() => {
-        setIsLoading(true);
-        console.log("EventCard Use Effect()");
-        if (selectedeventid !== 0) {
-            getEventByID(selectedeventid).then((event) => {
-                setEventSingle(event);
-                console.log(event.title);
-                setIsLoading(false);
-            });
-        }
-    }, [selectedeventid]);
-
-    if (selectedeventid === 0) return null;
-    if (eventSingle === undefined) return null;
-    if (isLoading) return <CircularLoader />;
-
+const EventCard = ({ item, ...props }) => {
     return (
-        <Card sx={{ width: 345, maxWidth: 345, height: 345, maxHeight: 345 }}>
+        <Card
+            variant="outlined"
+            sx={{ width: 300, maxWidth: 300, height: 300, maxHeight: 300 }}
+        >
             <CardHeader
                 action={
-                    <IconButton aria-label="settings">
-                        <MoreVertIcon />
-                    </IconButton>
+                    <Tooltip title="Drag Card">
+                        <OpenWithIcon {...props} sx={{ margin: 1 }} />
+                    </Tooltip>
                 }
-                title={`${eventSingle.title}`}
-                subheader={`${eventSingle.event_id}`}
+                title={`${item.title}`}
+                titleTypographyProps={{ textAlign: "left" }}
             />
             <CardMedia
                 component="img"
                 height="100"
-                image={`${eventSingle.event_img_url_1}`}
-                alt="Paella dish"
+                image={`${item.image_url_1}`}
+                alt="Event image"
             />
             <CardContent>
-                <Typography variant="body2" sx={{ color: "text.secondary" }}>
-                    {eventSingle.body}
-                </Typography>
-                <Typography variant="body1" sx={{ color: "text.secondary" }}>
-                    {eventSingle.skills}
-                </Typography>
-                <Typography variant="body1" sx={{ color: "text.secondary" }}>
-                    {eventSingle.topics}
+                <Typography
+                    variant="body2"
+                    sx={{ color: "text.secondary", textAlign: "justify" }}
+                >
+                    {item.body}
                 </Typography>
             </CardContent>
-            <CardActions disableSpacing>
-                <IconButton aria-label="add to favorites">
-                    <FavoriteIcon />
-                </IconButton>
-                <IconButton aria-label="share">
-                    <ShareIcon />
-                </IconButton>
-            </CardActions>
         </Card>
     );
 };
