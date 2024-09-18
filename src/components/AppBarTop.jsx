@@ -66,7 +66,7 @@ const AppBarTop = ({
                         sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
                     >
                         <img
-                            src="https://alimageexbuckhuetzepub.s3.eu-north-1.amazonaws.com/ah3fff.png"
+                            src="https://alimageexbuckhuetzepub.s3.eu-north-1.amazonaws.com/ah33bg1300.png"
                             height={25}
                             width={25}
                         />
@@ -134,7 +134,7 @@ const AppBarTop = ({
                         sx={{ display: { xs: "flex", md: "none" }, mr: 2 }}
                     >
                         <img
-                            src="https://alimageexbuckhuetzepub.s3.eu-north-1.amazonaws.com/ah3fff.png"
+                            src="https://alimageexbuckhuetzepub.s3.eu-north-1.amazonaws.com/ah33bg1300.png"
                             height={25}
                             width={25}
                         />
