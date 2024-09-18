@@ -9,10 +9,11 @@ import CircularLoader from "./CircularLoader";
 import ErrorComponent from "./ErrorComponent";
 
 const TimelinesDataGrid = () => {
-    const [isLoading, setIsLoading] = React.useState(false);
-    const [error, setError] = React.useState();
-    const [rows, setRows] = React.useState([]);
     const Offset = styled("div")(({ theme }) => theme.mixins.toolbar);
+    const [isLoading, setIsLoading] = React.useState(false);
+    const [error, setError] = React.useState(null);
+    const [rows, setRows] = React.useState([]);
+    const [selectedRow, setSelectedRow] = React.useState(null);
 
     const columns = [
         { field: "id", headerName: "ID", hide: false },
@@ -32,13 +33,16 @@ const TimelinesDataGrid = () => {
                     id: index + 1,
                 }));
                 setRows(dataWithID);
-                console.log(dataWithID);
                 setIsLoading(false);
             })
             .catch((error) => {
                 setError(error);
             });
     }, []);
+
+    const handleRowClick = (params) => {
+        setSelectedRow(params.row);
+    };
 
     if (error) return <ErrorComponent error={error} />;
     if (isLoading) return <CircularLoader />;
@@ -52,8 +56,14 @@ const TimelinesDataGrid = () => {
             }}
         >
             <Offset sx={{ mt: 1 }} />
+            {selectedRow && <h1>Selected: {selectedRow.timeline_name}</h1>}
+
             <Box style={{ height: "100%", width: "100%" }}>
-                <DataGrid rows={rows} columns={columns} />
+                <DataGrid
+                    rows={rows}
+                    columns={columns}
+                    onRowClick={handleRowClick}
+                />
             </Box>
         </Box>
     );
