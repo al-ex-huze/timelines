@@ -19,8 +19,7 @@ import ThemeToggleSwitch from "./ThemeToggleSwitch";
 const pages = ["Timelines", "Calendar", "Blog"];
 const settings = ["Profile", "Account", "Logout"];
 
-const AppBarTop = ({
-}) => {
+const AppBarTop = ({}) => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -48,15 +47,17 @@ const AppBarTop = ({
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
                     <ThemeToggleSwitch />
-                    <IconButton
-                        sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
-                    >
-                        <img
-                            src="https://alimageexbuckhuetzepub.s3.eu-north-1.amazonaws.com/ah33bg1300.png"
-                            height={25}
-                            width={25}
-                        />
-                    </IconButton>
+                    <Link href={`/`}>
+                        <IconButton
+                            sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
+                        >
+                            <img
+                                src="https://alimageexbuckhuetzepub.s3.eu-north-1.amazonaws.com/ah33bg1300.png"
+                                height={25}
+                                width={25}
+                            />
+                        </IconButton>
+                    </Link>
                     <Typography
                         variant="h5"
                         noWrap
@@ -105,34 +106,36 @@ const AppBarTop = ({
                             sx={{ display: { xs: "block", md: "none" } }}
                         >
                             {pages.map((page) => (
-                                <MenuItem
-                                    key={page}
-                                    onClick={handleCloseNavMenu}
+                                <Link
+                                    href={`/${page.toLowerCase()}`}
+                                    color="inherit"
+                                    underline="hover"
                                 >
-                                    <Link
-                                        href={`/${page.toLowerCase()}`}
-                                        color="inherit"
-                                        underline="hover"
+                                    <MenuItem
+                                        key={page}
+                                        onClick={handleCloseNavMenu}
                                     >
                                         <Typography
                                             sx={{ textAlign: "center" }}
                                         >
                                             {page}
                                         </Typography>
-                                    </Link>
-                                </MenuItem>
+                                    </MenuItem>
+                                </Link>
                             ))}
                         </Menu>
                     </Box>
-                    <IconButton
-                        sx={{ display: { xs: "flex", md: "none" }, mr: 2 }}
-                    >
-                        <img
-                            src="https://alimageexbuckhuetzepub.s3.eu-north-1.amazonaws.com/ah33bg1300.png"
-                            height={25}
-                            width={25}
-                        />
-                    </IconButton>
+                    <Link href={`/`}>
+                        <IconButton
+                            sx={{ display: { xs: "flex", md: "none" }, mr: 2 }}
+                        >
+                            <img
+                                src="https://alimageexbuckhuetzepub.s3.eu-north-1.amazonaws.com/ah33bg1300.png"
+                                height={25}
+                                width={25}
+                            />
+                        </IconButton>
+                    </Link>
                     <Typography
                         variant="h6"
                         noWrap
@@ -156,19 +159,23 @@ const AppBarTop = ({
                         }}
                     >
                         {pages.map((page) => (
-                            <Button
-                                key={page}
-                                onClick={handleCloseNavMenu}
-                                sx={{ my: 2, color: "white", display: "block" }}
+                            <Link
+                                href={`/${page.toLowerCase()}`}
+                                color="inherit"
+                                underline="hover"
                             >
-                                <Link
-                                    href={`/${page.toLowerCase()}`}
-                                    color="inherit"
-                                    underline="hover"
+                                <Button
+                                    key={page}
+                                    onClick={handleCloseNavMenu}
+                                    sx={{
+                                        my: 2,
+                                        color: "white",
+                                        display: "block",
+                                    }}
                                 >
                                     {page}
-                                </Link>
-                            </Button>
+                                </Button>
+                            </Link>
                         ))}
                     </Box>
                     <Box sx={{ flexGrow: 0, display: "flex" }}>
