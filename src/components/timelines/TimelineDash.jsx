@@ -19,12 +19,13 @@ import {
     rectSortingStrategy,
 } from "@dnd-kit/sortable";
 
+import DrawerController from "../drawers/DrawerController";
 import EventsDnDGrid from "./EventsDnDGrid";
 import TimelineBuilder from "./TimelineBuilder";
 
 const Offset = styled("div")(({ theme }) => theme.mixins.toolbar);
 
-const TimelineDash = () => {
+const TimelineDash = ({forceMobile, openMobileBottom, setOpenMobileBottom, setOpen}) => {
     const [eventID, setEventID] = React.useState(0);
     const [eventsData, setEventsData] = React.useState([]);
     const { timeline_name } = useParams();
@@ -58,43 +59,56 @@ const TimelineDash = () => {
         setActiveId(null);
     };
 
+    const toggleBottomDrawer = () => {
+        setOpenMobileBottom(!openMobileBottom);
+    };
+
     return (
-        
-        <DndContext
-            collisionDetection={closestCenter}
-            onDragStart={handleDragStart}
-            onDragEnd={handleDragEnd}
-            onDragCancel={handleDragCancel}
-            sensors={sensors}
-        >
-            <SortableContext items={items} strategy={rectSortingStrategy}>
-                <Box
-                    sx={{
-                        flexGrow: 1,
-                        height: "100vh",
-                        display: "flex",
-                        flexDirection: "column",
-                    }}
-                >
-                    <Offset sx={{ mb: 1 }} />
-                    <TimelineBuilder
-                        eventsData={eventsData}
-                        setEventsData={setEventsData}
-                        setEventID={setEventID}
-                        items={items}
-                        setItems={setItems}
-                        timeline_name={timeline_name}
-                    />
-                    <EventsDnDGrid
-                        eventsData={eventsData}
-                        setEventsData={setEventsData}
-                        activeId={activeId}
-                        eventID={eventID}
-                        items={items}
-                    />
-                </Box>
-            </SortableContext>
-        </DndContext>
+        <>
+            <DrawerController
+                forceMobile={forceMobile}
+                open={open}
+                setOpen={setOpen}
+                openMobileBottom={openMobileBottom}
+                setOpenMobileBottom={setOpenMobileBottom}
+                toggleBottomDrawer={toggleBottomDrawer}
+            />
+            <DndContext
+                collisionDetection={closestCenter}
+                onDragStart={handleDragStart}
+                onDragEnd={handleDragEnd}
+                onDragCancel={handleDragCancel}
+                sensors={sensors}
+            >
+                <SortableContext items={items} strategy={rectSortingStrategy}>
+                    <Box
+                        sx={{
+                            flexGrow: 1,
+                            height: "100vh",
+                            display: "flex",
+                            flexDirection: "column",
+                        }}
+                    >
+                        <Offset sx={{ mb: 1 }} />
+                        <TimelineBuilder
+                            eventsData={eventsData}
+                            setEventsData={setEventsData}
+                            setEventID={setEventID}
+                            items={items}
+                            setItems={setItems}
+                            timeline_name={timeline_name}
+                        />
+                        <EventsDnDGrid
+                            eventsData={eventsData}
+                            setEventsData={setEventsData}
+                            activeId={activeId}
+                            eventID={eventID}
+                            items={items}
+                        />
+                    </Box>
+                </SortableContext>
+            </DndContext>
+        </>
     );
 };
 

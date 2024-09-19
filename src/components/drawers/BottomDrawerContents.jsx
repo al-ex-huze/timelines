@@ -8,15 +8,15 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 
 import {
-    drawersListArrayCharts,
-    drawersListArrayControls,
+    dashChartsList,
+    dashControlsList,
 } from "../timelines/DrawersLists";
 
 const BottomDrawerContents = () => {
     return (
         <div>
             <List>
-                {drawersListArrayCharts.map((element, index) => (
+                {dashChartsList.map((element, index) => (
                     <ListItem key={element.text} disablePadding>
                         <ListItemButton>
                             <ListItemIcon>
@@ -29,7 +29,7 @@ const BottomDrawerContents = () => {
             </List>
             <Divider />
             <List>
-                {drawersListArrayControls.map((element, index) => (
+                {dashControlsList.map((element, index) => (
                     <ListItem key={element.text} disablePadding>
                         <ListItemButton>
                             <ListItemIcon>
