@@ -65,7 +65,9 @@ const DrawerHeader = styled("div")(({ theme }) => ({
     ...theme.mixins.toolbar,
 }));
 
-const SideDrawer = ({ open, setOpen }) => {
+const SideDrawer = ({ currentItems }) => {
+    const [open, setOpen] = React.useState(true);
+
     const handleDrawerOpen = () => {
         setOpen(true);
     };
@@ -96,6 +98,7 @@ const SideDrawer = ({ open, setOpen }) => {
             </DrawerHeader>
             <Divider />
             <SideDrawerContents
+                currentItems={currentItems}
                 open={open}
                 handleDrawerOpen={handleDrawerOpen}
                 handleDrawerClose={handleDrawerClose}

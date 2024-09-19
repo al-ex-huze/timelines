@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useParams } from "react-router-dom";
 
 import Box from "@mui/material/Box";
 import { experimentalStyled as styled } from "@mui/material/styles";
@@ -23,9 +24,10 @@ import TimelineBuilder from "./TimelineBuilder";
 
 const Offset = styled("div")(({ theme }) => theme.mixins.toolbar);
 
-const Timelines = () => {
+const TimelinesDash = () => {
     const [eventID, setEventID] = React.useState(0);
     const [eventsData, setEventsData] = React.useState([]);
+    const { timeline_name } = useParams();
 
     const [activeId, setActiveId] = React.useState(null);
     const [items, setItems] = React.useState([]);
@@ -57,6 +59,7 @@ const Timelines = () => {
     };
 
     return (
+        
         <DndContext
             collisionDetection={closestCenter}
             onDragStart={handleDragStart}
@@ -80,6 +83,7 @@ const Timelines = () => {
                         setEventID={setEventID}
                         items={items}
                         setItems={setItems}
+                        timeline_name={timeline_name}
                     />
                     <EventsDnDGrid
                         eventsData={eventsData}
@@ -94,4 +98,4 @@ const Timelines = () => {
     );
 };
 
-export default Timelines;
+export default TimelinesDash;

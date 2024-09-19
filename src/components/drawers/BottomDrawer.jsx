@@ -38,7 +38,8 @@ const ListBox = styled("div")(({ theme }) => ({
     overflow: "scroll",
 }));
 
-const BottomDrawer = ({ openMobileBottom, setOpenMobileBottom }) => {
+const BottomDrawer = ({ currentItems }) => {
+    const [openMobileBottom, setOpenMobileBottom] = React.useState(false);
     const toggleDrawer = (newOpen) => () => {
         setOpenMobileBottom(newOpen);
     };
@@ -78,7 +79,7 @@ const BottomDrawer = ({ openMobileBottom, setOpenMobileBottom }) => {
                     <Puller />
                 </StyledBox>
                 <ListBox>
-                    <BottomDrawerContents />
+                    <BottomDrawerContents currentItems={currentItems} />
                     <Skeleton variant="rectangular" height="auto" />
                 </ListBox>
             </SwipeableDrawer>

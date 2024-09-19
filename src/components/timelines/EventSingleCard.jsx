@@ -11,9 +11,9 @@ import Tooltip from "@mui/material/Tooltip";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import OpenWithIcon from "@mui/icons-material/OpenWith";
 
-import { getEventByID } from "../../api";
+import { getEventByID } from "../../../api";
 
-import CircularLoader from "./CircularLoader";
+import CircularLoader from "../CircularLoader";
 
 const EventSingleCard = ({ selectedeventid, ...props }) => {
     const [eventSingle, setEventSingle] = React.useState();

@@ -1,8 +1,10 @@
 import * as React from "react";
 
-import { getEvents } from "../../api";
+import Box from "@mui/material/Box";
 
-import CircularLoader from "./CircularLoader";
+import { getEvents } from "../../../api";
+
+import CircularLoader from "../CircularLoader";
 import TimelineChart from "./TimelineChart";
 
 const TimelineBuilder = ({
@@ -11,6 +13,7 @@ const TimelineBuilder = ({
     setEventsData,
     items,
     setItems,
+    timeline_name,
 }) => {
     const [isLoading, setIsLoading] = React.useState(false);
 
@@ -20,7 +23,7 @@ const TimelineBuilder = ({
     React.useEffect(() => {
         console.log("TimelineBuilder UseEffect()");
         setIsLoading(true);
-        getEvents("", sortByQuery, sortByIsAsc)
+        getEvents(`${timeline_name}`, sortByQuery, sortByIsAsc)
             .then((events) => {
                 setEventsData(events);
                 setIsLoading(false);
@@ -32,18 +35,16 @@ const TimelineBuilder = ({
 
     if (isLoading) return <CircularLoader />;
     return (
-        <>
+        <Box>
             {eventsData[0] !== undefined ? (
-                <>
-                    <TimelineChart
-                        eventsData={eventsData}
-                        setEventID={setEventID}
-                        items={items}
-                        setItems={setItems}
-                    />
-                </>
+                <TimelineChart
+                    eventsData={eventsData}
+                    setEventID={setEventID}
+                    items={items}
+                    setItems={setItems}
+                />
             ) : null}
-        </>
+        </Box>
     );
 };
 

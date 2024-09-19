@@ -5,6 +5,7 @@ const beApi = axios.create({
 });
 
 export const getEvents = (timelineFilter, sortByQuery, sortByIsAsc) => {
+    console.log(timelineFilter)
     let orderDirection = "";
     sortByIsAsc ? (orderDirection = "asc") : (orderDirection = "desc");
     let params = { timeline: timelineFilter, order: orderDirection };

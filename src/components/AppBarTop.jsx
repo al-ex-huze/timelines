@@ -1,5 +1,4 @@
 import * as React from "react";
-import Link from "@mui/material/Link";
 
 import AppBar from "@mui/material/AppBar";
 import Avatar from "@mui/material/Avatar";
@@ -7,6 +6,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import IconButton from "@mui/material/IconButton";
+import Link from "@mui/material/Link";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -14,24 +14,12 @@ import Toolbar from "@mui/material/Toolbar";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 
-import PersonalVideoIcon from "@mui/icons-material/PersonalVideo";
-import PhoneAndroidIcon from "@mui/icons-material/PhoneAndroid";
-import SwipeUpIcon from "@mui/icons-material/SwipeUp";
-import SwipeUpAltIcon from "@mui/icons-material/SwipeUpAlt";
-import SwipeDownIcon from "@mui/icons-material/SwipeDown";
-import SwipeDownAltIcon from "@mui/icons-material/SwipeDownAlt";
 import ThemeToggleSwitch from "./ThemeToggleSwitch";
 
 const pages = ["Timelines", "Calendar", "Blog"];
 const settings = ["Profile", "Account", "Logout"];
 
-const AppBarTop = ({
-    forceMobile,
-    setForceMobile,
-    openMobileBottom,
-    handleBottomDrawerClose,
-    handleBottomDrawerOpen,
-}) => {
+const AppBarTop = ({}) => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -51,10 +39,6 @@ const AppBarTop = ({
         setAnchorElUser(null);
     };
 
-    const handleForceMobile = () => {
-        setForceMobile(!forceMobile);
-    };
-
     return (
         <AppBar
             position="fixed"
@@ -63,15 +47,17 @@ const AppBarTop = ({
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
                     <ThemeToggleSwitch />
-                    <IconButton
-                        sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
-                    >
-                        <img
-                            src="https://alimageexbuckhuetzepub.s3.eu-north-1.amazonaws.com/ah33bg1300.png"
-                            height={25}
-                            width={25}
-                        />
-                    </IconButton>
+                    <Link href={`/`}>
+                        <IconButton
+                            sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
+                        >
+                            <img
+                                src="https://alimageexbuckhuetzepub.s3.eu-north-1.amazonaws.com/ah33bg1300.png"
+                                height={25}
+                                width={25}
+                            />
+                        </IconButton>
+                    </Link>
                     <Typography
                         variant="h5"
                         noWrap
@@ -120,34 +106,36 @@ const AppBarTop = ({
                             sx={{ display: { xs: "block", md: "none" } }}
                         >
                             {pages.map((page) => (
-                                <MenuItem
-                                    key={page}
-                                    onClick={handleCloseNavMenu}
+                                <Link
+                                    href={`/${page.toLowerCase()}`}
+                                    color="inherit"
+                                    underline="hover"
                                 >
-                                    <Link
-                                        href={`/${page.toLowerCase()}`}
-                                        color="inherit"
-                                        underline="hover"
+                                    <MenuItem
+                                        key={page}
+                                        onClick={handleCloseNavMenu}
                                     >
                                         <Typography
                                             sx={{ textAlign: "center" }}
                                         >
                                             {page}
                                         </Typography>
-                                    </Link>
-                                </MenuItem>
+                                    </MenuItem>
+                                </Link>
                             ))}
                         </Menu>
                     </Box>
-                    <IconButton
-                        sx={{ display: { xs: "flex", md: "none" }, mr: 2 }}
-                    >
-                        <img
-                            src="https://alimageexbuckhuetzepub.s3.eu-north-1.amazonaws.com/ah33bg1300.png"
-                            height={25}
-                            width={25}
-                        />
-                    </IconButton>
+                    <Link href={`/`}>
+                        <IconButton
+                            sx={{ display: { xs: "flex", md: "none" }, mr: 2 }}
+                        >
+                            <img
+                                src="https://alimageexbuckhuetzepub.s3.eu-north-1.amazonaws.com/ah33bg1300.png"
+                                height={25}
+                                width={25}
+                            />
+                        </IconButton>
+                    </Link>
                     <Typography
                         variant="h6"
                         noWrap
@@ -171,78 +159,26 @@ const AppBarTop = ({
                         }}
                     >
                         {pages.map((page) => (
-                            <Button
-                                key={page}
-                                onClick={handleCloseNavMenu}
-                                sx={{ my: 2, color: "white", display: "block" }}
+                            <Link
+                                href={`/${page.toLowerCase()}`}
+                                color="inherit"
+                                underline="hover"
                             >
-                                <Link
-                                    href={`/${page.toLowerCase()}`}
-                                    color="inherit"
-                                    underline="hover"
+                                <Button
+                                    key={page}
+                                    onClick={handleCloseNavMenu}
+                                    sx={{
+                                        my: 2,
+                                        color: "white",
+                                        display: "block",
+                                    }}
                                 >
                                     {page}
-                                </Link>
-                            </Button>
+                                </Button>
+                            </Link>
                         ))}
                     </Box>
                     <Box sx={{ flexGrow: 0, display: "flex" }}>
-                        {forceMobile ? (
-                            <>
-                                <Tooltip title="Simulate Swipe">
-                                    {openMobileBottom ? (
-                                        <IconButton
-                                            onClick={handleBottomDrawerClose}
-                                        >
-                                            <SwipeDownIcon
-                                                height={25}
-                                                width={25}
-                                                sx={{ color: "#ffffff" }}
-                                            />
-                                        </IconButton>
-                                    ) : (
-                                        <IconButton
-                                            onClick={handleBottomDrawerOpen}
-                                        >
-                                            <SwipeUpIcon
-                                                height={25}
-                                                width={25}
-                                                sx={{ color: "#ffffff" }}
-                                            />
-                                        </IconButton>
-                                    )}
-                                </Tooltip>
-                                <Tooltip title="Force Mobile/Desktop">
-                                    <IconButton
-                                        onClick={handleForceMobile}
-                                        sx={{
-                                            mr: 1,
-                                        }}
-                                    >
-                                        <PersonalVideoIcon
-                                            height={25}
-                                            width={25}
-                                            sx={{ color: "#ffffff" }}
-                                        />
-                                    </IconButton>
-                                </Tooltip>
-                            </>
-                        ) : (
-                            <Tooltip title="Force Mobile/Desktop">
-                                <IconButton
-                                    onClick={handleForceMobile}
-                                    sx={{
-                                        mr: 1,
-                                    }}
-                                >
-                                    <PhoneAndroidIcon
-                                        height={25}
-                                        width={25}
-                                        sx={{ color: "#ffffff" }}
-                                    />
-                                </IconButton>
-                            </Tooltip>
-                        )}
                         <Tooltip title="Profile Settings">
                             <IconButton
                                 onClick={handleOpenUserMenu}
