@@ -11,6 +11,7 @@ const TimelineBuilder = ({
     setEventsData,
     items,
     setItems,
+    timeline_name
 }) => {
     const [isLoading, setIsLoading] = React.useState(false);
 
@@ -20,7 +21,7 @@ const TimelineBuilder = ({
     React.useEffect(() => {
         console.log("TimelineBuilder UseEffect()");
         setIsLoading(true);
-        getEvents("", sortByQuery, sortByIsAsc)
+        getEvents(`${timeline_name}`, sortByQuery, sortByIsAsc)
             .then((events) => {
                 setEventsData(events);
                 setIsLoading(false);

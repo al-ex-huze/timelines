@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { DataGrid } from "@mui/x-data-grid";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import Link from "@mui/material/Link";
 
 import { experimentalStyled as styled } from "@mui/material/styles";
 
@@ -25,7 +24,7 @@ const TimelinesDataGrid = () => {
     };
 
     const columns = [
-        { field: "id", headerName: "ID", hide: true, flex: 1 },
+        { field: "id", headerName: "ID", hide: true, flex: 1/3 },
         {
             field: "View",
             renderCell: (cellValues) => {
