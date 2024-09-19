@@ -23,7 +23,7 @@ import TimelineBuilder from "./TimelineBuilder";
 
 const Offset = styled("div")(({ theme }) => theme.mixins.toolbar);
 
-const Timelines = () => {
+const TimelineDash = () => {
     const [eventID, setEventID] = React.useState(0);
     const [eventsData, setEventsData] = React.useState([]);
 
@@ -57,6 +57,7 @@ const Timelines = () => {
     };
 
     return (
+        
         <DndContext
             collisionDetection={closestCenter}
             onDragStart={handleDragStart}
@@ -94,4 +95,4 @@ const Timelines = () => {
     );
 };
 
-export default Timelines;
+export default TimelineDash;

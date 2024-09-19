@@ -12,9 +12,9 @@ import AppBarTop from "./components/AppBarTop";
 import Blog from "./components/Blog";
 import Calendar from "./components/Calendar";
 import Home from "./components/Home";
-import DrawerController from "./components/DrawerController";
-import Timelines from "./components/Timelines";
-import TimelinesDataGrid from "./components/TimelinesDataGrid";
+import DrawerController from "./components/timelines/DrawerController";
+import TimelineDash from "./components/timelines/TimelineDash";
+import TimelinesDataGrid from "./components/timelines/TimelinesDataGrid";
 
 const App = () => {
     const { theme } = React.useContext(ThemeContext);
@@ -62,7 +62,7 @@ const App = () => {
                         />
                         <Route
                             path="/timelines/:timeline_name"
-                            element={<Timelines />}
+                            element={<TimelineDash />}
                         />
                         <Route path="/calendar" element={<Calendar />} />
                         <Route path="/blog" element={<Blog />} />
