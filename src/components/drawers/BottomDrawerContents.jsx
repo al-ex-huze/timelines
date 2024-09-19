@@ -10,7 +10,7 @@ import ListItemText from "@mui/material/ListItemText";
 import {
     drawersListArrayCharts,
     drawersListArrayControls,
-} from "./DrawersList";
+} from "../timelines/DrawersLists";
 
 const BottomDrawerContents = () => {
     return (

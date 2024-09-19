@@ -12,7 +12,7 @@ import AppBarTop from "./components/AppBarTop";
 import Blog from "./components/Blog";
 import Calendar from "./components/Calendar";
 import Home from "./components/Home";
-import DrawerController from "./components/timelines/DrawerController";
+import DrawerController from "./components/drawers/DrawerController";
 import TimelineDash from "./components/timelines/TimelineDash";
 import TimelinesDataGrid from "./components/timelines/TimelinesDataGrid";
 

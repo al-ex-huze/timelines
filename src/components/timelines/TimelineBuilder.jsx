@@ -1,5 +1,7 @@
 import * as React from "react";
 
+import Box from "@mui/material/Box";
+
 import { getEvents } from "../../../api";
 
 import CircularLoader from "../CircularLoader";
@@ -11,7 +13,7 @@ const TimelineBuilder = ({
     setEventsData,
     items,
     setItems,
-    timeline_name
+    timeline_name,
 }) => {
     const [isLoading, setIsLoading] = React.useState(false);
 
@@ -33,18 +35,16 @@ const TimelineBuilder = ({
 
     if (isLoading) return <CircularLoader />;
     return (
-        <>
+        <Box>
             {eventsData[0] !== undefined ? (
-                <>
-                    <TimelineChart
-                        eventsData={eventsData}
-                        setEventID={setEventID}
-                        items={items}
-                        setItems={setItems}
-                    />
-                </>
+                <TimelineChart
+                    eventsData={eventsData}
+                    setEventID={setEventID}
+                    items={items}
+                    setItems={setItems}
+                />
             ) : null}
-        </>
+        </Box>
     );
 };
 

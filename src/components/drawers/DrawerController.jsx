@@ -6,6 +6,7 @@ import SideDrawer from "./SideDrawer";
 import BottomDrawer from "./BottomDrawer";
 
 const DrawerController = ({
+    page,
     open,
     setOpen,
     forceMobile,

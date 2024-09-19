@@ -12,7 +12,7 @@ import BubbleChartIcon from '@mui/icons-material/BubbleChart';
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-export const drawersListArrayCharts = [
+export const dashChartsList = [
     { text: "Timeline", icon: ViewTimelineIcon },
     { text: "Line", icon: SsidChartIcon },
     { text: "Bar", icon: EqualizerIcon },
@@ -23,7 +23,22 @@ export const drawersListArrayCharts = [
     { text: "Bubble", icon: BubbleChartIcon },
 ];
 
-export const drawersListArrayControls = [
+export const dashControlsList = [
+    { text: "Add", icon: AddIcon },
+    { text: "Delete", icon: DeleteIcon },
+]
+
+export const homeList = [
+    { text: "Add", icon: AddIcon },
+    { text: "Delete", icon: DeleteIcon },
+]
+
+export const calendarList = [
+    { text: "Add", icon: AddIcon },
+    { text: "Delete", icon: DeleteIcon },
+]
+
+export const blogList = [
     { text: "Add", icon: AddIcon },
     { text: "Delete", icon: DeleteIcon },
 ]
