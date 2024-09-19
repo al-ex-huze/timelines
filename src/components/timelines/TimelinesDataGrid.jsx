@@ -24,7 +24,7 @@ const TimelinesDataGrid = () => {
     };
 
     const columns = [
-        { field: "id", headerName: "ID", hide: true, flex: 1/3 },
+        { field: "id", headerName: "ID", hide: true, flex: 1 / 3 },
         {
             field: "View",
             renderCell: (cellValues) => {
@@ -68,26 +68,31 @@ const TimelinesDataGrid = () => {
         setSelectedRow(params.row);
     };
 
+    const toggleBottomDrawer = () => {
+        setOpenMobileBottom(!openMobileBottom);
+    };
+
     if (error) return <ErrorComponent error={error} />;
     if (isLoading) return <CircularLoader />;
     return (
-        <Box
-            sx={{
-                flexGrow: 1,
-                height: "100vh",
-                display: "flex",
-                flexDirection: "column",
-            }}
-        >
-            <Offset sx={{ mt: 1 }} />
-            {selectedRow && <h1>Selected: {selectedRow.timeline_name}</h1>}
-
-            <Box style={{ height: "100%", width: "100%" }}>
-                <DataGrid
-                    rows={rows}
-                    columns={columns}
-                    onRowClick={handleRowClick}
-                />
+        <Box>
+            <Box
+                sx={{
+                    flexGrow: 1,
+                    height: "100vh",
+                    display: "flex",
+                    flexDirection: "column",
+                }}
+            >
+                <Offset sx={{ mt: 1 }} />
+                {selectedRow && <h1>Selected: {selectedRow.timeline_name}</h1>}
+                <Box style={{ height: "100%", width: "100%" }}>
+                    <DataGrid
+                        rows={rows}
+                        columns={columns}
+                        onRowClick={handleRowClick}
+                    />
+                </Box>
             </Box>
         </Box>
     );

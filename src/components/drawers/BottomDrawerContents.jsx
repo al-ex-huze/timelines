@@ -7,16 +7,11 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 
-import {
-    dashChartsList,
-    dashControlsList,
-} from "../timelines/DrawersLists";
-
-const BottomDrawerContents = () => {
+const BottomDrawerContents = ({currentItems}) => {
     return (
         <div>
             <List>
-                {dashChartsList.map((element, index) => (
+                {currentItems.map((element, index) => (
                     <ListItem key={element.text} disablePadding>
                         <ListItemButton>
                             <ListItemIcon>
@@ -29,7 +24,7 @@ const BottomDrawerContents = () => {
             </List>
             <Divider />
             <List>
-                {dashControlsList.map((element, index) => (
+                {currentItems.map((element, index) => (
                     <ListItem key={element.text} disablePadding>
                         <ListItemButton>
                             <ListItemIcon>

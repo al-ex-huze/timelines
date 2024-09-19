@@ -7,17 +7,12 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 
-import {
-    dashChartsList,
-    dashControlsList,
-} from "../timelines/DrawersLists";
-
-const SideDrawerContents = ({ open }) => {
+const SideDrawerContents = ({ currentItems, open }) => {
 
     return (
         <>
             <List>
-                {dashChartsList.map((element, index) => (
+                {currentItems.map((element, index) => (
                     <ListItem
                         key={element.text}
                         disablePadding
@@ -73,7 +68,7 @@ const SideDrawerContents = ({ open }) => {
             </List>
             <Divider />
             <List>
-                {dashControlsList.map((element, index) => (
+                {currentItems.map((element, index) => (
                     <ListItem
                         key={element.text}
                         disablePadding

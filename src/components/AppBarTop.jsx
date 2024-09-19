@@ -14,23 +14,12 @@ import Toolbar from "@mui/material/Toolbar";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 
-import PersonalVideoIcon from "@mui/icons-material/PersonalVideo";
-import PhoneAndroidIcon from "@mui/icons-material/PhoneAndroid";
-import SwipeUpIcon from "@mui/icons-material/SwipeUp";
-import SwipeUpAltIcon from "@mui/icons-material/SwipeUpAlt";
-import SwipeDownIcon from "@mui/icons-material/SwipeDown";
-import SwipeDownAltIcon from "@mui/icons-material/SwipeDownAlt";
 import ThemeToggleSwitch from "./ThemeToggleSwitch";
 
 const pages = ["Timelines", "Calendar", "Blog"];
 const settings = ["Profile", "Account", "Logout"];
 
 const AppBarTop = ({
-    forceMobile,
-    setForceMobile,
-    openMobileBottom,
-    handleBottomDrawerClose,
-    handleBottomDrawerOpen,
 }) => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -49,10 +38,6 @@ const AppBarTop = ({
 
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
-    };
-
-    const handleForceMobile = () => {
-        setForceMobile(!forceMobile);
     };
 
     return (
@@ -187,62 +172,6 @@ const AppBarTop = ({
                         ))}
                     </Box>
                     <Box sx={{ flexGrow: 0, display: "flex" }}>
-                        {forceMobile ? (
-                            <>
-                                <Tooltip title="Simulate Swipe">
-                                    {openMobileBottom ? (
-                                        <IconButton
-                                            onClick={handleBottomDrawerClose}
-                                        >
-                                            <SwipeDownIcon
-                                                height={25}
-                                                width={25}
-                                                sx={{ color: "#ffffff" }}
-                                            />
-                                        </IconButton>
-                                    ) : (
-                                        <IconButton
-                                            onClick={handleBottomDrawerOpen}
-                                        >
-                                            <SwipeUpIcon
-                                                height={25}
-                                                width={25}
-                                                sx={{ color: "#ffffff" }}
-                                            />
-                                        </IconButton>
-                                    )}
-                                </Tooltip>
-                                <Tooltip title="Force Mobile/Desktop">
-                                    <IconButton
-                                        onClick={handleForceMobile}
-                                        sx={{
-                                            mr: 1,
-                                        }}
-                                    >
-                                        <PersonalVideoIcon
-                                            height={25}
-                                            width={25}
-                                            sx={{ color: "#ffffff" }}
-                                        />
-                                    </IconButton>
-                                </Tooltip>
-                            </>
-                        ) : (
-                            <Tooltip title="Force Mobile/Desktop">
-                                <IconButton
-                                    onClick={handleForceMobile}
-                                    sx={{
-                                        mr: 1,
-                                    }}
-                                >
-                                    <PhoneAndroidIcon
-                                        height={25}
-                                        width={25}
-                                        sx={{ color: "#ffffff" }}
-                                    />
-                                </IconButton>
-                            </Tooltip>
-                        )}
                         <Tooltip title="Profile Settings">
                             <IconButton
                                 onClick={handleOpenUserMenu}

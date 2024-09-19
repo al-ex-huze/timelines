@@ -1,32 +1,27 @@
 import * as React from "react";
-
+import { useLocation } from "react-router-dom";
 import { isMobile } from "react-device-detect";
 
 import SideDrawer from "./SideDrawer";
 import BottomDrawer from "./BottomDrawer";
 
-const DrawerController = ({
-    page,
-    open,
-    setOpen,
-    forceMobile,
-    openMobileBottom,
-    setOpenMobileBottom,
-}) => {
+import { drawerItems } from "./DrawersLists";
+
+const DrawerController = ({}) => {
+    const location = useLocation();
+    const normalisePathname = (pathname) => {
+        const basePath = pathname.split("/").slice(0, 2).join("/");
+        return basePath
+    };
+    const normalisedPathname = normalisePathname(location.pathname)
+    const currentItems = drawerItems[normalisedPathname] || [];
+
     return (
         <>
-            {forceMobile || isMobile ? (
-                <BottomDrawer
-                    openMobileBottom={openMobileBottom}
-                    setOpenMobileBottom={setOpenMobileBottom}
-                >
-                </BottomDrawer>
+            {isMobile ? (
+                <BottomDrawer currentItems={currentItems}></BottomDrawer>
             ) : (
-                <SideDrawer
-                open={open}
-                setOpen={setOpen}
-                >
-                </SideDrawer>
+                <SideDrawer currentItems={currentItems}></SideDrawer>
             )}
         </>
     );
