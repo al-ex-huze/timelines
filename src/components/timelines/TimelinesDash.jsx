@@ -31,9 +31,6 @@ const TimelinesDash = ({items, setItems}) => {
 
     const [activeId, setActiveId] = React.useState(null);
 
-    console.log(timeline_name)
-    // const [items, setItems] = React.useState([]);
-
     const sensors = useSensors(useSensor(MouseSensor), useSensor(TouchSensor));
 
     const handleDragStart = (event) => {
