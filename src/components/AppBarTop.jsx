@@ -107,14 +107,12 @@ const AppBarTop = ({}) => {
                         >
                             {pages.map((page) => (
                                 <Link
+                                    key={page}
                                     href={`/${page.toLowerCase()}`}
                                     color="inherit"
                                     underline="hover"
                                 >
-                                    <MenuItem
-                                        key={page}
-                                        onClick={handleCloseNavMenu}
-                                    >
+                                    <MenuItem onClick={handleCloseNavMenu}>
                                         <Typography
                                             sx={{ textAlign: "center" }}
                                         >
@@ -160,12 +158,12 @@ const AppBarTop = ({}) => {
                     >
                         {pages.map((page) => (
                             <Link
+                                key={page}
                                 href={`/${page.toLowerCase()}`}
                                 color="inherit"
                                 underline="hover"
                             >
                                 <Button
-                                    key={page}
                                     onClick={handleCloseNavMenu}
                                     sx={{
                                         my: 2,

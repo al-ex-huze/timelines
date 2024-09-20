@@ -11,6 +11,7 @@ const TimelineChart = ({ eventsData, setEventId, items, setItems }) => {
     let series = [];
     let options = {};
 
+    console .log(items)
     series = [
         ...eventsData.map((event, index) => {
             return {
@@ -53,7 +54,7 @@ const TimelineChart = ({ eventsData, setEventId, items, setItems }) => {
             },
             events: {
                 dataPointSelection: function (_event, _chartContext, opts) {
-                    setItems([
+                    setItems(items => [
                         ...items,
                         {
                             id: String(

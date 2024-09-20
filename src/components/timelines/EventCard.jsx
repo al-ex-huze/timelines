@@ -12,7 +12,7 @@ const EventCard = ({ item, ...props }) => {
     return (
         <Card
             variant="outlined"
-            sx={{ width: 300, maxWidth: 300, height: 300, maxHeight: 300 }}
+            // sx={{ width: 300, maxWidth: 300, height: 300, maxHeight: 300 }}
         >
             <CardHeader
                 action={

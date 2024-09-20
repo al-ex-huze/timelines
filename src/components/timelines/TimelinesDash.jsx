@@ -24,13 +24,15 @@ import TimelineBuilder from "./TimelineBuilder";
 
 const Offset = styled("div")(({ theme }) => theme.mixins.toolbar);
 
-const TimelinesDash = () => {
+const TimelinesDash = ({items, setItems}) => {
     const [eventID, setEventID] = React.useState(0);
     const [eventsData, setEventsData] = React.useState([]);
     const { timeline_name } = useParams();
 
     const [activeId, setActiveId] = React.useState(null);
-    const [items, setItems] = React.useState([]);
+
+    console.log(timeline_name)
+    // const [items, setItems] = React.useState([]);
 
     const sensors = useSensors(useSensor(MouseSensor), useSensor(TouchSensor));
 

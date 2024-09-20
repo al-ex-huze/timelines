@@ -13,12 +13,12 @@ import Blog from "./components/Blog";
 import Calendar from "./components/Calendar";
 import Home from "./components/Home";
 import DrawerController from "./components/drawers/DrawerController";
-import TimelinesDash from "./components/timelines/TimelinesDash";
-import TimelinesDataGrid from "./components/timelines/TimelinesDataGrid";
+import Timelines from "./components/timelines/Timelines";
 
 const App = () => {
     const { theme } = React.useContext(ThemeContext);
-
+    console.log("DEBUG")
+    
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
@@ -27,11 +27,7 @@ const App = () => {
                 <DrawerController />
                 <Routes>
                     <Route path="/" element={<Home />} />
-                    <Route path="/timelines" element={<TimelinesDataGrid />} />
-                    <Route
-                        path="/timelines/:timeline_name"
-                        element={<TimelinesDash />}
-                    />
+                    <Route path="/timelines/*" element={<Timelines />} />
                     <Route path="/calendar" element={<Calendar />} />
                     <Route path="/blog" element={<Blog />} />
                 </Routes>
