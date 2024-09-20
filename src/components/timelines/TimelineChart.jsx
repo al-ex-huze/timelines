@@ -5,25 +5,14 @@ import TimelineChartTogglePanel from "./TimelineChartTogglePanel";
 
 import Box from "@mui/material/Box";
 
-const TimelineChart = ({ eventsData, items, setItems }) => {
-    const [groupRowsState, setGroupRowsState] = React.useState(true);
+const TimelineChart = ({ eventsData, eventsToDisplay, setEventsToDisplay }) => {
+    const [groupRowsState, setGroupRowsState] = React.useState(false);
     const [groupNames, setGroupNames] = React.useState(true);
     let series = [];
     let options = {};
 
-    let uniqueObjects = new Set();
-
-    const addUniqueObject = (obj) => {
-        const objString = JSON.stringify(obj);
-        uniqueObjects.add(objString);
-    };
-
-    const handleAddToItems = (newItem) => {
-        addUniqueObject(newItem)
-        const newItems = Array.from(uniqueObjects).map(JSON.parse)
-        console.log(items)
-        console.log(newItems)
-        setItems((newItems) => [...newItems, newItem]);
+    const handleAddToEvents = (newEventToDisplay) => {
+        setEventsToDisplay((newEventsToDisplay) => [...newEventsToDisplay, newEventToDisplay]);
     };
 
     series = [
@@ -68,7 +57,7 @@ const TimelineChart = ({ eventsData, items, setItems }) => {
             },
             events: {
                 dataPointSelection: function (_event, _chartContext, opts) {
-                    const newItem = {
+                    const newEvent = {
                         id: String(
                             opts.w.globals.initialSeries[opts.seriesIndex].data[
                                 opts.dataPointIndex
@@ -90,7 +79,7 @@ const TimelineChart = ({ eventsData, items, setItems }) => {
                             ].Image
                         ),
                     };
-                    handleAddToItems(newItem);
+                    handleAddToEvents(newEvent);
                 },
             },
             toolbar: { show: false },
