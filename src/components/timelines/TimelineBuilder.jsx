@@ -11,8 +11,8 @@ const TimelineBuilder = ({
     setEventID,
     eventsData,
     setEventsData,
-    items,
-    setItems,
+    eventsToDisplay,
+    setEventsToDisplay,
     timeline_name,
 }) => {
     const [isLoading, setIsLoading] = React.useState(false);
@@ -40,10 +40,10 @@ const TimelineBuilder = ({
                 <TimelineChart
                     eventsData={eventsData}
                     setEventID={setEventID}
-                    items={items}
-                    setItems={setItems}
+                    eventsToDisplay={eventsToDisplay}
+                    setEventsToDisplay={setEventsToDisplay}
                 />
-            ) : null}
+            ) : <p>No Events</p>}
         </Box>
     );
 };
