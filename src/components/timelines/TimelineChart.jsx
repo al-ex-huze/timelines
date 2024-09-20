@@ -5,11 +5,26 @@ import TimelineChartTogglePanel from "./TimelineChartTogglePanel";
 
 import Box from "@mui/material/Box";
 
-const TimelineChart = ({ eventsData, setEventId, items, setItems }) => {
+const TimelineChart = ({ eventsData, items, setItems }) => {
     const [groupRowsState, setGroupRowsState] = React.useState(true);
     const [groupNames, setGroupNames] = React.useState(true);
     let series = [];
     let options = {};
+
+    let uniqueObjects = new Set();
+
+    const addUniqueObject = (obj) => {
+        const objString = JSON.stringify(obj);
+        uniqueObjects.add(objString);
+    };
+
+    const handleAddToItems = (newItem) => {
+        addUniqueObject(newItem)
+        const newItems = Array.from(uniqueObjects).map(JSON.parse)
+        console.log(items)
+        console.log(newItems)
+        setItems((newItems) => [...newItems, newItem]);
+    };
 
     series = [
         ...eventsData.map((event, index) => {
@@ -29,7 +44,7 @@ const TimelineChart = ({ eventsData, setEventId, items, setItems }) => {
                         Timeline: event.timeline,
                         Title: event.title,
                         Body: event.body,
-                        Image: event.event_img_url_1
+                        Image: event.event_img_url_1,
                     },
                 ],
             };
@@ -53,27 +68,29 @@ const TimelineChart = ({ eventsData, setEventId, items, setItems }) => {
             },
             events: {
                 dataPointSelection: function (_event, _chartContext, opts) {
-                    setItems([
-                        ...items,
-                        {
-                            id: String(
-                                opts.w.globals.initialSeries[opts.seriesIndex]
-                                    .data[opts.dataPointIndex].Id
-                            ),
-                            title: String(
-                                opts.w.globals.initialSeries[opts.seriesIndex]
-                                    .data[opts.dataPointIndex].Title
-                            ),
-                            body: String(
-                                opts.w.globals.initialSeries[opts.seriesIndex]
-                                    .data[opts.dataPointIndex].Body
-                            ),
-                            image_url_1: String(
-                                opts.w.globals.initialSeries[opts.seriesIndex]
-                                    .data[opts.dataPointIndex].Image
-                            ),
-                        },
-                    ]);
+                    const newItem = {
+                        id: String(
+                            opts.w.globals.initialSeries[opts.seriesIndex].data[
+                                opts.dataPointIndex
+                            ].Id
+                        ),
+                        title: String(
+                            opts.w.globals.initialSeries[opts.seriesIndex].data[
+                                opts.dataPointIndex
+                            ].Title
+                        ),
+                        body: String(
+                            opts.w.globals.initialSeries[opts.seriesIndex].data[
+                                opts.dataPointIndex
+                            ].Body
+                        ),
+                        image_url_1: String(
+                            opts.w.globals.initialSeries[opts.seriesIndex].data[
+                                opts.dataPointIndex
+                            ].Image
+                        ),
+                    };
+                    handleAddToItems(newItem);
                 },
             },
             toolbar: { show: false },

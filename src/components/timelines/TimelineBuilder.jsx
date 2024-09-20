@@ -31,7 +31,7 @@ const TimelineBuilder = ({
             .catch((error) => {
                 console.log(error);
             });
-    }, [sortByQuery, sortByIsAsc]);
+    }, [timeline_name, sortByQuery, sortByIsAsc]);
 
     if (isLoading) return <CircularLoader />;
     return (

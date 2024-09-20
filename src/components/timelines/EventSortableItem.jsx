@@ -20,6 +20,7 @@ const EventSortableItem = (props) => {
     const style = {
         transform: CSS.Transform.toString(transform),
         transition,
+        display:"flex"
     };
 
     return (
