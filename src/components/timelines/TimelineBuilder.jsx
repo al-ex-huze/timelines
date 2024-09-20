@@ -8,7 +8,6 @@ import CircularLoader from "../CircularLoader";
 import TimelineChart from "./TimelineChart";
 
 const TimelineBuilder = ({
-    setEventID,
     eventsData,
     setEventsData,
     eventsToDisplay,
@@ -39,11 +38,10 @@ const TimelineBuilder = ({
             {eventsData[0] !== undefined ? (
                 <TimelineChart
                     eventsData={eventsData}
-                    setEventID={setEventID}
                     eventsToDisplay={eventsToDisplay}
                     setEventsToDisplay={setEventsToDisplay}
                 />
-            ) : <p>No Events</p>}
+            ) : <p>No Events For This Timeline</p>}
         </Box>
     );
 };
