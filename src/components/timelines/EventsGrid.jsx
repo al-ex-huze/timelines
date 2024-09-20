@@ -17,8 +17,7 @@ const GridPlot = styled(Paper)(({ theme }) => ({
     }),
 }));
 
-const EventsDnDGrid = ({ eventsToDisplay }) => {
-    if (eventsToDisplay.length === 0) return null;
+const EventsGrid = ({ eventsToDisplay }) => {
     return (
         <Grid
             container
@@ -28,15 +27,13 @@ const EventsDnDGrid = ({ eventsToDisplay }) => {
             justifyContent="center"
             alignItems="stretch"
         >
-            {eventsToDisplay.map((eventToDisplay, index) => (
-                <Grid key={index} size="auto">
+                <Grid size="auto">
                     <GridPlot>
-                        <EventCard eventToDisplay={eventToDisplay} />
+                        <EventCard />
                     </GridPlot>
                 </Grid>
-            ))}
         </Grid>
     );
 };
 
-export default EventsDnDGrid;
+export default EventsGrid;

@@ -5,7 +5,7 @@ const beApi = axios.create({
 });
 
 export const getEvents = (timelineFilter, sortByQuery, sortByIsAsc) => {
-    console.log(timelineFilter)
+    console.log(timelineFilter);
     let orderDirection = "";
     sortByIsAsc ? (orderDirection = "asc") : (orderDirection = "desc");
     let params = { timeline: timelineFilter, order: orderDirection };
@@ -21,6 +21,12 @@ export const getEvents = (timelineFilter, sortByQuery, sortByIsAsc) => {
 export const getEventByID = (eventID) => {
     return beApi.get(`/api/events/${eventID}`).then((response) => {
         return response.data.event;
+    });
+};
+
+export const getFeels = () => {
+    return beApi.get("/api/feels").then((response) => {
+        return response.data.feels;
     });
 };
 

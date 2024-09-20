@@ -65,7 +65,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
     ...theme.mixins.toolbar,
 }));
 
-const SideDrawer = ({ currentItems }) => {
+const SideDrawer = ({ currentItems, layout, setLayout }) => {
     const [open, setOpen] = React.useState(true);
 
     const handleDrawerOpen = () => {
@@ -102,6 +102,8 @@ const SideDrawer = ({ currentItems }) => {
                 open={open}
                 handleDrawerOpen={handleDrawerOpen}
                 handleDrawerClose={handleDrawerClose}
+                layout={layout}
+                setLayout={setLayout}
             />
         </CollapsibleDrawer>
     );

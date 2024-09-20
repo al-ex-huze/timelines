@@ -7,13 +7,13 @@ import BottomDrawer from "./BottomDrawer";
 
 import { drawerItems } from "./DrawersLists";
 
-const DrawerController = ({}) => {
+const DrawerController = ({ layout, setLayout }) => {
     const location = useLocation();
     const normalisePathname = (pathname) => {
         const basePath = pathname.split("/").slice(0, 2).join("/");
-        return basePath
+        return basePath;
     };
-    const normalisedPathname = normalisePathname(location.pathname)
+    const normalisedPathname = normalisePathname(location.pathname);
     const currentItems = drawerItems[normalisedPathname] || [];
 
     return (
@@ -21,7 +21,11 @@ const DrawerController = ({}) => {
             {isMobile ? (
                 <BottomDrawer currentItems={currentItems}></BottomDrawer>
             ) : (
-                <SideDrawer currentItems={currentItems}></SideDrawer>
+                <SideDrawer
+                    currentItems={currentItems}
+                    layout={layout}
+                    setLayout={setLayout}
+                ></SideDrawer>
             )}
         </>
     );

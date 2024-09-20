@@ -5,15 +5,13 @@ import TimelineChartTogglePanel from "./TimelineChartTogglePanel";
 
 import Box from "@mui/material/Box";
 
-const TimelineChart = ({ eventsData, eventsToDisplay, setEventsToDisplay }) => {
+const TimelineChart = ({ eventsData }) => {
     const [groupRowsState, setGroupRowsState] = React.useState(false);
     const [groupNames, setGroupNames] = React.useState(true);
     let series = [];
     let options = {};
 
-    const handleAddToEvents = (newEventToDisplay) => {
-        setEventsToDisplay((newEventsToDisplay) => [...newEventsToDisplay, newEventToDisplay]);
-    };
+    const handleAddToEvents = (newEventToDisplay) => {};
 
     series = [
         ...eventsData.map((event, index) => {

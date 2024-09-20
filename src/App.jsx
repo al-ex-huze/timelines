@@ -17,17 +17,25 @@ import Timelines from "./components/timelines/Timelines";
 
 const App = () => {
     const { theme } = React.useContext(ThemeContext);
-    console.log("DEBUG")
-    
+    const [layout, setLayout] = React.useState([
+        { i: "widget1", x: 0, y: 0, w: 2, h: 4 },
+        // More widgets...
+    ]);
+
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
             <Box sx={{ display: "flex" }}>
                 <AppBarTop />
-                <DrawerController />
+                <DrawerController layout={layout} setLayout={setLayout} />
                 <Routes>
                     <Route path="/" element={<Home />} />
-                    <Route path="/timelines/*" element={<Timelines />} />
+                    <Route
+                        path="/timelines/*"
+                        element={
+                            <Timelines layout={layout} setLayout={setLayout} />
+                        }
+                    />
                     <Route path="/calendar" element={<Calendar />} />
                     <Route path="/blog" element={<Blog />} />
                 </Routes>

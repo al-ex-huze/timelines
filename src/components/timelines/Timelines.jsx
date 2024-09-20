@@ -3,8 +3,7 @@ import { Routes, Route } from "react-router-dom";
 
 import TimelinesDash from "./TimelinesDash";
 import TimelinesDataGrid from "./TimelinesDataGrid";
-const Timelines = () => {
-    const [eventsToDisplay, setEventsToDisplay] = React.useState([]);
+const Timelines = ({ layout, setLayout }) => {
     return (
         <Routes>
             <Route path="/" element={<TimelinesDataGrid />} />
@@ -12,8 +11,8 @@ const Timelines = () => {
                 path="/:timeline_name"
                 element={
                     <TimelinesDash
-                        eventsToDisplay={eventsToDisplay}
-                        setEventsToDisplay={setEventsToDisplay}
+                        layout={layout}
+                        setLayout={setLayout}
                     />
                 }
             />
