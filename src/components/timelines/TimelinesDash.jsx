@@ -47,6 +47,12 @@ const TimelinesDash = ({ layout, setLayout }) => {
                 return <PolarChart />;
         }
     };
+    const getCols = (width) => {
+        if (width < 600) return 1;
+        if (width < 900) return 2;
+        return 4;
+    };
+    const [cols, setCols] = React.useState(getCols(window.innerWidth));
 
     const [windowWidth, setWindowWidth] = React.useState(window.innerWidth);
 
@@ -67,6 +73,7 @@ const TimelinesDash = ({ layout, setLayout }) => {
     React.useEffect(() => {
         const handleResize = () => {
             setWindowWidth(window.innerWidth);
+            setCols(getCols(window.innerWidth));
         };
 
         window.addEventListener("resize", handleResize);
@@ -91,18 +98,41 @@ const TimelinesDash = ({ layout, setLayout }) => {
     const responsiveProps = {
         className: "responsive-grid",
         breakpoints: { lg: 1536, md: 1200, sm: 900, xs: 600, xxs: 0 },
-        cols: { lg: 24, md: 16, sm: 12, xs: 8, xxs: 4 },
+        cols: { lg: cols, md: cols, sm: cols, xs: cols, xxs: cols },
+        rowHeight: 200,
         layouts: {
-            lg: [{ i: "Timeline", x: 0, y: 0, w: 6, h: 6 }],
-            md: [{ i: "1", x: 0, y: 0, w: 6, h: 6 }],
-            sm: [{ i: "1", x: 0, y: 0, w: 6, h: 6 }],
-            xs: [{ i: "1", x: 0, y: 0, w: 8, h: 8 }],
-            xxs: [{ i: "1", x: 0, y: 0, w: 4, h: 4 }],
+            lg: [
+                { i: "1", x: 0, y: 0, w: 4, h: 4 },
+                { i: "Timeline", x: 0, y: 0, w: 4, h: 4 },
+                { i: "Line", x: 0, y: 0, w: 4, h: 4 },
+            ],
+            md: [
+                { i: "1", x: 0, y: 0, w: 4, h: 4 },
+                { i: "Timeline", x: 0, y: 0, w: 4, h: 4 },
+                { i: "Line", x: 0, y: 0, w: 4, h: 4 },
+            ],
+            sm: [
+                { i: "1", x: 0, y: 0, w: 4, h: 4 },
+                { i: "Timeline", x: 0, y: 0, w: 4, h: 4 },
+                { i: "Line", x: 0, y: 0, w: 4, h: 4 },
+            ],
+            xs: [
+                { i: "1", x: 0, y: 0, w: 4, h: 4 },
+                { i: "Timeline", x: 0, y: 0, w: 4, h: 4 },
+                { i: "Line", x: 0, y: 0, w: 4, h: 4 },
+            ],
+            xxs: [
+                { i: "1", x: 0, y: 0, w: 4, h: 4 },
+                { i: "Timeline", x: 0, y: 0, w: 4, h: 4 },
+                { i: "Line", x: 0, y: 0, w: 4, h: 4 },
+            ],
             // More layouts for other breakpoints...
         },
+        compactType: "vertical",
         isDraggable: true,
         isResizable: true,
         margin: gridMarginProps.margin,
+        responseive: "true,",
     };
 
     const handleDragStart = (
@@ -151,7 +181,6 @@ const TimelinesDash = ({ layout, setLayout }) => {
         >
             <Offset sx={{ mb: 1 }} />
             <Button onClick={addWidget}>ADD</Button>
-
             <ResponsiveReactGridLayout
                 {...responsiveProps}
                 onDragStart={handleDragStart}
@@ -164,9 +193,6 @@ const TimelinesDash = ({ layout, setLayout }) => {
                         <Paper elevation={3}>{renderComponent(item.i)}</Paper>
                     </div>
                 ))}
-                <div key="b">
-                    <Paper elevation={3}></Paper>
-                </div>
             </ResponsiveReactGridLayout>
         </Box>
     );
