@@ -8,7 +8,7 @@ import Tooltip from "@mui/material/Tooltip";
 
 import OpenWithIcon from "@mui/icons-material/OpenWith";
 
-const EventCard = ({ eventToDisplay }) => {
+const EventCard = ({ eventCardData }) => {
     return (
         <Card
             variant="outlined"
@@ -20,13 +20,13 @@ const EventCard = ({ eventToDisplay }) => {
                 //         <OpenWithIcon sx={{ margin: 1 }} />
                 //     </Tooltip>
                 // }
-                title={`${eventToDisplay.title}`}
+                title={`${eventCardData.title}`}
                 titleTypographyProps={{ textAlign: "left" }}
             />
             <CardMedia
                 component="img"
                 height="100"
-                image={`${eventToDisplay.image_url_1}`}
+                image={`${eventCardData.image_url_1}`}
                 alt="Event image"
             />
             <CardContent>
@@ -34,7 +34,7 @@ const EventCard = ({ eventToDisplay }) => {
                     variant="body2"
                     sx={{ color: "text.secondary", textAlign: "justify" }}
                 >
-                    {eventToDisplay.body}
+                    {eventCardData.body}
                 </Typography>
             </CardContent>
         </Card>
