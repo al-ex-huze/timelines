@@ -25,7 +25,7 @@ const TimelinesDash = ({ layout, setLayout }) => {
 
     const renderComponent = (componentType) => {
         switch (componentType) {
-            case "Event":
+            case "EventCard":
                 return <EventCard />;
             case "Timeline":
                 return (
@@ -47,18 +47,22 @@ const TimelinesDash = ({ layout, setLayout }) => {
                 return <PolarChart />;
         }
     };
+
     const getCols = (width) => {
         if (width < 600) return 1;
         if (width < 900) return 2;
-        return 4;
+        if (width < 1200) return 4;
+        if (width < 1536) return 6;
+        return 8;
     };
+
     const [cols, setCols] = React.useState(getCols(window.innerWidth));
 
     const [windowWidth, setWindowWidth] = React.useState(window.innerWidth);
 
     const addWidget = () => {
         const newWidget = {
-            i: `widget${layout.length + 1}`,
+            i: `Example`,
             x: 0,
             y: Infinity,
             w: 8,
@@ -84,7 +88,7 @@ const TimelinesDash = ({ layout, setLayout }) => {
     }, []);
 
     const gridMarginProps = {
-        margin: [20, 20], // Default margin for all breakpoints
+        margin: [2, 2], // Default margin for all breakpoints
         // Responsive margin overrides for specific breakpoints
         responsiveMargins: {
             lg: [10, 10],
@@ -102,28 +106,32 @@ const TimelinesDash = ({ layout, setLayout }) => {
         rowHeight: 200,
         layouts: {
             lg: [
-                { i: "1", x: 0, y: 0, w: 4, h: 4 },
-                { i: "Timeline", x: 0, y: 0, w: 4, h: 4 },
+                { i: "Example", x: 0, y: 0, w: 4, h: 4 },
+                { i: "EventCard", x: 0, y: 0, w: 4, h: 4 },
+                { i: "Timeline", x: 0, y: 0, w: 16, h: 4 },
                 { i: "Line", x: 0, y: 0, w: 4, h: 4 },
             ],
             md: [
-                { i: "1", x: 0, y: 0, w: 4, h: 4 },
-                { i: "Timeline", x: 0, y: 0, w: 4, h: 4 },
+                { i: "EventCard", x: 0, y: 0, w: 4, h: 4 },
+                { i: "Timeline", x: 0, y: 0, w: 8, h: 4 },
                 { i: "Line", x: 0, y: 0, w: 4, h: 4 },
             ],
             sm: [
-                { i: "1", x: 0, y: 0, w: 4, h: 4 },
+                { i: "Example", x: 0, y: 0, w: 4, h: 4 },
+                { i: "EventCard", x: 0, y: 0, w: 4, h: 4 },
                 { i: "Timeline", x: 0, y: 0, w: 4, h: 4 },
                 { i: "Line", x: 0, y: 0, w: 4, h: 4 },
             ],
             xs: [
-                { i: "1", x: 0, y: 0, w: 4, h: 4 },
-                { i: "Timeline", x: 0, y: 0, w: 4, h: 4 },
+                { i: "Example", x: 0, y: 0, w: 4, h: 4 },
+                { i: "EventCard", x: 0, y: 0, w: 4, h: 4 },
+                { i: "Timeline", x: 0, y: 0, w: 2, h: 4 },
                 { i: "Line", x: 0, y: 0, w: 4, h: 4 },
             ],
             xxs: [
-                { i: "1", x: 0, y: 0, w: 4, h: 4 },
-                { i: "Timeline", x: 0, y: 0, w: 4, h: 4 },
+                { i: "Example", x: 0, y: 0, w: 4, h: 4 },
+                { i: "EventCard", x: 0, y: 0, w: 4, h: 4 },
+                { i: "Timeline", x: 0, y: 0, w: 1, h: 4 },
                 { i: "Line", x: 0, y: 0, w: 4, h: 4 },
             ],
             // More layouts for other breakpoints...
