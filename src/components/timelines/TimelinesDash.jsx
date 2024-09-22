@@ -23,14 +23,20 @@ const TimelinesDash = ({ layout, setLayout }) => {
     const { timeline_name } = useParams();
 
     const renderComponent = (componentType) => {
-        switch (componentType) {
+        switch (componentType.split(" ")[0]) {
             case "EventCard":
-                return <EventCard />;
+                const eventCardDataSplit = componentType.split(" ");
+                eventCardDataSplit.shift();
+                const eventCardDataJoin = eventCardDataSplit.join(" ");
+                const eventCardData = JSON.parse(eventCardDataJoin);
+                return <EventCard eventCardData={eventCardData} />;
             case "Timeline":
                 return (
                     <TimelineBuilder
                         eventsData={eventsData}
                         setEventsData={setEventsData}
+                        layout={layout}
+                        setLayout={setLayout}
                         timeline_name={timeline_name}
                         timelineHeight={timelineHeight}
                         timelineWidth={timelineWidth}
@@ -89,7 +95,7 @@ const TimelinesDash = ({ layout, setLayout }) => {
     }, []);
 
     const gridMarginProps = {
-        margin: [2, 2], // Default margin for all breakpoints
+        margin: [50, 50], // Default margin for all breakpoints
         // Responsive margin overrides for specific breakpoints
         responsiveMargins: {
             lg: [1, 1],
@@ -104,6 +110,7 @@ const TimelinesDash = ({ layout, setLayout }) => {
         className: "responsive-grid",
         breakpoints: { lg: 1536, md: 1200, sm: 900, xs: 600, xxs: 0 },
         cols: { lg: cols, md: cols, sm: cols, xs: cols, xxs: cols },
+        containerPadding: [50, 50],
         rowHeight: 100,
         layouts: {
             lg: [

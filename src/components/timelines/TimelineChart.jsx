@@ -6,13 +6,44 @@ const TimelineChart = ({
     eventsData,
     groupNames,
     groupRowsState,
+    layout,
+    setLayout,
     timelineHeight,
     timelineWidth,
 }) => {
     let series = [];
     let options = {};
 
-    const handleAddToEvents = (newEventToDisplay) => {};
+    const handleAddToEvents = (newEventItem) => {
+        // setLayout((previousLayout) => {
+            const stringifiedNewEventItem = JSON.stringify(newEventItem)
+        const itemExists = layout.some(
+            (item) => {
+                console.log(item.i)
+                console.log(`EventCard ${stringifiedNewEventItem}`)
+                return item.i === `EventCard ${stringifiedNewEventItem}`
+            }
+        );
+        console.log("itemExist: " + itemExists)
+        if (itemExists) {
+            return
+            // setLayout((previousLayout) =>
+            //     previousLayout.filter(
+            //         (item) =>
+            //             item.i !== `EventCard ${stringifiedNewEventItem}`
+            //     )
+            // );
+        } else {
+            const newWidget = {
+                i: `EventCard ${stringifiedNewEventItem}`,
+                x: Infinity,
+                y: Infinity,
+                w: 1,
+                h: 1,
+            };
+            setLayout((previousLayout) => [...previousLayout, newWidget]);
+        }
+    };
 
     series = [
         ...eventsData.map((event, index) => {

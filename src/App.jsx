@@ -20,9 +20,9 @@ const App = () => {
     const [layout, setLayout] = React.useState([
         { i: "Timeline", x: 0, y: 0, w: 8, h: 1 },
         { i: "Line", x: 0, y: 0, w: 8, h: 1 },
-        // { i: "widget1", x: 0, y: 0, w: 2, h: 4 },
-        // More widgets...
     ]);
+    const [gridItems, setGridItems] = React.useState([]);
+
 
     return (
         <ThemeProvider theme={theme}>

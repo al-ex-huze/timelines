@@ -13,6 +13,7 @@ const TimelineBuilder = ({
     setEventsData,
     eventsToDisplay,
     setEventsToDisplay,
+    layout, setLayout,
     timeline_name,
     timelineHeight,
     timelineWidth,
@@ -52,6 +53,8 @@ const TimelineBuilder = ({
                         setGroupRowsState={setGroupRowsState}
                         groupNames={groupNames}
                         setGroupNames={setGroupNames}
+                        layout={layout} setLayout={setLayout}
+
                     />
                     <TimelineChartTogglePanel
                         groupRowsState={groupRowsState}
