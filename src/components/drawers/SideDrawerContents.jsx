@@ -20,8 +20,8 @@ const SideDrawerContents = ({ currentItems, open, layout, setLayout }) => {
                     i: `${listItem}`,
                     x: 0,
                     y: Infinity,
-                    w: 3,
-                    h: 6,
+                    w: 8,
+                    h: 1,
                 };
                 return [...layout, newWidget];
             }

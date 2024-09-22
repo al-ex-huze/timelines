@@ -8,7 +8,6 @@ import "react-resizable/css/styles.css";
 
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import Paper from "@mui/material/Paper";
 
 import { experimentalStyled as styled } from "@mui/material/styles";
 
@@ -33,6 +32,8 @@ const TimelinesDash = ({ layout, setLayout }) => {
                         eventsData={eventsData}
                         setEventsData={setEventsData}
                         timeline_name={timeline_name}
+                        timelineHeight={timelineHeight}
+                        timelineWidth={timelineWidth}
                     />
                 );
             case "Line":
@@ -65,8 +66,8 @@ const TimelinesDash = ({ layout, setLayout }) => {
             i: `Example`,
             x: 0,
             y: Infinity,
-            w: 8,
-            h: 8,
+            w: 1,
+            h: 1,
         };
         setLayout([...layout, newWidget]);
     };
@@ -91,11 +92,11 @@ const TimelinesDash = ({ layout, setLayout }) => {
         margin: [2, 2], // Default margin for all breakpoints
         // Responsive margin overrides for specific breakpoints
         responsiveMargins: {
-            lg: [10, 10],
-            md: [8, 8],
-            sm: [6, 6],
-            xs: [4, 4],
-            xxs: [2, 2],
+            lg: [1, 1],
+            md: [1, 1],
+            sm: [1, 1],
+            xs: [1, 1],
+            xxs: [1, 1],
         },
     };
 
@@ -103,36 +104,37 @@ const TimelinesDash = ({ layout, setLayout }) => {
         className: "responsive-grid",
         breakpoints: { lg: 1536, md: 1200, sm: 900, xs: 600, xxs: 0 },
         cols: { lg: cols, md: cols, sm: cols, xs: cols, xxs: cols },
-        rowHeight: 200,
+        rowHeight: 100,
         layouts: {
             lg: [
-                { i: "Example", x: 0, y: 0, w: 4, h: 4 },
-                { i: "EventCard", x: 0, y: 0, w: 4, h: 4 },
-                { i: "Timeline", x: 0, y: 0, w: 16, h: 4 },
-                { i: "Line", x: 0, y: 0, w: 4, h: 4 },
+                { i: "Example", x: 0, y: 0, w: 1, h: 1 },
+                { i: "EventCard", x: 0, y: 0, w: 1, h: 1 },
+                { i: "Timeline", x: 0, y: 0, w: 8, h: 1 },
+                { i: "Line", x: 0, y: 0, w: 8, h: 1 },
             ],
             md: [
-                { i: "EventCard", x: 0, y: 0, w: 4, h: 4 },
-                { i: "Timeline", x: 0, y: 0, w: 8, h: 4 },
-                { i: "Line", x: 0, y: 0, w: 4, h: 4 },
+                { i: "Example", x: 0, y: 0, w: 1, h: 1 },
+                { i: "EventCard", x: 0, y: 0, w: 1, h: 1 },
+                { i: "Timeline", x: 0, y: 0, w: 8, h: 1 },
+                { i: "Line", x: 0, y: 0, w: 8, h: 1 },
             ],
             sm: [
-                { i: "Example", x: 0, y: 0, w: 4, h: 4 },
-                { i: "EventCard", x: 0, y: 0, w: 4, h: 4 },
-                { i: "Timeline", x: 0, y: 0, w: 4, h: 4 },
-                { i: "Line", x: 0, y: 0, w: 4, h: 4 },
+                { i: "Example", x: 0, y: 0, w: 1, h: 1 },
+                { i: "EventCard", x: 0, y: 0, w: 1, h: 1 },
+                { i: "Timeline", x: 0, y: 0, w: 8, h: 1 },
+                { i: "Line", x: 0, y: 0, w: 8, h: 1 },
             ],
             xs: [
-                { i: "Example", x: 0, y: 0, w: 4, h: 4 },
-                { i: "EventCard", x: 0, y: 0, w: 4, h: 4 },
-                { i: "Timeline", x: 0, y: 0, w: 2, h: 4 },
-                { i: "Line", x: 0, y: 0, w: 4, h: 4 },
+                { i: "Example", x: 0, y: 0, w: 1, h: 1 },
+                { i: "EventCard", x: 0, y: 0, w: 1, h: 1 },
+                { i: "Timeline", x: 0, y: 0, w: 8, h: 1 },
+                { i: "Line", x: 0, y: 0, w: 8, h: 1 },
             ],
             xxs: [
-                { i: "Example", x: 0, y: 0, w: 4, h: 4 },
-                { i: "EventCard", x: 0, y: 0, w: 4, h: 4 },
-                { i: "Timeline", x: 0, y: 0, w: 1, h: 4 },
-                { i: "Line", x: 0, y: 0, w: 4, h: 4 },
+                { i: "Example", x: 0, y: 0, w: 1, h: 1 },
+                { i: "EventCard", x: 0, y: 0, w: 1, h: 1 },
+                { i: "Timeline", x: 0, y: 0, w: 8, h: 1 },
+                { i: "Line", x: 0, y: 0, w: 8, h: 1 },
             ],
             // More layouts for other breakpoints...
         },
@@ -163,7 +165,25 @@ const TimelinesDash = ({ layout, setLayout }) => {
         element
     ) => {
         console.log("Stopped dragging item with id:", oldItem.i);
+        updateTimelineSize("100%");
+
         // Update the layout state or perform other actions
+    };
+
+    const [timelineHeight, setTimelineHeight] = React.useState("100%");
+    const [timelineWidth, setTimelineWidth] = React.useState("100%");
+
+    const useForceUpdate = () => {
+        const [, setCount] = React.useState(0);
+        return () => setCount((count) => count + 1);
+    };
+
+    const forceUpdate = useForceUpdate();
+
+    const updateTimelineSize = (newValue) => {
+        setTimelineHeight(newValue);
+        setTimelineWidth(newValue);
+        forceUpdate();
     };
 
     const handleResizeStop = (
@@ -175,6 +195,9 @@ const TimelinesDash = ({ layout, setLayout }) => {
         element
     ) => {
         console.log("Resized item with id:", oldItem.i);
+        setTimeout(function () {
+            updateTimelineSize("100%");
+        }, 200);
         // Update the layout state or perform other actions
     };
 
@@ -196,9 +219,9 @@ const TimelinesDash = ({ layout, setLayout }) => {
                 onResizeStop={handleResizeStop}
             >
                 {layout.map((item) => (
-                    <div key={item.i} style={{ background: "#009688" }}>
-                        {`Widget ${item.i}`}
-                        <Paper elevation={3}>{renderComponent(item.i)}</Paper>
+                    <div key={item.i} style={{ background: "#40657E" }}>
+                        {/* {`Widget ${item.i}`} */}
+                        {renderComponent(item.i)}
                     </div>
                 ))}
             </ResponsiveReactGridLayout>

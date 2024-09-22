@@ -1,13 +1,14 @@
 import * as React from "react";
 
 import ReactApexChart from "react-apexcharts";
-import TimelineChartTogglePanel from "./TimelineChartTogglePanel";
 
-import Box from "@mui/material/Box";
-
-const TimelineChart = ({ eventsData }) => {
-    const [groupRowsState, setGroupRowsState] = React.useState(false);
-    const [groupNames, setGroupNames] = React.useState(true);
+const TimelineChart = ({
+    eventsData,
+    groupNames,
+    groupRowsState,
+    timelineHeight,
+    timelineWidth,
+}) => {
     let series = [];
     let options = {};
 
@@ -205,11 +206,18 @@ const TimelineChart = ({ eventsData }) => {
             labels: {
                 show: true,
             },
+            show: true,
+            axisBorder: {
+                show: false,
+            },
+            axisTicks: {
+                show: false,
+            },
         },
         yaxis: {
             show: false,
             labels: {
-                minWidth: 0,
+                minWidth: 20,
                 offsetX: 0,
                 offsetY: 0,
             },
@@ -217,20 +225,14 @@ const TimelineChart = ({ eventsData }) => {
     };
 
     return (
-        <Box sx={{ flexDirection: "row" }}>
-            <ReactApexChart
-                options={options}
-                series={series}
-                type="rangeBar"
-                height={350}
-            />
-            <TimelineChartTogglePanel
-                groupRowsState={groupRowsState}
-                setGroupRowsState={setGroupRowsState}
-                groupNames={groupNames}
-                setGroupNames={setGroupNames}
-            />
-        </Box>
+        <ReactApexChart
+            options={options}
+            series={series}
+            type="rangeBar"
+            height={"100%"}
+            // height={timelineHeight}
+            // width={timelineWidth}
+        />
     );
 };
 
