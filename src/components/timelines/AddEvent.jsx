@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import Box from "@mui/material/Box";
+import Card from "@mui/material/Card";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid2";
 import TextField from "@mui/material/TextField";
@@ -14,33 +15,33 @@ import { postEvent } from "../../../api";
 
 import ErrorComponent from "../ErrorComponent";
 
-const AddEvent = ({ timeline_name }) => {
+const AddEvent = ({ timeline_name, useForceUpdate }) => {
     const [isCreating, setIsCreating] = React.useState(false);
     const [addEventError, setAddEventError] = React.useState("");
     const [eventTitleInput, setEventTitleInput] = React.useState("");
-    const [eventBody, setEventBody] = React.useState("");
-    const [eventSkills, setEventSkills] = React.useState("");
-    const [eventTopics, setEventTopics] = React.useState("");
+    const [eventBodyInput, setEventBodyInput] = React.useState("");
+    const [eventSkillsInput, setEventSkillsInput] = React.useState("");
+    const [eventTopicsInput, setEventTopicsInput] = React.useState("");
     const [startDateInput, setStartDateInput] = React.useState(new Date());
     const [endDateInput, setEndDateInput] = React.useState(new Date());
 
     const handleSubmitNewEvent = (event) => {
-        // event.preventDefault();
         setIsCreating(true);
         const newEvent = {
             author: "al-ex-huze",
             timeline: timeline_name,
             title: eventTitleInput,
-            body: eventBody,
-            skills: eventSkills,
-            topics: eventTopics,
+            body: eventBodyInput,
+            skills: eventSkillsInput,
+            topics: eventTopicsInput,
             start_date: startDateInput,
             end_date: endDateInput,
         };
         postEvent(newEvent)
             .then(() => {
                 setEventTitleInput("");
-                setEventBody("");
+                setEventBodyInput("");
+                useForceUpdate()
                 setIsCreating(false);
             })
             .catch((error) => {
@@ -53,12 +54,12 @@ const AddEvent = ({ timeline_name }) => {
     if (isCreating) return <p>Please Wait</p>;
     if (timeline_name !== "Not Set") {
         return (
-            <Box
+            <Card
                 component="form"
                 sx={{
-                    "& .MuiTextField-root": { m: 1, width: "25ch" },
                     flexGrow: 1,
-
+                    width: "100%",
+                    height: "100%"
                 }}
                 noValidate
                 autoComplete="off"
@@ -68,7 +69,7 @@ const AddEvent = ({ timeline_name }) => {
                     <Grid size={6}>
                         <TextField
                             size="small"
-                            fullWidth={true}
+                            fullWidth
                             required
                             id="outlined-required"
                             label="Event"
@@ -81,12 +82,13 @@ const AddEvent = ({ timeline_name }) => {
                     <Grid size={6}>
                         <TextField
                             size="small"
+                            fullWidth
                             required
                             id="outlined"
                             label="Description"
-                            value={eventBody}
+                            value={eventBodyInput}
                             onChange={(event) => {
-                                setEventBody(event.target.value);
+                                setEventBodyInput(event.target.value);
                             }}
                         />
                     </Grid>
@@ -95,9 +97,9 @@ const AddEvent = ({ timeline_name }) => {
                             size="small"
                             id="outlined"
                             label="Skills"
-                            value={eventSkills}
+                            value={eventSkillsInput}
                             onChange={(event) => {
-                                setEventSkills(event.target.value);
+                                setEventSkillsInput(event.target.value);
                             }}
                         />
                     </Grid>
@@ -106,9 +108,9 @@ const AddEvent = ({ timeline_name }) => {
                             size="small"
                             id="outlined"
                             label="Topics"
-                            value={eventTopics}
+                            value={eventTopicsInput}
                             onChange={(event) => {
-                                setEventTopics(event.target.value);
+                                setEventTopicsInput(event.target.value);
                             }}
                         />
                     </Grid> */}
@@ -118,7 +120,8 @@ const AddEvent = ({ timeline_name }) => {
                             adapterLocale="en-gb"
                         >
                             <DatePicker
-                                slotProps={{ textField: { size: "small" } }}
+                            
+                                slotProps={{ textField: { size: "small",  fullWidth: true } }}
                                 label="Event Start Date"
                                 selected={startDateInput}
                                 onChange={(date) =>
@@ -133,7 +136,7 @@ const AddEvent = ({ timeline_name }) => {
                             adapterLocale="en-gb"
                         >
                             <DatePicker
-                                slotProps={{ textField: { size: "small" } }}
+                                slotProps={{ textField: { size: "small",  fullWidth: true } }}
                                 label="Event End Date"
                                 selected={endDateInput}
                                 onChange={(date) =>
@@ -148,7 +151,7 @@ const AddEvent = ({ timeline_name }) => {
                         </Button>
                     </Grid>
                 </Grid>
-            </Box>
+            </Card>
         );
     }
 };

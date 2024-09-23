@@ -10,7 +10,7 @@ import OpenWithIcon from "@mui/icons-material/OpenWith";
 const EventCard = ({ eventCardData }) => {
     eventCardData = JSON.parse(eventCardData);
     return (
-        <Card variant="outlined" sx={{ width: "100%", height: "100%" }}>
+        <Card sx={{ width: "100%", height: "100%" }}>
             <CardHeader
                 // action={
                 // }
