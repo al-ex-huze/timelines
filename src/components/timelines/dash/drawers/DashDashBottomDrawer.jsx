@@ -6,7 +6,7 @@ import { grey } from "@mui/material/colors";
 import Skeleton from "@mui/material/Skeleton";
 import SwipeableDrawer from "@mui/material/SwipeableDrawer";
 
-import BottomDrawerContents from "./DataGridBottomDrawerContents";
+import BottomDrawerContents from "./BottomDrawerContents";
 
 const drawerBleeding = 56;
 
@@ -38,7 +38,7 @@ const ListBox = styled("div")(({ theme }) => ({
     overflow: "scroll",
 }));
 
-const BottomDrawer = ({ }) => {
+const BottomDrawer = ({ currentItems, layout, setLayout }) => {
     const [openMobileBottom, setOpenMobileBottom] = React.useState(false);
     const toggleDrawer = (newOpen) => () => {
         setOpenMobileBottom(newOpen);
@@ -80,6 +80,9 @@ const BottomDrawer = ({ }) => {
                 </StyledBox>
                 <ListBox>
                     <BottomDrawerContents
+                        currentItems={currentItems}
+                        layout={layout}
+                        setLayout={setLayout}
                     />
                     <Skeleton variant="rectangular" height="auto" />
                 </ListBox>

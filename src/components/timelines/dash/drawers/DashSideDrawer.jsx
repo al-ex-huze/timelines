@@ -6,7 +6,8 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import MuiDrawer from "@mui/material/Drawer";
-import DataGridSideDrawerContents from "./DataGridSideDrawerContents";
+
+import SideDrawerContents from "./DashSideDrawerContents";
 
 const drawerWidth = 240;
 
@@ -64,7 +65,13 @@ const DrawerHeader = styled("div")(({ theme }) => ({
     ...theme.mixins.toolbar,
 }));
 
-const DataGridSideDrawer = ({
+const SideDrawer = ({
+    createTimelineToggle,
+    setCreateTimelineToggle,
+    currentItems,
+    layout,
+    setLayout,
+    location,
 }) => {
     const [open, setOpen] = React.useState(true);
 
@@ -97,12 +104,18 @@ const DataGridSideDrawer = ({
                 )}
             </DrawerHeader>
             <Divider />
-            <DataGridSideDrawerContents
+            <SideDrawerContents
+                createTimelineToggle={createTimelineToggle}
+                setCreateTimelineToggle={setCreateTimelineToggle}
+                currentItems={currentItems}
                 open={open}
                 handleDrawerOpen={handleDrawerOpen}
                 handleDrawerClose={handleDrawerClose}
+                layout={layout}
+                setLayout={setLayout}
+                location={location}
             />
         </CollapsibleDrawer>
     );
 };
-export default DataGridSideDrawer;
+export default SideDrawer;
