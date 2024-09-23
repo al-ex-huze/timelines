@@ -4,8 +4,13 @@ import { isMobile } from "react-device-detect";
 import SideDrawer from "./SideDrawer";
 import BottomDrawer from "./BottomDrawer";
 
-const DrawerController = ({ currentItems, layout, setLayout }) => {
-
+const DrawerController = ({
+    createTimelineToggle,
+    setCreateTimelineToggle,
+    currentItems,
+    layout,
+    setLayout,
+}) => {
     return (
         <>
             {isMobile ? (
@@ -13,9 +18,12 @@ const DrawerController = ({ currentItems, layout, setLayout }) => {
                     currentItems={currentItems}
                     layout={layout}
                     setLayout={setLayout}
+                    location={location}
                 ></BottomDrawer>
             ) : (
                 <SideDrawer
+                    createTimelineToggle={createTimelineToggle}
+                    setCreateTimelineToggle={setCreateTimelineToggle}
                     currentItems={currentItems}
                     layout={layout}
                     setLayout={setLayout}

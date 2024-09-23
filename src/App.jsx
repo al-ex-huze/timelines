@@ -16,11 +16,6 @@ import Timelines from "./components/timelines/Timelines";
 
 const App = () => {
     const { theme } = React.useContext(ThemeContext);
-    const [layout, setLayout] = React.useState([
-        { i: "Timeline", x: 0, y: 0, w: 8, h: 1 },
-    ]);
-    const [gridItems, setGridItems] = React.useState([]);
-
 
     return (
         <ThemeProvider theme={theme}>
@@ -29,12 +24,7 @@ const App = () => {
                 <AppBarTop />
                 <Routes>
                     <Route path="/" element={<Home />} />
-                    <Route
-                        path="/timelines/*"
-                        element={
-                            <Timelines layout={layout} setLayout={setLayout} />
-                        }
-                    />
+                    <Route path="/timelines/*" element={<Timelines />} />
                     <Route path="/calendar" element={<Calendar />} />
                     <Route path="/blog" element={<Blog />} />
                 </Routes>

@@ -65,7 +65,14 @@ const DrawerHeader = styled("div")(({ theme }) => ({
     ...theme.mixins.toolbar,
 }));
 
-const SideDrawer = ({ currentItems, layout, setLayout }) => {
+const SideDrawer = ({
+    createTimelineToggle,
+    setCreateTimelineToggle,
+    currentItems,
+    layout,
+    setLayout,
+    location,
+}) => {
     const [open, setOpen] = React.useState(true);
 
     const handleDrawerOpen = () => {
@@ -98,12 +105,15 @@ const SideDrawer = ({ currentItems, layout, setLayout }) => {
             </DrawerHeader>
             <Divider />
             <SideDrawerContents
+                createTimelineToggle={createTimelineToggle}
+                setCreateTimelineToggle={setCreateTimelineToggle}
                 currentItems={currentItems}
                 open={open}
                 handleDrawerOpen={handleDrawerOpen}
                 handleDrawerClose={handleDrawerClose}
                 layout={layout}
                 setLayout={setLayout}
+                location={location}
             />
         </CollapsibleDrawer>
     );
