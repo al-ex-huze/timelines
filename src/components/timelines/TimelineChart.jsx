@@ -18,7 +18,7 @@ const TimelineChart = ({
         setLayout((previousLayout) => {
             
             const newWidget = {
-                i: `EventCard ${previousLayout.length + 1}`,
+                i: `Event Card - ${previousLayout.length + 1}`,
                 data : `${JSON.stringify(newEventItem)}`,
                 x: Infinity,
                 y: 1,

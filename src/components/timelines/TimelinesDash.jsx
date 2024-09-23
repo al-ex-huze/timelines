@@ -18,6 +18,7 @@ import LineBuilder from "./LineBuilder";
 import TimelineBuilder from "./TimelineBuilder";
 import DrawerController from "../drawers/DrawerController";
 
+import AddEvent from "./AddEvent";
 import EventCard from "./EventCard";
 
 const Offset = styled("div")(({ theme }) => theme.mixins.toolbar);
@@ -34,8 +35,8 @@ const TimelinesDash = ({ layout, setLayout }) => {
     ]
     
     const renderComponent = (componentType, componentData) => {
-        switch (componentType.split(" ")[0]) {
-            case "EventCard":
+        switch (componentType.split(" - ")[0]) {
+            case "Event Card":
                 return <EventCard eventCardData={componentData} />;
             case "Timeline":
                 return (
@@ -51,8 +52,9 @@ const TimelinesDash = ({ layout, setLayout }) => {
                 );
             case "Line":
                 return <LineBuilder />;
-            case "Bar":
-                return <BarChart />;
+            case "Add Event":
+                console.log("ADDEV ENT")
+                return <AddEvent timeline_name={timeline_name} />;
             case "Radar":
                 return <RadarChart />;
             case "Donut":
