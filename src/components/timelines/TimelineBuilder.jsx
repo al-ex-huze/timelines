@@ -1,7 +1,5 @@
 import * as React from "react";
 
-import Box from "@mui/material/Box";
-
 import { getEvents } from "../../../api";
 
 import CircularLoader from "../CircularLoader";
@@ -13,7 +11,8 @@ const TimelineBuilder = ({
     setEventsData,
     eventsToDisplay,
     setEventsToDisplay,
-    layout, setLayout,
+    layout,
+    setLayout,
     timeline_name,
     timelineHeight,
     timelineWidth,
@@ -53,8 +52,8 @@ const TimelineBuilder = ({
                         setGroupRowsState={setGroupRowsState}
                         groupNames={groupNames}
                         setGroupNames={setGroupNames}
-                        layout={layout} setLayout={setLayout}
-
+                        layout={layout}
+                        setLayout={setLayout}
                     />
                     <TimelineChartTogglePanel
                         groupRowsState={groupRowsState}
