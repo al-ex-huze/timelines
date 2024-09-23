@@ -50,6 +50,13 @@ export const themeLight = createTheme({
                 },
             },
         },
+        MuiMenu: {
+            styleOverrides: {
+                paper: {
+                    background: "#F8F9FA",
+                },
+            },
+        },
     },
     transitions: {
         duration: {
@@ -91,7 +98,7 @@ export const themeDark = createTheme({
         MuiMenu: {
             styleOverrides: {
                 paper: {
-                        background: "#20313C",
+                        background: "#00192A",
                     },
                 
             },
@@ -106,7 +113,7 @@ export const themeDark = createTheme({
         MuiCard: {
             styleOverrides: {
                 colorPrimary: {
-                    background: "#00192A",
+                    backgroundColor: "#00192A",
                 },
             },
         },

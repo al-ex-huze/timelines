@@ -13,9 +13,14 @@ import Blog from "./components/Blog";
 import Calendar from "./components/Calendar";
 import Home from "./components/Home";
 import Timelines from "./components/timelines/Timelines";
+import TimelinesDash from "./components/timelines/dash/TimelinesDash";
+import TimelinesDataGrid from "./components/timelines/data-grid/TimelinesDataGrid";
 
 const App = () => {
     const { theme } = React.useContext(ThemeContext);
+    const [layout, setLayout] = React.useState([
+        { i: "Timeline", x: 0, y: 0, w: 8, h: 1 },
+    ]);
 
     return (
         <ThemeProvider theme={theme}>
@@ -24,7 +29,25 @@ const App = () => {
                 <AppBarTop />
                 <Routes>
                     <Route path="/" element={<Home />} />
-                    <Route path="/timelines/*" element={<Timelines />} />
+                    <Route path="/timelines/" element={<Timelines />} />
+                    <Route
+                        path="/timelines/grid/*"
+                        element={
+                            <TimelinesDataGrid
+                                layout={layout}
+                                setLayout={setLayout}
+                            />
+                        }
+                    />
+                    <Route
+                        path="/timelines/:timeline_name"
+                        element={
+                            <TimelinesDash
+                                layout={layout}
+                                setLayout={setLayout}
+                            />
+                        }
+                    />
                     <Route path="/calendar" element={<Calendar />} />
                     <Route path="/blog" element={<Blog />} />
                 </Routes>

@@ -1,8 +1,8 @@
 import * as React from "react";
 
-import { getEvents } from "../../../api";
+import { getEvents } from "../../../../api";
 
-import CircularLoader from "../CircularLoader";
+import CircularLoader from "../../CircularLoader";
 import TimelineChart from "./TimelineChart";
 import TimelineChartTogglePanel from "./TimelineChartTogglePanel";
 

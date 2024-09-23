@@ -10,9 +10,9 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import "dayjs/locale/en-gb";
 
-import { postTimeline } from "../../../api";
+import { postTimeline } from "../../../../api";
 
-import ErrorComponent from "../ErrorComponent";
+import ErrorComponent from "../../ErrorComponent";
 
 const AddTimeline = () => {
     const [isCreating, setIsCreating] = React.useState(false);
