@@ -41,7 +41,6 @@ const TimelineBuilder = ({
     return (
         <>
             {eventsData[0] !== undefined ? (
-                <>
                     <TimelineChart
                         eventsData={eventsData}
                         eventsToDisplay={eventsToDisplay}
@@ -54,14 +53,14 @@ const TimelineBuilder = ({
                         setGroupNames={setGroupNames}
                         layout={layout}
                         setLayout={setLayout}
-                    />
-                    <TimelineChartTogglePanel
-                        groupRowsState={groupRowsState}
-                        setGroupRowsState={setGroupRowsState}
-                        groupNames={groupNames}
-                        setGroupNames={setGroupNames}
-                    />
-                </>
+                    >
+                        <TimelineChartTogglePanel
+                            groupRowsState={groupRowsState}
+                            setGroupRowsState={setGroupRowsState}
+                            groupNames={groupNames}
+                            setGroupNames={setGroupNames}
+                        />
+                    </TimelineChart>
             ) : (
                 <p>No Events For This Timeline Yet</p>
             )}

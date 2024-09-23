@@ -18,47 +18,70 @@ import LineBuilder from "./LineBuilder";
 import TimelineBuilder from "./TimelineBuilder";
 import DrawerController from "../drawers/DrawerController";
 
+import AddEvent from "./AddEvent";
 import EventCard from "./EventCard";
 
 const Offset = styled("div")(({ theme }) => theme.mixins.toolbar);
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
+const GrabHandle = styled(Box)(({ theme }) => ({
+    backgroundColor: theme.palette.primary.main,
+    transition: "background-color 0.3s ease",
+    "&:hover": {
+        backgroundColor: theme.palette.secondary.main,
+    },
+    position:"fixed",
+    width: "100%",
+    height: "25px",
+    top: -25,
+    cursor: "move",
+}));
+
 const TimelinesDash = ({ layout, setLayout }) => {
     const [eventsData, setEventsData] = React.useState([]);
     const { timeline_name } = useParams();
 
-    const currentItems =  [
+    const currentItems = [
         { text: "Timeline", icon: ViewTimelineIcon },
         { text: "Add Event", icon: AddIcon },
-        { text: "Delete", icon: DeleteIcon },
-    ]
-    
+    ];
+
     const renderComponent = (componentType, componentData) => {
-        switch (componentType.split(" ")[0]) {
-            case "EventCard":
-                return <EventCard eventCardData={componentData} />;
+        switch (componentType.split(" - ")[0]) {
+            case "Event Card":
+                return (
+                    <>
+                        <GrabHandle className={"drag-handle"} />{" "}
+                        <EventCard eventCardData={componentData} />
+                    </>
+                );
             case "Timeline":
                 return (
-                    <TimelineBuilder
-                        eventsData={eventsData}
-                        setEventsData={setEventsData}
-                        layout={layout}
-                        setLayout={setLayout}
-                        timeline_name={timeline_name}
-                        timelineHeight={timelineHeight}
-                        timelineWidth={timelineWidth}
-                    />
+                    <>
+                        <GrabHandle className={"drag-handle"} />
+                        <TimelineBuilder
+                            eventsData={eventsData}
+                            setEventsData={setEventsData}
+                            layout={layout}
+                            setLayout={setLayout}
+                            timeline_name={timeline_name}
+                            timelineHeight={timelineHeight}
+                            timelineWidth={timelineWidth}
+                        />
+                    </>
                 );
             case "Line":
                 return <LineBuilder />;
-            case "Bar":
-                return <BarChart />;
-            case "Radar":
-                return <RadarChart />;
-            case "Donut":
-                return <DonutChart />;
-            case "PolarChart":
-                return <PolarChart />;
+            case "Add Event":
+                return (
+                    <>
+                        <GrabHandle className={"drag-handle"} />
+                        <AddEvent
+                            useForceUpdate={useForceUpdate}
+                            timeline_name={timeline_name}
+                        />
+                    </>
+                );
         }
     };
 
@@ -88,7 +111,7 @@ const TimelinesDash = ({ layout, setLayout }) => {
     }, []);
 
     const gridMarginProps = {
-        margin: [50, 50],
+        margin: [75, 75],
         responsiveMargins: {
             lg: [1, 1],
             md: [1, 1],
@@ -191,7 +214,11 @@ const TimelinesDash = ({ layout, setLayout }) => {
 
     return (
         <>
-            <DrawerController currentItems={currentItems} layout={layout} setLayout={setLayout} />
+            <DrawerController
+                currentItems={currentItems}
+                layout={layout}
+                setLayout={setLayout}
+            />
             <Box
                 sx={{
                     flexGrow: 1,
@@ -206,6 +233,7 @@ const TimelinesDash = ({ layout, setLayout }) => {
                     onDragStart={handleDragStart}
                     onDragStop={handleDragStop}
                     onResizeStop={handleResizeStop}
+                    draggableHandle=".drag-handle"
                 >
                     {layout.map((item) => (
                         <div key={item.i}>

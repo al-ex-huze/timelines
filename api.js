@@ -24,6 +24,12 @@ export const getEventByID = (eventID) => {
     });
 };
 
+export const postEvent = (newEvent) => {
+    return beApi.post("/api/events", newEvent).then((response) => {
+        return response.data;
+    });
+};
+
 export const getFeels = () => {
     return beApi.get("/api/feels").then((response) => {
         return response.data.feels;

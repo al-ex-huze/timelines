@@ -1,5 +1,7 @@
 import * as React from "react";
 
+import Box from "@mui/material/Box";
+
 import ReactApexChart from "react-apexcharts";
 
 const TimelineChart = ({
@@ -10,16 +12,16 @@ const TimelineChart = ({
     setLayout,
     timelineHeight,
     timelineWidth,
+    children,
 }) => {
     let series = [];
     let options = {};
 
     const handleAddToList = (newEventItem) => {
         setLayout((previousLayout) => {
-            
             const newWidget = {
-                i: `EventCard ${previousLayout.length + 1}`,
-                data : `${JSON.stringify(newEventItem)}`,
+                i: `Event Card - ${previousLayout.length + 1}`,
+                data: `${JSON.stringify(newEventItem)}`,
                 x: Infinity,
                 y: 1,
                 w: 2,
@@ -240,14 +242,15 @@ const TimelineChart = ({
     };
 
     return (
-        <ReactApexChart
-            options={options}
-            series={series}
-            type="rangeBar"
-            height={"100%"}
-            // height={timelineHeight}
-            // width={timelineWidth}
-        />
+        <>
+            <ReactApexChart
+                options={options}
+                series={series}
+                type="rangeBar"
+                height={"100%"}
+            />
+            <Box>{children}</Box>
+        </>
     );
 };
 
