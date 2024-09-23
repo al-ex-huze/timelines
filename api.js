@@ -42,6 +42,12 @@ export const getFeels = () => {
     });
 };
 
+export const postTimeline = (newTimeline) => {
+    return beApi.post("/api/timelines", newTimeline).then((response) => {
+        return response.data;
+    });
+};
+
 export const getTimelines = () => {
     return beApi.get("/api/timelines").then((response) => {
         return response.data.timelines;

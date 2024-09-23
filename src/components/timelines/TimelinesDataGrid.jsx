@@ -4,17 +4,20 @@ import { DataGrid } from "@mui/x-data-grid";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import ViewTimelineIcon from "@mui/icons-material/ViewTimeline";
+
 import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
+
 import { experimentalStyled as styled } from "@mui/material/styles";
 
 import { getTimelines } from "../../../api";
 
+import AddTimeline from "./AddTimeline";
 import CircularLoader from "../CircularLoader";
 import ErrorComponent from "../ErrorComponent";
 import DrawerController from "../drawers/DrawerController";
 
-const TimelinesDataGrid = ({layout, setLayout}) => {
+const TimelinesDataGrid = ({ layout, setLayout }) => {
     const Offset = styled("div")(({ theme }) => theme.mixins.toolbar);
     const [isLoading, setIsLoading] = React.useState(false);
     const [error, setError] = React.useState(null);
@@ -22,12 +25,11 @@ const TimelinesDataGrid = ({layout, setLayout}) => {
     const [selectedRow, setSelectedRow] = React.useState(null);
     const navigate = useNavigate();
 
-    const currentItems =  [
-        { text: "Timeline", icon: ViewTimelineIcon },
-        { text: "Create Timeline", icon: AddIcon },
-        { text: "Delete", icon: DeleteIcon },
-    ]
-    
+    const [createTimelineToggle, setCreateTimelineToggle] =
+        React.useState(false);
+
+    const currentItems = [{ text: "Create Timeline", icon: AddIcon }];
+
     const handleClick = (event, cellValues) => {
         navigate(`/timelines/${cellValues.row.timeline_name}`);
     };
@@ -86,6 +88,8 @@ const TimelinesDataGrid = ({layout, setLayout}) => {
     return (
         <>
             <DrawerController
+                createTimelineToggle={createTimelineToggle}
+                setCreateTimelineToggle={setCreateTimelineToggle}
                 currentItems={currentItems}
                 layout={layout}
                 setLayout={setLayout}
@@ -105,11 +109,15 @@ const TimelinesDataGrid = ({layout, setLayout}) => {
                         <h1>Selected: {selectedRow.timeline_name}</h1>
                     )}
                     <Box style={{ height: "100%", width: "100%" }}>
-                        <DataGrid
-                            rows={rows}
-                            columns={columns}
-                            onRowClick={handleRowClick}
-                        />
+                        {createTimelineToggle ? (
+                            <AddTimeline />
+                        ) : (
+                            <DataGrid
+                                rows={rows}
+                                columns={columns}
+                                onRowClick={handleRowClick}
+                            />
+                        )}
                     </Box>
                 </Box>
             </Box>

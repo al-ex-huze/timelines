@@ -1,6 +1,5 @@
 import * as React from "react";
 
-import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid2";
@@ -41,7 +40,7 @@ const AddEvent = ({ timeline_name, useForceUpdate }) => {
             .then(() => {
                 setEventTitleInput("");
                 setEventBodyInput("");
-                useForceUpdate()
+                useForceUpdate();
                 setIsCreating(false);
             })
             .catch((error) => {
@@ -59,7 +58,7 @@ const AddEvent = ({ timeline_name, useForceUpdate }) => {
                 sx={{
                     flexGrow: 1,
                     width: "100%",
-                    height: "100%"
+                    height: "100%",
                 }}
                 noValidate
                 autoComplete="off"
@@ -120,8 +119,12 @@ const AddEvent = ({ timeline_name, useForceUpdate }) => {
                             adapterLocale="en-gb"
                         >
                             <DatePicker
-                            
-                                slotProps={{ textField: { size: "small",  fullWidth: true } }}
+                                slotProps={{
+                                    textField: {
+                                        size: "small",
+                                        fullWidth: true,
+                                    },
+                                }}
                                 label="Event Start Date"
                                 selected={startDateInput}
                                 onChange={(date) =>
@@ -136,7 +139,12 @@ const AddEvent = ({ timeline_name, useForceUpdate }) => {
                             adapterLocale="en-gb"
                         >
                             <DatePicker
-                                slotProps={{ textField: { size: "small",  fullWidth: true } }}
+                                slotProps={{
+                                    textField: {
+                                        size: "small",
+                                        fullWidth: true,
+                                    },
+                                }}
                                 label="Event End Date"
                                 selected={endDateInput}
                                 onChange={(date) =>

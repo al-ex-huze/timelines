@@ -7,7 +7,28 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 
-const SideDrawerContents = ({ currentItems, open, layout, setLayout }) => {
+const SideDrawerContents = ({
+    createTimelineToggle,
+    setCreateTimelineToggle,
+    currentItems,
+    open,
+    layout,
+    setLayout,
+}) => {
+    const handleListClick = (listAction) => {
+        switch (listAction) {
+            case "Create Timeline":
+                toggleCreateTimeline();
+                break;
+            case "Timeline":
+                toggleRGLItem(listAction);
+                break;
+            case "Add Event":
+                toggleRGLItem(listAction);
+                break;
+        }
+    };
+
     const toggleRGLItem = (listItem) => {
         setLayout((previousLayout) => {
             const itemExists = previousLayout.some(
@@ -27,6 +48,11 @@ const SideDrawerContents = ({ currentItems, open, layout, setLayout }) => {
             }
         });
     };
+
+    const toggleCreateTimeline = () => {
+        setCreateTimelineToggle(!createTimelineToggle);
+    };
+
     return (
         <>
             <List>
@@ -37,7 +63,7 @@ const SideDrawerContents = ({ currentItems, open, layout, setLayout }) => {
                         sx={{ display: "block" }}
                     >
                         <ListItemButton
-                            onClick={() => toggleRGLItem(element.text)}
+                            onClick={() => handleListClick(element.text)}
                             sx={[
                                 {
                                     minHeight: 48,
