@@ -7,7 +7,7 @@ import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import MuiDrawer from "@mui/material/Drawer";
 
-import SideDrawerContents from "./DashSideDrawerContents";
+import DashSideDrawerContents from "./DashSideDrawerContents";
 
 const drawerWidth = 240;
 
@@ -65,7 +65,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
     ...theme.mixins.toolbar,
 }));
 
-const SideDrawer = ({
+const DashSideDrawer = ({
     createTimelineToggle,
     setCreateTimelineToggle,
     currentItems,
@@ -103,8 +103,10 @@ const SideDrawer = ({
                     </IconButton>
                 )}
             </DrawerHeader>
+            
             <Divider />
-            <SideDrawerContents
+
+            <DashSideDrawerContents
                 createTimelineToggle={createTimelineToggle}
                 setCreateTimelineToggle={setCreateTimelineToggle}
                 currentItems={currentItems}
@@ -118,4 +120,4 @@ const SideDrawer = ({
         </CollapsibleDrawer>
     );
 };
-export default SideDrawer;
+export default DashSideDrawer;

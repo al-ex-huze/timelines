@@ -16,7 +16,7 @@ const DataGridSideDrawerContents = ({ open }) => {
     return (
         <List>
             <ListItem disablePadding sx={{ display: "block" }}>
-                <Link href={`.`}>
+                <Link href={`.`} color="inherit" underline="none">
                     <ListItemButton
                         sx={[
                             {
@@ -66,7 +66,7 @@ const DataGridSideDrawerContents = ({ open }) => {
             </ListItem>
             <Divider />
             <ListItem disablePadding sx={{ display: "block" }}>
-                <Link href={`/timelines/grid/add`}>
+                <Link href={`/timelines/grid/add`} color="inherit" underline="none">
                     <ListItemButton
                         sx={[
                             {

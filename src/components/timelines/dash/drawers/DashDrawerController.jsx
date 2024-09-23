@@ -1,36 +1,28 @@
 import * as React from "react";
 import { isMobile } from "react-device-detect";
 
-import SideDrawer from "./DashSideDrawer";
-import BottomDrawer from "./BottomDrawer";
+import DashSideDrawer from "./DashSideDrawer";
+import DashBottomDrawer from "./DashBottomDrawer";
 
-const DrawerController = ({
-    createTimelineToggle,
-    setCreateTimelineToggle,
-    currentItems,
+const DashDrawerController = ({
     layout,
     setLayout,
 }) => {
     return (
         <>
             {isMobile ? (
-                <BottomDrawer
-                    currentItems={currentItems}
+                <DashBottomDrawer
                     layout={layout}
                     setLayout={setLayout}
-                    location={location}
-                ></BottomDrawer>
+                ></DashBottomDrawer>
             ) : (
-                <SideDrawer
-                    createTimelineToggle={createTimelineToggle}
-                    setCreateTimelineToggle={setCreateTimelineToggle}
-                    currentItems={currentItems}
+                <DashSideDrawer
                     layout={layout}
                     setLayout={setLayout}
-                ></SideDrawer>
+                ></DashSideDrawer>
             )}
         </>
     );
 };
 
-export default DrawerController;
+export default DashDrawerController;

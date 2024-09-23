@@ -7,14 +7,11 @@ import "react-resizable/css/styles.css";
 
 import Box from "@mui/material/Box";
 
-import ViewTimelineIcon from "@mui/icons-material/ViewTimeline";
-import AddIcon from "@mui/icons-material/Add";
-
 import { experimentalStyled as styled } from "@mui/material/styles";
 
 import LineBuilder from "./LineBuilder";
 import TimelineBuilder from "./TimelineBuilder";
-import DrawerController from "../../drawers/DrawerController";
+import DashDrawerController from "./drawers/DashDrawerController";
 
 import AddEvent from "./AddEvent";
 import EventCard from "./EventCard";
@@ -38,11 +35,6 @@ const GrabHandle = styled(Box)(({ theme }) => ({
 const TimelinesDash = ({ layout, setLayout }) => {
     const [eventsData, setEventsData] = React.useState([]);
     const { timeline_name } = useParams();
-
-    const currentItems = [
-        { text: "Timeline", icon: ViewTimelineIcon },
-        { text: "Add Event", icon: AddIcon },
-    ];
 
     const renderComponent = (componentType, componentData) => {
         switch (componentType.split(" - ")[0]) {
@@ -212,8 +204,7 @@ const TimelinesDash = ({ layout, setLayout }) => {
 
     return (
         <>
-            <DrawerController
-                currentItems={currentItems}
+            <DashDrawerController
                 layout={layout}
                 setLayout={setLayout}
             />

@@ -6,7 +6,7 @@ import { grey } from "@mui/material/colors";
 import Skeleton from "@mui/material/Skeleton";
 import SwipeableDrawer from "@mui/material/SwipeableDrawer";
 
-import BottomDrawerContents from "./BottomDrawerContents";
+import DashBottomDrawerContents from "./DashBottomDrawerContents";
 
 const drawerBleeding = 56;
 
@@ -38,7 +38,7 @@ const ListBox = styled("div")(({ theme }) => ({
     overflow: "scroll",
 }));
 
-const BottomDrawer = ({ currentItems, layout, setLayout }) => {
+const DashBottomDrawer = ({ layout, setLayout }) => {
     const [openMobileBottom, setOpenMobileBottom] = React.useState(false);
     const toggleDrawer = (newOpen) => () => {
         setOpenMobileBottom(newOpen);
@@ -79,8 +79,7 @@ const BottomDrawer = ({ currentItems, layout, setLayout }) => {
                     <Puller />
                 </StyledBox>
                 <ListBox>
-                    <BottomDrawerContents
-                        currentItems={currentItems}
+                    <DashBottomDrawerContents
                         layout={layout}
                         setLayout={setLayout}
                     />
@@ -91,4 +90,4 @@ const BottomDrawer = ({ currentItems, layout, setLayout }) => {
     );
 };
 
-export default BottomDrawer;
+export default DashBottomDrawer;

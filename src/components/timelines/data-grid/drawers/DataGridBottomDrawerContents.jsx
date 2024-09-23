@@ -16,7 +16,7 @@ const BottomDrawerContents = ({}) => {
     return (
         <List>
             <ListItem disablePadding>
-                <Link href={`.`}>
+                <Link href={`.`} color="inherit" underline="none" width="100%">
                     <ListItemButton>
                         <ListItemIcon>
                             <ArrowBackIcon/>
@@ -27,7 +27,7 @@ const BottomDrawerContents = ({}) => {
             </ListItem>
             <Divider />
             <ListItem disablePadding>
-                <Link href={`/timelines/grid/add`}>
+                <Link href={`/timelines/grid/add`} color="inherit" underline="none" width="100%">
                     <ListItemButton>
                         <ListItemIcon>
                             <AddIcon/>

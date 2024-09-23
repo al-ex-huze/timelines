@@ -39,7 +39,7 @@ const Timelines = () => {
                         maxHeight: 300,
                     }}
                 >
-                    <CardHeader title={"Custom Timeline"} />
+                    <CardHeader title={"Custom Timelines"} />
                     <CardContent>
                         <Typography
                             variant="body2"
@@ -50,7 +50,7 @@ const Timelines = () => {
                     </CardContent>
                     <CardActions disableSpacing>
                         <Link href={`/timelines/grid`}>
-                            <Button>Select</Button>
+                            <Button variant="contained">Select</Button>
                         </Link>
                     </CardActions>
                 </Card>
