@@ -6,14 +6,16 @@ import TimelinesDataGrid from "./TimelinesDataGrid";
 const Timelines = ({ layout, setLayout }) => {
     return (
         <Routes>
-            <Route path="/" element={<TimelinesDataGrid />} />
+            <Route
+                path="/"
+                element={
+                    <TimelinesDataGrid layout={layout} setLayout={setLayout} />
+                }
+            />
             <Route
                 path="/:timeline_name"
                 element={
-                    <TimelinesDash
-                        layout={layout}
-                        setLayout={setLayout}
-                    />
+                    <TimelinesDash layout={layout} setLayout={setLayout} />
                 }
             />
         </Routes>

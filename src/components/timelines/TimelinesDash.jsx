@@ -1,19 +1,23 @@
 import * as React from "react";
 import { useParams } from "react-router-dom";
 
-import GridLayout from "react-grid-layout";
 import { Responsive, WidthProvider } from "react-grid-layout";
 import "react-grid-layout/css/styles.css";
 import "react-resizable/css/styles.css";
 
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import Paper from "@mui/material/Paper";
+
+import ViewTimelineIcon from "@mui/icons-material/ViewTimeline";
+import AddIcon from "@mui/icons-material/Add";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 import { experimentalStyled as styled } from "@mui/material/styles";
 
 import LineBuilder from "./LineBuilder";
 import TimelineBuilder from "./TimelineBuilder";
+import DrawerController from "../drawers/DrawerController";
+
 import EventCard from "./EventCard";
 
 const Offset = styled("div")(({ theme }) => theme.mixins.toolbar);
@@ -23,16 +27,26 @@ const TimelinesDash = ({ layout, setLayout }) => {
     const [eventsData, setEventsData] = React.useState([]);
     const { timeline_name } = useParams();
 
-    const renderComponent = (componentType) => {
-        switch (componentType) {
+    const currentItems =  [
+        { text: "Timeline", icon: ViewTimelineIcon },
+        { text: "Add Event", icon: AddIcon },
+        { text: "Delete", icon: DeleteIcon },
+    ]
+    
+    const renderComponent = (componentType, componentData) => {
+        switch (componentType.split(" ")[0]) {
             case "EventCard":
-                return <EventCard />;
+                return <EventCard eventCardData={componentData} />;
             case "Timeline":
                 return (
                     <TimelineBuilder
                         eventsData={eventsData}
                         setEventsData={setEventsData}
+                        layout={layout}
+                        setLayout={setLayout}
                         timeline_name={timeline_name}
+                        timelineHeight={timelineHeight}
+                        timelineWidth={timelineWidth}
                     />
                 );
             case "Line":
@@ -50,29 +64,15 @@ const TimelinesDash = ({ layout, setLayout }) => {
 
     const getCols = (width) => {
         if (width < 600) return 1;
-        if (width < 900) return 2;
-        if (width < 1200) return 4;
-        if (width < 1536) return 6;
-        return 8;
+        if (width < 900) return 1;
+        if (width < 1200) return 1;
+        if (width < 1536) return 2;
+        return 4;
     };
 
     const [cols, setCols] = React.useState(getCols(window.innerWidth));
 
     const [windowWidth, setWindowWidth] = React.useState(window.innerWidth);
-
-    const addWidget = () => {
-        const newWidget = {
-            i: `Example`,
-            x: 0,
-            y: Infinity,
-            w: 8,
-            h: 8,
-        };
-        setLayout([...layout, newWidget]);
-    };
-
-    // Function to remove a widget...
-    // Function to update a widget...
 
     React.useEffect(() => {
         const handleResize = () => {
@@ -88,14 +88,13 @@ const TimelinesDash = ({ layout, setLayout }) => {
     }, []);
 
     const gridMarginProps = {
-        margin: [2, 2], // Default margin for all breakpoints
-        // Responsive margin overrides for specific breakpoints
+        margin: [50, 50],
         responsiveMargins: {
-            lg: [10, 10],
-            md: [8, 8],
-            sm: [6, 6],
-            xs: [4, 4],
-            xxs: [2, 2],
+            lg: [1, 1],
+            md: [1, 1],
+            sm: [1, 1],
+            xs: [1, 1],
+            xxs: [1, 1],
         },
     };
 
@@ -103,44 +102,34 @@ const TimelinesDash = ({ layout, setLayout }) => {
         className: "responsive-grid",
         breakpoints: { lg: 1536, md: 1200, sm: 900, xs: 600, xxs: 0 },
         cols: { lg: cols, md: cols, sm: cols, xs: cols, xxs: cols },
+        containerPadding: [50, 50],
         rowHeight: 200,
         layouts: {
             lg: [
-                { i: "Example", x: 0, y: 0, w: 4, h: 4 },
-                { i: "EventCard", x: 0, y: 0, w: 4, h: 4 },
-                { i: "Timeline", x: 0, y: 0, w: 16, h: 4 },
-                { i: "Line", x: 0, y: 0, w: 4, h: 4 },
+                { i: "Timeline", x: 0, y: 0, w: 8, h: 1 },
+                { i: "Line", x: 0, y: 0, w: 8, h: 1 },
             ],
             md: [
-                { i: "EventCard", x: 0, y: 0, w: 4, h: 4 },
-                { i: "Timeline", x: 0, y: 0, w: 8, h: 4 },
-                { i: "Line", x: 0, y: 0, w: 4, h: 4 },
+                { i: "Timeline", x: 0, y: 0, w: 8, h: 1 },
+                { i: "Line", x: 0, y: 0, w: 8, h: 1 },
             ],
             sm: [
-                { i: "Example", x: 0, y: 0, w: 4, h: 4 },
-                { i: "EventCard", x: 0, y: 0, w: 4, h: 4 },
-                { i: "Timeline", x: 0, y: 0, w: 4, h: 4 },
-                { i: "Line", x: 0, y: 0, w: 4, h: 4 },
+                { i: "Timeline", x: 0, y: 0, w: 8, h: 1 },
+                { i: "Line", x: 0, y: 0, w: 8, h: 1 },
             ],
             xs: [
-                { i: "Example", x: 0, y: 0, w: 4, h: 4 },
-                { i: "EventCard", x: 0, y: 0, w: 4, h: 4 },
-                { i: "Timeline", x: 0, y: 0, w: 2, h: 4 },
-                { i: "Line", x: 0, y: 0, w: 4, h: 4 },
+                { i: "Timeline", x: 0, y: 0, w: 8, h: 1 },
+                { i: "Line", x: 0, y: 0, w: 8, h: 1 },
             ],
             xxs: [
-                { i: "Example", x: 0, y: 0, w: 4, h: 4 },
-                { i: "EventCard", x: 0, y: 0, w: 4, h: 4 },
-                { i: "Timeline", x: 0, y: 0, w: 1, h: 4 },
-                { i: "Line", x: 0, y: 0, w: 4, h: 4 },
+                { i: "Timeline", x: 0, y: 0, w: 8, h: 1 },
+                { i: "Line", x: 0, y: 0, w: 8, h: 1 },
             ],
-            // More layouts for other breakpoints...
         },
         compactType: "vertical",
         isDraggable: true,
         isResizable: true,
         margin: gridMarginProps.margin,
-        responseive: "true,",
     };
 
     const handleDragStart = (
@@ -163,7 +152,25 @@ const TimelinesDash = ({ layout, setLayout }) => {
         element
     ) => {
         console.log("Stopped dragging item with id:", oldItem.i);
-        // Update the layout state or perform other actions
+        if (oldItem.i === "Timeline") {
+            updateTimelineSize("100%");
+        }
+    };
+
+    const [timelineHeight, setTimelineHeight] = React.useState("100%");
+    const [timelineWidth, setTimelineWidth] = React.useState("100%");
+
+    const useForceUpdate = () => {
+        const [, setCount] = React.useState(0);
+        return () => setCount((count) => count + 1);
+    };
+
+    const forceUpdate = useForceUpdate();
+
+    const updateTimelineSize = (newValue) => {
+        setTimelineHeight(newValue);
+        setTimelineWidth(newValue);
+        forceUpdate();
     };
 
     const handleResizeStop = (
@@ -175,34 +182,39 @@ const TimelinesDash = ({ layout, setLayout }) => {
         element
     ) => {
         console.log("Resized item with id:", oldItem.i);
-        // Update the layout state or perform other actions
+        if (oldItem.i === "Timeline") {
+            setTimeout(function () {
+                updateTimelineSize("100%");
+            }, 200);
+        }
     };
 
     return (
-        <Box
-            sx={{
-                flexGrow: 1,
-                height: "100vh",
-                display: "flex",
-                flexDirection: "column",
-            }}
-        >
-            <Offset sx={{ mb: 1 }} />
-            <Button onClick={addWidget}>ADD</Button>
-            <ResponsiveReactGridLayout
-                {...responsiveProps}
-                onDragStart={handleDragStart}
-                onDragStop={handleDragStop}
-                onResizeStop={handleResizeStop}
+        <>
+            <DrawerController currentItems={currentItems} layout={layout} setLayout={setLayout} />
+            <Box
+                sx={{
+                    flexGrow: 1,
+                    height: "100vh",
+                    display: "flex",
+                    flexDirection: "column",
+                }}
             >
-                {layout.map((item) => (
-                    <div key={item.i} style={{ background: "#009688" }}>
-                        {`Widget ${item.i}`}
-                        <Paper elevation={3}>{renderComponent(item.i)}</Paper>
-                    </div>
-                ))}
-            </ResponsiveReactGridLayout>
-        </Box>
+                <Offset sx={{ mb: 1 }} />
+                <ResponsiveReactGridLayout
+                    {...responsiveProps}
+                    onDragStart={handleDragStart}
+                    onDragStop={handleDragStop}
+                    onResizeStop={handleResizeStop}
+                >
+                    {layout.map((item) => (
+                        <div key={item.i}>
+                            {renderComponent(item.i, item.data)}
+                        </div>
+                    ))}
+                </ResponsiveReactGridLayout>
+            </Box>
+        </>
     );
 };
 

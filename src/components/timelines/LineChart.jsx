@@ -1,9 +1,6 @@
 import ReactApexChart from "react-apexcharts";
 
-const LineChart = ({
-    feelsData,
-    setLineChartSelectedWeek,
-}) => {
+const LineChart = ({ feelsData, setLineChartSelectedWeek }) => {
     const series = [
         {
             name: "Knowledge ",
@@ -102,7 +99,6 @@ const LineChart = ({
             // id: "chart-line",
             // group: "social",
             background: "transparent",
-            height: 350,
             type: "line",
             zoom: {
                 enabled: false,
@@ -181,6 +177,7 @@ const LineChart = ({
                     });
                 },
             },
+            toolbar: { show: false },
         },
         dataLabels: {
             enabled: false,
@@ -204,7 +201,7 @@ const LineChart = ({
             curve: "smooth",
             width: 1,
         },
-        theme: { mode: "dark" },
+        // theme: { mode: "dark" },
         // title: {
         //     text: "Feelings 2024",
         //     align: "left",
@@ -267,7 +264,14 @@ const LineChart = ({
             floating: false,
             decimalsInFloat: undefined,
             overwriteCategories: undefined,
-            position: "top",
+            position: "bottom",
+            show: false,
+            axisBorder: {
+                show: true,
+            },
+            axisTicks: {
+                show: false,
+            },
             labels: {
                 show: true,
                 rotate: -45,
@@ -285,7 +289,7 @@ const LineChart = ({
                     cssClass: "apexcharts-xaxis-label",
                 },
                 offsetX: 0,
-                offsetY: -10,
+                offsetY: 0,
                 format: undefined,
                 formatter: undefined,
                 datetimeUTC: true,
@@ -302,18 +306,18 @@ const LineChart = ({
         yaxis: {
             show: false,
             labels: {
-                minWidth: 40,
+                minWidth: 20,
             },
         },
     };
 
     return (
-            <ReactApexChart
-                options={options}
-                series={series}
-                type="line"
-                height={300}
-            />
+        <ReactApexChart
+            options={options}
+            series={series}
+            type="line"
+            height={"100%"}
+        />
     );
 };
 

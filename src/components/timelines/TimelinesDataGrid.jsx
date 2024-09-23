@@ -3,15 +3,18 @@ import { useNavigate } from "react-router-dom";
 import { DataGrid } from "@mui/x-data-grid";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-
+import ViewTimelineIcon from "@mui/icons-material/ViewTimeline";
+import AddIcon from "@mui/icons-material/Add";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { experimentalStyled as styled } from "@mui/material/styles";
 
 import { getTimelines } from "../../../api";
 
 import CircularLoader from "../CircularLoader";
 import ErrorComponent from "../ErrorComponent";
+import DrawerController from "../drawers/DrawerController";
 
-const TimelinesDataGrid = () => {
+const TimelinesDataGrid = ({layout, setLayout}) => {
     const Offset = styled("div")(({ theme }) => theme.mixins.toolbar);
     const [isLoading, setIsLoading] = React.useState(false);
     const [error, setError] = React.useState(null);
@@ -19,6 +22,12 @@ const TimelinesDataGrid = () => {
     const [selectedRow, setSelectedRow] = React.useState(null);
     const navigate = useNavigate();
 
+    const currentItems =  [
+        { text: "Timeline", icon: ViewTimelineIcon },
+        { text: "Create Timeline", icon: AddIcon },
+        { text: "Delete", icon: DeleteIcon },
+    ]
+    
     const handleClick = (event, cellValues) => {
         navigate(`/timelines/${cellValues.row.timeline_name}`);
     };
@@ -75,26 +84,36 @@ const TimelinesDataGrid = () => {
     if (error) return <ErrorComponent error={error} />;
     if (isLoading) return <CircularLoader />;
     return (
-        <Box>
-            <Box
-                sx={{
-                    flexGrow: 1,
-                    height: "100vh",
-                    display: "flex",
-                    flexDirection: "column",
-                }}
-            >
-                <Offset sx={{ mt: 1 }} />
-                {selectedRow && <h1>Selected: {selectedRow.timeline_name}</h1>}
-                <Box style={{ height: "100%", width: "100%" }}>
-                    <DataGrid
-                        rows={rows}
-                        columns={columns}
-                        onRowClick={handleRowClick}
-                    />
+        <>
+            <DrawerController
+                currentItems={currentItems}
+                layout={layout}
+                setLayout={setLayout}
+            />
+            <Box sx={{ width: "100%" }}>
+                <Box
+                    sx={{
+                        flexGrow: 1,
+                        height: "99vh",
+                        width: "100%",
+                        display: "flex",
+                        flexDirection: "column",
+                    }}
+                >
+                    <Offset sx={{ mt: 1 }} />
+                    {selectedRow && (
+                        <h1>Selected: {selectedRow.timeline_name}</h1>
+                    )}
+                    <Box style={{ height: "100%", width: "100%" }}>
+                        <DataGrid
+                            rows={rows}
+                            columns={columns}
+                            onRowClick={handleRowClick}
+                        />
+                    </Box>
                 </Box>
             </Box>
-        </Box>
+        </>
     );
 };
 

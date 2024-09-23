@@ -4,28 +4,22 @@ import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import Tooltip from "@mui/material/Tooltip";
 
 import OpenWithIcon from "@mui/icons-material/OpenWith";
 
 const EventCard = ({ eventCardData }) => {
+    eventCardData = JSON.parse(eventCardData);
     return (
-        <Card
-            variant="outlined"
-            // sx={{ width: 300, maxWidth: 300, height: 300, maxHeight: 300 }}
-        >
+        <Card variant="outlined" sx={{ width: "100%", height: "100%" }}>
             <CardHeader
                 // action={
-                //     <Tooltip title="Drag Card">
-                //         <OpenWithIcon sx={{ margin: 1 }} />
-                //     </Tooltip>
                 // }
                 title={`${eventCardData.title}`}
                 titleTypographyProps={{ textAlign: "left" }}
             />
             <CardMedia
                 component="img"
-                height="100"
+                height="50"
                 image={`${eventCardData.image_url_1}`}
                 alt="Event image"
             />
