@@ -6,11 +6,9 @@ import "react-grid-layout/css/styles.css";
 import "react-resizable/css/styles.css";
 
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 
 import ViewTimelineIcon from "@mui/icons-material/ViewTimeline";
 import AddIcon from "@mui/icons-material/Add";
-import DeleteIcon from "@mui/icons-material/Delete";
 
 import { experimentalStyled as styled } from "@mui/material/styles";
 

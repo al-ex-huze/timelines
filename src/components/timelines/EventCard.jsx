@@ -7,13 +7,16 @@ import Typography from "@mui/material/Typography";
 
 import OpenWithIcon from "@mui/icons-material/OpenWith";
 
+import DeleteEvent from "./DeleteEvent";
+
 const EventCard = ({ eventCardData }) => {
     eventCardData = JSON.parse(eventCardData);
     return (
         <Card sx={{ width: "100%", height: "100%" }}>
             <CardHeader
-                // action={
-                // }
+                action={
+                    <DeleteEvent eventToDelete={eventCardData}/>
+                }
                 title={`${eventCardData.title}`}
                 titleTypographyProps={{ textAlign: "left" }}
             />
