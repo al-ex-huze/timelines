@@ -53,14 +53,7 @@ const TimelinesDash = ({ layout, setLayout }) => {
             case "Line":
                 return <LineBuilder />;
             case "Add Event":
-                console.log("ADDEV ENT")
                 return <AddEvent timeline_name={timeline_name} />;
-            case "Radar":
-                return <RadarChart />;
-            case "Donut":
-                return <DonutChart />;
-            case "PolarChart":
-                return <PolarChart />;
         }
     };
 

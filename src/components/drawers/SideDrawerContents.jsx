@@ -9,8 +9,6 @@ import ListItemText from "@mui/material/ListItemText";
 
 const SideDrawerContents = ({ currentItems, open, layout, setLayout }) => {
     const toggleRGLItem = (listItem) => {
-        console.log("Debug")
-        console.log("listItem" + listItem)
         setLayout((previousLayout) => {
             const itemExists = previousLayout.some(
                 (item) => item.i === listItem
