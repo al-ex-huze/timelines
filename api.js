@@ -4,6 +4,12 @@ const beApi = axios.create({
     baseURL: "https://be-pp-timeline.fly.dev",
 });
 
+export const deleteEventByID = (eventID) => {
+    return beApi.delete(`/api/events/${eventID}`).then((response) => {
+        return response.data;
+    });
+};
+
 export const getEvents = (timelineFilter, sortByQuery, sortByIsAsc) => {
     console.log(timelineFilter);
     let orderDirection = "";
