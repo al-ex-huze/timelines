@@ -14,35 +14,19 @@ const TimelineChart = ({
     let series = [];
     let options = {};
 
-    const handleAddToEvents = (newEventItem) => {
-        // setLayout((previousLayout) => {
-            const stringifiedNewEventItem = JSON.stringify(newEventItem)
-        const itemExists = layout.some(
-            (item) => {
-                console.log(item.i)
-                console.log(`EventCard ${stringifiedNewEventItem}`)
-                return item.i === `EventCard ${stringifiedNewEventItem}`
-            }
-        );
-        console.log("itemExist: " + itemExists)
-        if (itemExists) {
-            return
-            // setLayout((previousLayout) =>
-            //     previousLayout.filter(
-            //         (item) =>
-            //             item.i !== `EventCard ${stringifiedNewEventItem}`
-            //     )
-            // );
-        } else {
+    const handleAddToList = (newEventItem) => {
+        setLayout((previousLayout) => {
+            
             const newWidget = {
-                i: `EventCard ${stringifiedNewEventItem}`,
+                i: `EventCard ${previousLayout.length + 1}`,
+                data : `${JSON.stringify(newEventItem)}`,
                 x: Infinity,
-                y: Infinity,
-                w: 1,
-                h: 1,
+                y: 1,
+                w: 2,
+                h: 2,
             };
-            setLayout((previousLayout) => [...previousLayout, newWidget]);
-        }
+            return [...previousLayout, newWidget];
+        });
     };
 
     series = [
@@ -109,7 +93,7 @@ const TimelineChart = ({
                             ].Image
                         ),
                     };
-                    handleAddToEvents(newEvent);
+                    handleAddToList(newEvent);
                 },
             },
             toolbar: { show: false },

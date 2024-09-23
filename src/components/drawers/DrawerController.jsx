@@ -7,14 +7,14 @@ import BottomDrawer from "./BottomDrawer";
 
 import { drawerItems } from "./DrawersLists";
 
-const DrawerController = ({ layout, setLayout }) => {
-    const location = useLocation();
-    const normalisePathname = (pathname) => {
-        const basePath = pathname.split("/").slice(0, 2).join("/");
-        return basePath;
-    };
-    const normalisedPathname = normalisePathname(location.pathname);
-    const currentItems = drawerItems[normalisedPathname] || [];
+const DrawerController = ({ currentItems, layout, setLayout }) => {
+    // const location = useLocation();
+    // const normalisePathname = (pathname) => {
+    //     const basePath = pathname.split("/").slice(0, 2).join("/");
+    //     return basePath;
+    // };
+    // const normalisedPathname = normalisePathname(location.pathname);
+    // const currentItems = drawerItems[normalisedPathname] || [];
 
     return (
         <>

@@ -12,14 +12,12 @@ import AppBarTop from "./components/AppBarTop";
 import Blog from "./components/Blog";
 import Calendar from "./components/Calendar";
 import Home from "./components/Home";
-import DrawerController from "./components/drawers/DrawerController";
 import Timelines from "./components/timelines/Timelines";
 
 const App = () => {
     const { theme } = React.useContext(ThemeContext);
     const [layout, setLayout] = React.useState([
         { i: "Timeline", x: 0, y: 0, w: 8, h: 1 },
-        { i: "Line", x: 0, y: 0, w: 8, h: 1 },
     ]);
     const [gridItems, setGridItems] = React.useState([]);
 
@@ -29,7 +27,6 @@ const App = () => {
             <CssBaseline />
             <Box sx={{ display: "flex" }}>
                 <AppBarTop />
-                <DrawerController layout={layout} setLayout={setLayout} />
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route
