@@ -1,21 +1,20 @@
 import * as React from "react";
+import { Routes, Route } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+
 import { DataGrid } from "@mui/x-data-grid";
+
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import ViewTimelineIcon from "@mui/icons-material/ViewTimeline";
-
-import AddIcon from "@mui/icons-material/Add";
-import DeleteIcon from "@mui/icons-material/Delete";
 
 import { experimentalStyled as styled } from "@mui/material/styles";
 
-import { getTimelines } from "../../../api";
+import { getTimelines } from "../../../../api";
 
 import AddTimeline from "./AddTimeline";
-import CircularLoader from "../CircularLoader";
-import ErrorComponent from "../ErrorComponent";
-import DrawerController from "../drawers/DrawerController";
+import CircularLoader from "../../CircularLoader";
+import ErrorComponent from "../../ErrorComponent";
+import DataGridDrawerController from "./drawers/DataGridDrawerController";
 
 const TimelinesDataGrid = ({ layout, setLayout }) => {
     const Offset = styled("div")(({ theme }) => theme.mixins.toolbar);
@@ -28,9 +27,7 @@ const TimelinesDataGrid = ({ layout, setLayout }) => {
     const [createTimelineToggle, setCreateTimelineToggle] =
         React.useState(false);
 
-    const currentItems = [{ text: "Create Timeline", icon: AddIcon }];
-
-    const handleClick = (event, cellValues) => {
+    const handleViewClick = (event, cellValues) => {
         navigate(`/timelines/${cellValues.row.timeline_name}`);
     };
 
@@ -44,7 +41,7 @@ const TimelinesDataGrid = ({ layout, setLayout }) => {
                         variant="contained"
                         color="primary"
                         onClick={(event) => {
-                            handleClick(event, cellValues);
+                            handleViewClick(event, cellValues);
                         }}
                     >
                         View
@@ -87,10 +84,9 @@ const TimelinesDataGrid = ({ layout, setLayout }) => {
     if (isLoading) return <CircularLoader />;
     return (
         <>
-            <DrawerController
+            <DataGridDrawerController
                 createTimelineToggle={createTimelineToggle}
                 setCreateTimelineToggle={setCreateTimelineToggle}
-                currentItems={currentItems}
                 layout={layout}
                 setLayout={setLayout}
             />
@@ -109,15 +105,19 @@ const TimelinesDataGrid = ({ layout, setLayout }) => {
                         <h1>Selected: {selectedRow.timeline_name}</h1>
                     )}
                     <Box style={{ height: "100%", width: "100%" }}>
-                        {createTimelineToggle ? (
-                            <AddTimeline />
-                        ) : (
-                            <DataGrid
-                                rows={rows}
-                                columns={columns}
-                                onRowClick={handleRowClick}
+                        <Routes>
+                            <Route
+                                path="/"
+                                element={
+                                    <DataGrid
+                                        rows={rows}
+                                        columns={columns}
+                                        onRowClick={handleRowClick}
+                                    />
+                                }
                             />
-                        )}
+                            <Route path="/add" element={<AddTimeline />} />
+                        </Routes>
                     </Box>
                 </Box>
             </Box>

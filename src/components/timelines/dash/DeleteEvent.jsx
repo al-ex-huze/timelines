@@ -3,9 +3,9 @@ import { useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/material/IconButton";
 
-import { deleteEventByID } from "../../../api";
+import { deleteEventByID } from "../../../../api";
 
-import ErrorComponent from "../ErrorComponent";
+import ErrorComponent from "../../ErrorComponent";
 
 const DeleteEvent = ({ eventToDelete }) => {
     const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);

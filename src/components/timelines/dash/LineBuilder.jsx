@@ -1,7 +1,7 @@
 import * as React from "react";
-import { getFeels } from "../../../api";
+import { getFeels } from "../../../../api";
 
-import CircularLoader from "../CircularLoader";
+import CircularLoader from "../../CircularLoader";
 import LineChart from "./LineChart";
 
 const LineConstructor = ({ setLineChartSelectedWeek }) => {

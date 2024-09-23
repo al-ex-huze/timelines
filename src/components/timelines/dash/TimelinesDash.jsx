@@ -14,7 +14,7 @@ import { experimentalStyled as styled } from "@mui/material/styles";
 
 import LineBuilder from "./LineBuilder";
 import TimelineBuilder from "./TimelineBuilder";
-import DrawerController from "../drawers/DrawerController";
+import DrawerController from "../../drawers/DrawerController";
 
 import AddEvent from "./AddEvent";
 import EventCard from "./EventCard";
