@@ -12,7 +12,6 @@ import { experimentalStyled as styled } from "@mui/material/styles";
 import AddEvent from "./AddEvent";
 import DashDrawerController from "./drawers/DashDrawerController";
 import EventCard from "./EventCard";
-import LineBuilder from "./LineBuilder";
 import TimelineBuilder from "./TimelineBuilder";
 
 const Offset = styled("div")(({ theme }) => theme.mixins.toolbar);
@@ -59,8 +58,6 @@ const TimelinesDash = ({ layout, setLayout }) => {
                         />
                     </>
                 );
-            case "Line":
-                return <LineBuilder />;
             case "Add Event":
                 return (
                     <>
