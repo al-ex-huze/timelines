@@ -10,8 +10,10 @@ import TimelineChartTogglePanel from "./TimelineChartTogglePanel";
 const TimelineBuilder = ({
     eventsData,
     setEventsData,
-    eventsToDisplay,
-    setEventsToDisplay,
+    isEventAdded,
+    setIsEventAdded,
+    isEventDeleted,
+    setIsEventDeleted,
     layout,
     setLayout,
     timeline_name,
@@ -30,12 +32,14 @@ const TimelineBuilder = ({
         getEvents(`${timeline_name}`, sortByQuery, sortByIsAsc)
             .then((events) => {
                 setEventsData(events);
+                setIsEventAdded(false)
+                setIsEventDeleted(false)
                 setIsLoading(false);
             })
             .catch((error) => {
                 setError(error)
             });
-    }, [timeline_name, sortByQuery, sortByIsAsc]);
+    }, [timeline_name, sortByQuery, sortByIsAsc, isEventAdded, isEventDeleted]);
 
     if (error) return <ErrorComponent error={error} />
     if (isLoading) return <CircularLoader />;
@@ -44,8 +48,6 @@ const TimelineBuilder = ({
             {eventsData[0] !== undefined ? (
                     <TimelineChart
                         eventsData={eventsData}
-                        eventsToDisplay={eventsToDisplay}
-                        setEventsToDisplay={setEventsToDisplay}
                         timelineHeight={timelineHeight}
                         timelineWidth={timelineWidth}
                         groupRowsState={groupRowsState}

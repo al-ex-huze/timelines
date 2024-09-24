@@ -23,7 +23,7 @@ const GrabHandle = styled(Box)(({ theme }) => ({
     "&:hover": {
         backgroundColor: theme.palette.secondary.main,
     },
-    position:"fixed",
+    position: "fixed",
     width: "100%",
     height: "25px",
     top: -25,
@@ -32,6 +32,9 @@ const GrabHandle = styled(Box)(({ theme }) => ({
 
 const TimelinesDash = ({ layout, setLayout }) => {
     const [eventsData, setEventsData] = React.useState([]);
+    const [isEventAdded, setIsEventAdded] = React.useState(false);
+    const [isEventDeleted, setIsEventDeleted] = React.useState(false);
+
     const { timeline_name } = useParams();
 
     const renderComponent = (componentType, componentData) => {
@@ -40,7 +43,11 @@ const TimelinesDash = ({ layout, setLayout }) => {
                 return (
                     <>
                         <GrabHandle className={"drag-handle"} />{" "}
-                        <EventCard eventCardData={componentData} />
+                        <EventCard
+                            eventCardData={componentData}
+                            setLayout={setLayout}
+                            setIsEventDeleted={setIsEventDeleted}
+                        />
                     </>
                 );
             case "Timeline":
@@ -50,6 +57,10 @@ const TimelinesDash = ({ layout, setLayout }) => {
                         <TimelineBuilder
                             eventsData={eventsData}
                             setEventsData={setEventsData}
+                            isEventAdded={isEventAdded}
+                            setIsEventAdded={setIsEventAdded}
+                            isEventDeleted={isEventDeleted}
+                            setIsEventDeleted={setIsEventDeleted}
                             layout={layout}
                             setLayout={setLayout}
                             timeline_name={timeline_name}
@@ -63,7 +74,7 @@ const TimelinesDash = ({ layout, setLayout }) => {
                     <>
                         <GrabHandle className={"drag-handle"} />
                         <AddEvent
-                            useForceUpdate={useForceUpdate}
+                            setIsEventAdded={setIsEventAdded}
                             timeline_name={timeline_name}
                         />
                     </>
@@ -73,9 +84,9 @@ const TimelinesDash = ({ layout, setLayout }) => {
 
     const getCols = (width) => {
         if (width < 600) return 1;
-        if (width < 900) return 1;
-        if (width < 1200) return 1;
-        if (width < 1536) return 2;
+        if (width < 900) return 2;
+        if (width < 1200) return 2;
+        if (width < 1536) return 3;
         return 4;
     };
 
@@ -200,10 +211,7 @@ const TimelinesDash = ({ layout, setLayout }) => {
 
     return (
         <>
-            <DashDrawerController
-                layout={layout}
-                setLayout={setLayout}
-            />
+            <DashDrawerController layout={layout} setLayout={setLayout} />
             <Box
                 sx={{
                     flexGrow: 1,

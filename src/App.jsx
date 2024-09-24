@@ -18,7 +18,6 @@ import TimelinesDataGridCRUD from "./components/timelines/data-grid/TimelinesDat
 
 const App = () => {
     const { theme } = React.useContext(ThemeContext);
-    
     const [layout, setLayout] = React.useState([
         { i: "Timeline", x: 0, y: 0, w: 8, h: 1 },
     ]);
