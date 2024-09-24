@@ -58,35 +58,41 @@ const TimelinesDataGrid = ({ layout, setLayout }) => {
         {
             field: "Delete",
             renderCell: (cellValues) => {
-                return <DeleteTimeline setIsTimelineDeleted={setIsTimelineDeleted} cellValues={cellValues} />;
+                return (
+                    <DeleteTimeline
+                        setIsTimelineDeleted={setIsTimelineDeleted}
+                        cellValues={cellValues}
+                    />
+                );
             },
             flex: 1 / 2,
         },
     ];
 
     React.useEffect(() => {
-        setIsLoading(true);
-        console.log("TimelinesDataGrid Use Effect()");
-        getTimelines()
-            .then((data) => {
-                const dataWithID = data.map((datum, index) => ({
+        const getTimelinesData = async () => {
+            setError(null);
+            setIsLoading(true);
+            try {
+                const timelinesData = await getTimelines();
+                const timelinesDataWithID = timelinesData.map((datum, index) => ({
                     ...datum,
                     id: index + 1,
                 }));
-                setRows(dataWithID);
+                setRows(timelinesDataWithID)
+            } catch (error) {
+                setError(error.message);
+            } finally {
                 setIsLoading(false);
-            })
-            .catch((error) => {
-                setError(error);
-            });
+            }
+        };
+        getTimelinesData();
     }, [isTimelineDeleted]);
 
     const handleRowClick = (params) => {
         setSelectedRow(params.row);
     };
 
-    if (error) return <ErrorComponent error={error} />;
-    if (isLoading) return <CircularLoader />;
     return (
         <>
             <DataGridDrawerController layout={layout} setLayout={setLayout} />
@@ -101,21 +107,27 @@ const TimelinesDataGrid = ({ layout, setLayout }) => {
                     }}
                 >
                     <Offset sx={{ mt: 1 }} />
-                    <Box style={{ height: "100%", width: "100%" }}>
-                        <Routes>
-                            <Route
-                                path="/"
-                                element={
-                                    <DataGrid
-                                        rows={rows}
-                                        columns={columns}
-                                        onRowClick={handleRowClick}
-                                    />
-                                }
-                            />
-                            <Route path="/add" element={<AddTimeline />} />
-                        </Routes>
-                    </Box>
+                    {isLoading ? (
+                        <CircularLoader />
+                    ) : error ? (
+                        <div> {error}</div>
+                    ) : (
+                        <Box style={{ height: "100%", width: "100%" }}>
+                            <Routes>
+                                <Route
+                                    path="/"
+                                    element={
+                                        <DataGrid
+                                            rows={rows}
+                                            columns={columns}
+                                            onRowClick={handleRowClick}
+                                        />
+                                    }
+                                />
+                                <Route path="/add" element={<AddTimeline />} />
+                            </Routes>
+                        </Box>
+                    )}
                 </Box>
             </Box>
         </>

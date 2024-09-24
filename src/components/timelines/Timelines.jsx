@@ -12,8 +12,6 @@ import Typography from "@mui/material/Typography";
 
 import { experimentalStyled as styled } from "@mui/material/styles";
 
-import TimelinesDash from "./dash//TimelinesDash";
-import TimelinesDataGrid from "./data-grid/TimelinesDataGrid";
 const Timelines = () => {
     const Offset = styled("div")(({ theme }) => theme.mixins.toolbar);
 
