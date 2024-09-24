@@ -81,7 +81,6 @@ const TimelinesDataGridCRUD = ({ layout, setLayout }) => {
             headerName: "Begin Date",
             type: "date",
             editable: true,
-
             flex: 1,
         },
         {

@@ -3,6 +3,7 @@ import * as React from "react";
 import { getEvents } from "../../../../api";
 
 import CircularLoader from "../../CircularLoader";
+import ErrorComponent from "../../ErrorComponent";
 import TimelineChart from "./TimelineChart";
 import TimelineChartTogglePanel from "./TimelineChartTogglePanel";
 
@@ -18,14 +19,13 @@ const TimelineBuilder = ({
     timelineWidth,
 }) => {
     const [isLoading, setIsLoading] = React.useState(false);
-
+    const [error, setError] = React.useState(null)
     const [sortByQuery] = React.useState("");
     const [sortByIsAsc] = React.useState(true);
     const [groupRowsState, setGroupRowsState] = React.useState(false);
     const [groupNames, setGroupNames] = React.useState(true);
 
     React.useEffect(() => {
-        console.log("TimelineBuilder UseEffect()");
         setIsLoading(true);
         getEvents(`${timeline_name}`, sortByQuery, sortByIsAsc)
             .then((events) => {
@@ -33,10 +33,11 @@ const TimelineBuilder = ({
                 setIsLoading(false);
             })
             .catch((error) => {
-                console.log(error);
+                setError(error)
             });
     }, [timeline_name, sortByQuery, sortByIsAsc]);
 
+    if (error) return <ErrorComponent error={error} />
     if (isLoading) return <CircularLoader />;
     return (
         <>

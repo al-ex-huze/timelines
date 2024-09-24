@@ -8,10 +8,7 @@ const TimelineChart = ({
     eventsData,
     groupNames,
     groupRowsState,
-    layout,
     setLayout,
-    timelineHeight,
-    timelineWidth,
     children,
 }) => {
     let series = [];
