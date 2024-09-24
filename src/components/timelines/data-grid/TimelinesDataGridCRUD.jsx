@@ -3,10 +3,20 @@ import * as React from "react";
 import { Routes, Route } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
+import { experimentalStyled as styled } from "@mui/material/styles";
+
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 
-import { experimentalStyled as styled } from "@mui/material/styles";
+import {
+    GridRowModes,
+    DataGrid,
+    GridActionsCellItem,
+    GridRowEditStopReasons,
+} from "@mui/x-data-grid";
+
+import SaveIcon from "@mui/icons-material/Save";
+import CancelIcon from "@mui/icons-material/Close";
 
 import { getTimelines, postTimeline } from "../../../../api";
 
@@ -15,19 +25,6 @@ import AddTimeline from "./AddTimeline";
 import CircularLoader from "../../CircularLoader";
 import DataGridDrawerController from "./drawers/DataGridDrawerController";
 import DeleteTimeline from "./DeleteTimeline";
-
-import AddIcon from "@mui/icons-material/Add";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/DeleteOutlined";
-import SaveIcon from "@mui/icons-material/Save";
-import CancelIcon from "@mui/icons-material/Close";
-import {
-    GridRowModes,
-    DataGrid,
-    GridToolbarContainer,
-    GridActionsCellItem,
-    GridRowEditStopReasons,
-} from "@mui/x-data-grid";
 
 const TimelinesDataGridCRUD = ({ layout, setLayout }) => {
     const Offset = styled("div")(({ theme }) => theme.mixins.toolbar);
@@ -171,21 +168,10 @@ const TimelinesDataGridCRUD = ({ layout, setLayout }) => {
         getTimelinesData();
     }, [isTimelineDeleted]);
 
-    const handleRowClick = (params) => {
-        setSelectedRow(params.row);
-    };
-
     const handleRowEditStop = (params, event) => {
         if (params.reason === GridRowEditStopReasons.rowFocusOut) {
             event.defaultMuiPrevented = true;
         }
-    };
-
-    const handleEditClick = (id) => () => {
-        setRowModesModel({
-            ...rowModesModel,
-            [id]: { mode: GridRowModes.Edit },
-        });
     };
 
     const handleSaveClick = (id) => () => {
@@ -193,10 +179,6 @@ const TimelinesDataGridCRUD = ({ layout, setLayout }) => {
             ...rowModesModel,
             [id]: { mode: GridRowModes.View },
         });
-    };
-
-    const handleDeleteClick = (id) => () => {
-        setRows(rows.filter((row) => row.id !== id));
     };
 
     const handleCancelClick = (id) => () => {

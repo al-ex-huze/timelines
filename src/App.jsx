@@ -14,12 +14,11 @@ import Calendar from "./components/Calendar";
 import Home from "./components/Home";
 import Timelines from "./components/timelines/Timelines";
 import TimelinesDash from "./components/timelines/dash/TimelinesDash";
-import TimelinesDataGrid from "./components/timelines/data-grid/TimelinesDataGrid";
 import TimelinesDataGridCRUD from "./components/timelines/data-grid/TimelinesDataGridCRUD";
-
 
 const App = () => {
     const { theme } = React.useContext(ThemeContext);
+    
     const [layout, setLayout] = React.useState([
         { i: "Timeline", x: 0, y: 0, w: 8, h: 1 },
     ]);
