@@ -42,8 +42,8 @@ export const getFeels = () => {
     });
 };
 
-export const postTimeline = (newTimeline) => {
-    return beApi.post("/api/timelines", newTimeline).then((response) => {
+export const deleteTimelineByName = (timelineName) => {
+    return beApi.delete(`/api/timelines/${timelineName}`).then((response) => {
         return response.data;
     });
 };
@@ -57,5 +57,11 @@ export const getTimelines = () => {
 export const getTimelineByName = (timeline_name) => {
     return beApi.get(`/api/timelines/${timeline_name}`).then((response) => {
         return response.data.timeline;
+    });
+};
+
+export const postTimeline = (newTimeline) => {
+    return beApi.post("/api/timelines", newTimeline).then((response) => {
+        return response.data;
     });
 };
