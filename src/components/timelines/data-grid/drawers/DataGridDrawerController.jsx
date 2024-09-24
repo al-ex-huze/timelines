@@ -1,8 +1,8 @@
 import * as React from "react";
 import { isMobile } from "react-device-detect";
 
-import DataGridSideDrawer from "./DataGridSideDrawer";
 import BottomDrawer from "./DataGridBottomDrawer";
+import DataGridSideDrawer from "./DataGridSideDrawer";
 
 const DataGridDrawerController = ({
     layout,

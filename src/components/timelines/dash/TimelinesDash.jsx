@@ -9,12 +9,10 @@ import Box from "@mui/material/Box";
 
 import { experimentalStyled as styled } from "@mui/material/styles";
 
-import LineBuilder from "./LineBuilder";
-import TimelineBuilder from "./TimelineBuilder";
-import DashDrawerController from "./drawers/DashDrawerController";
-
 import AddEvent from "./AddEvent";
+import DashDrawerController from "./drawers/DashDrawerController";
 import EventCard from "./EventCard";
+import TimelineBuilder from "./TimelineBuilder";
 
 const Offset = styled("div")(({ theme }) => theme.mixins.toolbar);
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
@@ -60,8 +58,6 @@ const TimelinesDash = ({ layout, setLayout }) => {
                         />
                     </>
                 );
-            case "Line":
-                return <LineBuilder />;
             case "Add Event":
                 return (
                     <>

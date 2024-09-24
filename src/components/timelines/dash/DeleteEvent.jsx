@@ -1,4 +1,4 @@
-import { useState } from "react";
+import * as React from "react"
 
 import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/material/IconButton";
@@ -8,10 +8,10 @@ import { deleteEventByID } from "../../../../api";
 import ErrorComponent from "../../ErrorComponent";
 
 const DeleteEvent = ({ eventToDelete }) => {
-    const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
-    const [isDeleting, setIsDeleting] = useState(false);
-    const [isDeleted, setIsDeleted] = useState(false);
-    const [deleteEventError, setDeleteEventError] = useState("");
+    const [showDeleteConfirm, setShowDeleteConfirm] = React.useState(false);
+    const [isDeleting, setIsDeleting] = React.useState(false);
+    const [isDeleted, setIsDeleted] = React.useState(false);
+    const [deleteEventError, setDeleteEventError] = React.useState("");
 
     const toggleDeleteConfirm = () => {
         setShowDeleteConfirm(!showDeleteConfirm);
@@ -28,7 +28,7 @@ const DeleteEvent = ({ eventToDelete }) => {
                 setIsDeleting(false);
                 console.log(error);
                 setDeleteEventError(
-                    " Delete Unsuccessful - Something Went Wrong"
+                    "Delete Unsuccessful - Something Went Wrong"
                 );
             });
     };

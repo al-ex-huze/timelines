@@ -1,14 +1,14 @@
 import * as React from "react";
 
-import Card from "@mui/material/Card";
-import Button from "@mui/material/Button";
-import Grid from "@mui/material/Grid2";
-import TextField from "@mui/material/TextField";
-
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import "dayjs/locale/en-gb";
+
+import Button from "@mui/material/Button";
+import Card from "@mui/material/Card";
+import Grid from "@mui/material/Grid2";
+import TextField from "@mui/material/TextField";
 
 import { postEvent } from "../../../../api";
 
@@ -91,28 +91,6 @@ const AddEvent = ({ timeline_name, useForceUpdate }) => {
                             }}
                         />
                     </Grid>
-                    {/* <Grid size={6}>
-                        <TextField
-                            size="small"
-                            id="outlined"
-                            label="Skills"
-                            value={eventSkillsInput}
-                            onChange={(event) => {
-                                setEventSkillsInput(event.target.value);
-                            }}
-                        />
-                    </Grid>
-                    <Grid size={6}>
-                        <TextField
-                            size="small"
-                            id="outlined"
-                            label="Topics"
-                            value={eventTopicsInput}
-                            onChange={(event) => {
-                                setEventTopicsInput(event.target.value);
-                            }}
-                        />
-                    </Grid> */}
                     <Grid size={6}>
                         <LocalizationProvider
                             dateAdapter={AdapterDayjs}

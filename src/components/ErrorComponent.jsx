@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 const ErrorComponent = ({ error }) => {
     return (
         <Box>
-            <p>{error.message}: </p>
+            <p>ERROR : {error}</p>
         </Box>
     );
 };

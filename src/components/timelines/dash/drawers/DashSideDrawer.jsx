@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import { styled } from "@mui/material/styles";
+
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import Divider from "@mui/material/Divider";
@@ -107,15 +108,11 @@ const DashSideDrawer = ({
             <Divider />
 
             <DashSideDrawerContents
-                createTimelineToggle={createTimelineToggle}
-                setCreateTimelineToggle={setCreateTimelineToggle}
-                currentItems={currentItems}
                 open={open}
                 handleDrawerOpen={handleDrawerOpen}
                 handleDrawerClose={handleDrawerClose}
                 layout={layout}
                 setLayout={setLayout}
-                location={location}
             />
         </CollapsibleDrawer>
     );
