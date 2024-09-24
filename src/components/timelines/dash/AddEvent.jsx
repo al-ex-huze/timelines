@@ -59,14 +59,16 @@ const AddEvent = ({ setIsEventAdded, timeline_name }) => {
                     flexGrow: 1,
                     width: "100%",
                     height: "100%",
-                    padding: 1
+                    padding: 1,
+                    borderTopLeftRadius: "0px",
+                    borderTopRightRadius: "0px",
                 }}
                 noValidate
                 autoComplete="off"
                 onSubmit={handleSubmitNewEvent}
             >
                 <Grid container spacing={1}>
-                <Grid size={6}>
+                    <Grid size={6}>
                         <LocalizationProvider
                             dateAdapter={AdapterDayjs}
                             adapterLocale="en-gb"

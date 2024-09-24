@@ -27,6 +27,8 @@ const GrabHandle = styled(Box)(({ theme }) => ({
     width: "100%",
     height: "25px",
     top: -25,
+    borderTopLeftRadius: "4px",
+    borderTopRightRadius: "4px",
     cursor: "move",
 }));
 
@@ -84,7 +86,7 @@ const TimelinesDash = ({ layout, setLayout }) => {
 
     const getCols = (width) => {
         if (width < 600) return 1;
-        if (width < 900) return 2;
+        if (width < 900) return 1;
         if (width < 1200) return 2;
         if (width < 1536) return 3;
         return 4;
@@ -125,26 +127,11 @@ const TimelinesDash = ({ layout, setLayout }) => {
         containerPadding: [50, 50],
         rowHeight: 200,
         layouts: {
-            lg: [
-                { i: "Timeline", x: 0, y: 0, w: 8, h: 1 },
-                { i: "Line", x: 0, y: 0, w: 8, h: 1 },
-            ],
-            md: [
-                { i: "Timeline", x: 0, y: 0, w: 8, h: 1 },
-                { i: "Line", x: 0, y: 0, w: 8, h: 1 },
-            ],
-            sm: [
-                { i: "Timeline", x: 0, y: 0, w: 8, h: 1 },
-                { i: "Line", x: 0, y: 0, w: 8, h: 1 },
-            ],
-            xs: [
-                { i: "Timeline", x: 0, y: 0, w: 8, h: 1 },
-                { i: "Line", x: 0, y: 0, w: 8, h: 1 },
-            ],
-            xxs: [
-                { i: "Timeline", x: 0, y: 0, w: 8, h: 1 },
-                { i: "Line", x: 0, y: 0, w: 8, h: 1 },
-            ],
+            lg: [{ i: "Timeline", x: 0, y: 0, w: 8, h: 1 }],
+            md: [{ i: "Timeline", x: 0, y: 0, w: 8, h: 1 }],
+            sm: [{ i: "Timeline", x: 0, y: 0, w: 8, h: 1 }],
+            xs: [{ i: "Timeline", x: 0, y: 0, w: 8, h: 1 }],
+            xxs: [{ i: "Timeline", x: 0, y: 0, w: 8, h: 1 }],
         },
         compactType: "vertical",
         isDraggable: true,
@@ -209,6 +196,38 @@ const TimelinesDash = ({ layout, setLayout }) => {
         }
     };
 
+    const CustomResizeHandle = () => {
+        return (
+            <Box
+                sx={{
+                    width: 25,
+                    height: 25,
+                    position: "absolute",
+                    cursor: "nwse-resize",
+                    bottom: 0,
+                    right: 0,
+                    zIndex: 10,
+                    "& img": {
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "contain",
+                        transition: "filter 0.3s ease",
+                        filter: "invert(14%) sepia(46%) saturate(1743%) hue-rotate(173deg) brightness(107%) contrast(103%)",
+                    },
+                    "&:hover img": {
+                        filter: "invert(40%) sepia(8%) saturate(1988%) hue-rotate(161deg) brightness(90%) contrast(93%)",
+                    },
+                }}
+            >
+                <img
+                    src="https://alimageexbuckhuetzepub.s3.eu-north-1.amazonaws.com/dblarw.svg"
+                    height={25}
+                    width={25}
+                />
+            </Box>
+        );
+    };
+
     return (
         <>
             <DashDrawerController layout={layout} setLayout={setLayout} />
@@ -227,6 +246,11 @@ const TimelinesDash = ({ layout, setLayout }) => {
                     onDragStop={handleDragStop}
                     onResizeStop={handleResizeStop}
                     draggableHandle=".drag-handle"
+                    resizeHandle={
+                        <div>
+                            <CustomResizeHandle />
+                        </div>
+                    }
                 >
                     {layout.map((item) => (
                         <div key={item.i}>

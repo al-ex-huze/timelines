@@ -4,6 +4,11 @@ import Box from "@mui/material/Box";
 
 import ReactApexChart from "react-apexcharts";
 
+import {
+    checkIfEventIsInLayout,
+    filterEventFromLayout,
+} from "../../../utils/utils";
+
 const TimelineChart = ({
     eventsData,
     groupNames,
@@ -16,15 +21,23 @@ const TimelineChart = ({
 
     const handleAddToList = (newEventItem) => {
         setLayout((previousLayout) => {
-            const newWidget = {
-                i: `Event Card - ${previousLayout.length + 1}`,
-                data: `${JSON.stringify(newEventItem)}`,
-                x: Infinity,
-                y: 1,
-                w: 2,
-                h: 2,
-            };
-            return [...previousLayout, newWidget];
+            const isEventAlreadyInLayout = checkIfEventIsInLayout(
+                previousLayout,
+                newEventItem
+            );
+            if (isEventAlreadyInLayout) {
+                return filterEventFromLayout(previousLayout, newEventItem.id);
+            } else {
+                const newWidget = {
+                    i: `Event Card - ${previousLayout.length + 1}`,
+                    data: `${JSON.stringify(newEventItem)}`,
+                    x: Infinity,
+                    y: 1,
+                    w: 2,
+                    h: 2,
+                };
+                return [...previousLayout, newWidget];
+            }
         });
     };
 

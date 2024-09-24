@@ -25,7 +25,7 @@ const DashSideDrawerContents = ({ open, layout, setLayout }) => {
                     i: `${listItem}`,
                     x: 0,
                     y: Infinity,
-                    w: 8,
+                    w: 4,
                     h: 1,
                 };
                 return [...layout, newWidget];
