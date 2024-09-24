@@ -20,7 +20,7 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 import { deleteEventByID } from "../../../../api";
-import { filterDeletedEvent } from "../../../utils/utils"
+import { filterDeletedEvent } from "../../../utils/utils";
 
 const EventCard = ({ eventCardData, setIsEventDeleted, setLayout }) => {
     eventCardData = JSON.parse(eventCardData);
@@ -73,7 +73,14 @@ const EventCard = ({ eventCardData, setIsEventDeleted, setLayout }) => {
         handleDeleteDialogClose();
     };
     return (
-        <Card sx={{ width: "100%", height: "100%" }}>
+        <Card
+            sx={{
+                width: "100%",
+                height: "100%",
+                borderTopLeftRadius: "0px",
+                borderTopRightRadius: "0px",
+            }}
+        >
             <CardHeader
                 action={
                     <IconButton onClick={handleMenuClick}>
