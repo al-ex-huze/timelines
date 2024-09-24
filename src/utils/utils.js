@@ -1,14 +1,11 @@
-export const filterDeletedEvent = (previousLayout, eventID) => {
+export const filterEventFromLayout = (previousLayout, eventID) => {
     let newLayout = [];
     if (previousLayout.length === 0) return newLayout
     newLayout = previousLayout.filter((widget) => {
-        console.log(widget);
         if (!widget.data) {
             return true;
         } else {
             const widgetData = JSON.parse(widget.data);
-            console.log(widgetData)
-            
             if (widgetData.id === eventID){
                 return false
             } else {
@@ -16,6 +13,18 @@ export const filterDeletedEvent = (previousLayout, eventID) => {
             }
         }
     });
-    console.log(newLayout);
     return newLayout;
 };
+
+export const checkIfEventIsInLayout = (previousLayout, newEventItem) => {
+    let eventExists = false
+    eventExists = previousLayout.some((widget) => {
+        if (widget.data === undefined) {
+            return false;
+        } else {
+            const widgetData = JSON.parse(widget.data);
+            return widgetData.id === newEventItem.id;
+        }
+    });
+    return eventExists
+}

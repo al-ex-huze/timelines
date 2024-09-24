@@ -20,7 +20,7 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 import { deleteEventByID } from "../../../../api";
-import { filterDeletedEvent } from "../../../utils/utils";
+import { filterEventFromLayout } from "../../../utils/utils";
 
 const EventCard = ({ eventCardData, setIsEventDeleted, setLayout }) => {
     eventCardData = JSON.parse(eventCardData);
@@ -65,7 +65,7 @@ const EventCard = ({ eventCardData, setIsEventDeleted, setLayout }) => {
             .then(() => {
                 setOpenSuccessDialog(true);
                 setIsEventDeleted(true);
-                removeEventFromLayout();
+                filterEventFromLayout();
             })
             .catch((error) => {
                 setOpenErrorDialog(true);
