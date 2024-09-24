@@ -31,9 +31,7 @@ const TimelinesDataGridCRUD = ({ layout, setLayout }) => {
     const [isLoading, setIsLoading] = React.useState(false);
     const [error, setError] = React.useState(null);
     const [rows, setRows] = React.useState([]);
-    const [selectedRow, setSelectedRow] = React.useState(null);
     const [rowModesModel, setRowModesModel] = React.useState({});
-
     const [isTimelineDeleted, setIsTimelineDeleted] = React.useState(false);
 
     const navigate = useNavigate();

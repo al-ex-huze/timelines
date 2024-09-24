@@ -1,14 +1,14 @@
 import * as React from "react";
 
-import Card from "@mui/material/Card";
-import Button from "@mui/material/Button";
-import Grid from "@mui/material/Grid2";
-import TextField from "@mui/material/TextField";
-
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import "dayjs/locale/en-gb";
+
+import Button from "@mui/material/Button";
+import Card from "@mui/material/Card";
+import Grid from "@mui/material/Grid2";
+import TextField from "@mui/material/TextField";
 
 import { postTimeline } from "../../../../api";
 
@@ -51,6 +51,7 @@ const AddTimeline = () => {
                 flexGrow: 1,
                 width: "100%",
                 height: "100%",
+                padding: 10
             }}
             noValidate
             autoComplete="off"
