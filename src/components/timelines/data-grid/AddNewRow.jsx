@@ -28,10 +28,11 @@ const AddNewRow = (props) => {
     return (
         <Button
             color="primary"
+            variant='contained'
             startIcon={<AddIcon />}
             onClick={handleAddClick}
         >
-            Add record
+            Add Timeline
         </Button>
     );
 }

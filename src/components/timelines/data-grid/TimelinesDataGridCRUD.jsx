@@ -67,7 +67,7 @@ const TimelinesDataGridCRUD = ({ layout, setLayout }) => {
                     </Button>
                 );
             },
-            flex: 1 / 2,
+            flex: 1,
         },
         {
             field: "timeline_name",
@@ -212,7 +212,6 @@ const TimelinesDataGridCRUD = ({ layout, setLayout }) => {
     };
 
     const processRowUpdate = (newRow) => {
-        console.log(newRow);
         const newTimeline = {
             timeline_name: newRow.timeline_name,
             description: newRow.description,
@@ -254,11 +253,6 @@ const TimelinesDataGridCRUD = ({ layout, setLayout }) => {
                     ) : (
                         <>
                             <Box style={{ height: "100%", width: "100%" }}>
-                                <AddNewRow
-                                    rows={rows}
-                                    setRows={setRows}
-                                    setRowModesModel={setRowModesModel}
-                                />
                                 <Routes>
                                     <Route
                                         path="/"
@@ -286,6 +280,16 @@ const TimelinesDataGridCRUD = ({ layout, setLayout }) => {
                                                 }}
                                                 componentsProps={{
                                                     CustomAddTimeline: {
+                                                        rows,
+                                                        setRows,
+                                                        setRowModesModel,
+                                                    },
+                                                }}
+                                                slots={{
+                                                    footer: AddNewRow,
+                                                }}
+                                                slotProps={{
+                                                    footer: {
                                                         rows,
                                                         setRows,
                                                         setRowModesModel,
