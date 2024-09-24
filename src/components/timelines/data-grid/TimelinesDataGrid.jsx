@@ -15,6 +15,7 @@ import AddTimeline from "./AddTimeline";
 import CircularLoader from "../../CircularLoader";
 import ErrorComponent from "../../ErrorComponent";
 import DataGridDrawerController from "./drawers/DataGridDrawerController";
+import DeleteTimeline from "./DeleteTimeline";
 
 const TimelinesDataGrid = ({ layout, setLayout }) => {
     const Offset = styled("div")(({ theme }) => theme.mixins.toolbar);
@@ -22,10 +23,10 @@ const TimelinesDataGrid = ({ layout, setLayout }) => {
     const [error, setError] = React.useState(null);
     const [rows, setRows] = React.useState([]);
     const [selectedRow, setSelectedRow] = React.useState(null);
-    const navigate = useNavigate();
 
-    const [createTimelineToggle, setCreateTimelineToggle] =
-        React.useState(false);
+    const [isTimelineDeleted, setIsTimelineDeleted] = React.useState(false);
+
+    const navigate = useNavigate();
 
     const handleViewClick = (event, cellValues) => {
         navigate(`/timelines/${cellValues.row.timeline_name}`);
@@ -48,11 +49,19 @@ const TimelinesDataGrid = ({ layout, setLayout }) => {
                     </Button>
                 );
             },
+            flex: 1 / 2,
         },
         { field: "timeline_name", headerName: "Timeline", flex: 1 },
         { field: "description", headerName: "Description", flex: 1 },
         { field: "begin_date", headerName: "Begin Date", flex: 1 },
         { field: "finish_date", headerName: "Finish Date", flex: 1 },
+        {
+            field: "Delete",
+            renderCell: (cellValues) => {
+                return <DeleteTimeline setIsTimelineDeleted={setIsTimelineDeleted} cellValues={cellValues} />;
+            },
+            flex: 1 / 2,
+        },
     ];
 
     React.useEffect(() => {
@@ -70,26 +79,17 @@ const TimelinesDataGrid = ({ layout, setLayout }) => {
             .catch((error) => {
                 setError(error);
             });
-    }, []);
+    }, [isTimelineDeleted]);
 
     const handleRowClick = (params) => {
         setSelectedRow(params.row);
-    };
-
-    const toggleBottomDrawer = () => {
-        setOpenMobileBottom(!openMobileBottom);
     };
 
     if (error) return <ErrorComponent error={error} />;
     if (isLoading) return <CircularLoader />;
     return (
         <>
-            <DataGridDrawerController
-                createTimelineToggle={createTimelineToggle}
-                setCreateTimelineToggle={setCreateTimelineToggle}
-                layout={layout}
-                setLayout={setLayout}
-            />
+            <DataGridDrawerController layout={layout} setLayout={setLayout} />
             <Box sx={{ width: "100%" }}>
                 <Box
                     sx={{
@@ -101,9 +101,6 @@ const TimelinesDataGrid = ({ layout, setLayout }) => {
                     }}
                 >
                     <Offset sx={{ mt: 1 }} />
-                    {selectedRow && (
-                        <h1>Selected: {selectedRow.timeline_name}</h1>
-                    )}
                     <Box style={{ height: "100%", width: "100%" }}>
                         <Routes>
                             <Route

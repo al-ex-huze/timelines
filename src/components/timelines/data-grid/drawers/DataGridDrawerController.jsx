@@ -5,7 +5,6 @@ import DataGridSideDrawer from "./DataGridSideDrawer";
 import BottomDrawer from "./DataGridBottomDrawer";
 
 const DataGridDrawerController = ({
-
     layout,
     setLayout,
 }) => {
