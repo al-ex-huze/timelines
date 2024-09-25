@@ -1,11 +1,11 @@
 import axios from "axios";
 
 const beApi = axios.create({
-    baseURL: "https://be-pp-timeline.fly.dev",
+    baseURL: "https://be-pp-timeline.fly.dev/api",
 });
 
 export const deleteEventByID = (eventID) => {
-    return beApi.delete(`/api/events/${eventID}`).then((response) => {
+    return beApi.delete(`/events/${eventID}`).then((response) => {
         return response.data;
     });
 };
@@ -19,49 +19,55 @@ export const getEvents = (timelineFilter, sortByQuery, sortByIsAsc) => {
     if (sortByQuery) params.sort_by = sortByQuery;
     if (timelineFilter) params.timeline = timelineFilter;
 
-    return beApi.get("/api/events", { params: params }).then((response) => {
+    return beApi.get("/events", { params: params }).then((response) => {
         return response.data.events;
     });
 };
 
 export const getEventByID = (eventID) => {
-    return beApi.get(`/api/events/${eventID}`).then((response) => {
+    return beApi.get(`/events/${eventID}`).then((response) => {
         return response.data.event;
     });
 };
 
 export const postEvent = (newEvent) => {
-    return beApi.post("/api/events", newEvent).then((response) => {
+    return beApi.post("/events", newEvent).then((response) => {
         return response.data;
     });
 };
 
 export const getFeels = () => {
-    return beApi.get("/api/feels").then((response) => {
+    return beApi.get("/feels").then((response) => {
         return response.data.feels;
     });
 };
 
 export const deleteTimelineByName = (timelineName) => {
-    return beApi.delete(`/api/timelines/${timelineName}`).then((response) => {
+    return beApi.delete(`/timelines/${timelineName}`).then((response) => {
         return response.data;
     });
 };
 
 export const getTimelines = () => {
-    return beApi.get("/api/timelines").then((response) => {
+    return beApi.get("/timelines").then((response) => {
         return response.data.timelines;
     });
 };
 
-export const getTimelineByName = (timeline_name) => {
-    return beApi.get(`/api/timelines/${timeline_name}`).then((response) => {
+export const getTimelineByName = (timelineName) => {
+    return beApi.get(`/timelines/${timelineName}`).then((response) => {
         return response.data.timeline;
     });
 };
 
+export const patchTimelineByName = (timelineName, update) => {
+    return beApi.patch(`/timelines/${timelineName}`, update).then((response) => {
+        return response.data
+    })
+}
+
 export const postTimeline = (newTimeline) => {
-    return beApi.post("/api/timelines", newTimeline).then((response) => {
+    return beApi.post("/timelines", newTimeline).then((response) => {
         return response.data;
     });
 };
