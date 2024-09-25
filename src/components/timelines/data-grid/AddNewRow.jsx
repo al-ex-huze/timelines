@@ -17,12 +17,13 @@ const AddNewRow = (props) => {
             ...oldRows,
             {
                 id,
+                timeline_name: "",
                 isNew: true,
             },
         ]);
         setRowModesModel((oldModel) => ({
             ...oldModel,
-            [id]: { mode: GridRowModes.Edit, fieldToFocus: "Timeline" },
+            [id]: { mode: GridRowModes.Edit, fieldToFocus: "timeline_name" },
         }));
     };
 
