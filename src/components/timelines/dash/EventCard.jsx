@@ -56,18 +56,19 @@ const EventCard = ({ eventCardData, setIsEventDeleted, setLayout }) => {
 
     const removeEventFromLayout = () => {
         setLayout((previousLayout) => {
-            return filterDeletedEvent(previousLayout, eventCardData.id);
+            return filterEventFromLayout(previousLayout, eventCardData.id);
         });
     };
 
     const handleConfirmDelete = () => {
         deleteEventByID(eventCardData.id)
             .then(() => {
-                setOpenSuccessDialog(true);
                 setIsEventDeleted(true);
-                filterEventFromLayout();
+                removeEventFromLayout();
+                setOpenSuccessDialog(true);
             })
             .catch((error) => {
+                console.log(error)
                 setOpenErrorDialog(true);
             });
         handleDeleteDialogClose();

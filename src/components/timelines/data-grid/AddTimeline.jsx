@@ -37,7 +37,6 @@ const AddTimeline = () => {
                 setIsCreating(false);
             })
             .catch((error) => {
-                console.log(error);
                 setAddTimelineError("Unsuccessful - Something Went Wrong");
             });
     };
@@ -57,7 +56,43 @@ const AddTimeline = () => {
             autoComplete="off"
             onSubmit={handleSubmitNewTimeline}
         >
-            <Grid container spacing={1}>
+            <Grid container spacing={1}>                
+                <Grid size={6}>
+                    <LocalizationProvider
+                        dateAdapter={AdapterDayjs}
+                        adapterLocale="en-gb"
+                    >
+                        <DatePicker
+                            slotProps={{
+                                textField: {
+                                    fullWidth: true,
+                                },
+                            }}
+                            label="Start Date"
+                            selected={beginDateInput}
+                            onChange={(date) => date && setBeginDateInput(date)}
+                        />
+                    </LocalizationProvider>
+                </Grid>
+                <Grid size={6}>
+                    <LocalizationProvider
+                        dateAdapter={AdapterDayjs}
+                        adapterLocale="en-gb"
+                    >
+                        <DatePicker
+                            slotProps={{
+                                textField: {
+                                    fullWidth: true,
+                                },
+                            }}
+                            label="End Date"
+                            selected={finishDateInput}
+                            onChange={(date) =>
+                                date && setFinishDateInput(date)
+                            }
+                        />
+                    </LocalizationProvider>
+                </Grid>
                 <Grid size={6}>
                     <TextField
                         fullWidth
@@ -81,42 +116,6 @@ const AddTimeline = () => {
                             setDescriptionInput(event.target.value);
                         }}
                     />
-                </Grid>
-                <Grid size={6}>
-                    <LocalizationProvider
-                        dateAdapter={AdapterDayjs}
-                        adapterLocale="en-gb"
-                    >
-                        <DatePicker
-                            slotProps={{
-                                textField: {
-                                    fullWidth: true,
-                                },
-                            }}
-                            label="Event Start Date"
-                            selected={beginDateInput}
-                            onChange={(date) => date && setBeginDateInput(date)}
-                        />
-                    </LocalizationProvider>
-                </Grid>
-                <Grid size={6}>
-                    <LocalizationProvider
-                        dateAdapter={AdapterDayjs}
-                        adapterLocale="en-gb"
-                    >
-                        <DatePicker
-                            slotProps={{
-                                textField: {
-                                    fullWidth: true,
-                                },
-                            }}
-                            label="Event End Date"
-                            selected={finishDateInput}
-                            onChange={(date) =>
-                                date && setFinishDateInput(date)
-                            }
-                        />
-                    </LocalizationProvider>
                 </Grid>
                 <Grid size={6}>
                     <Button variant="contained" type="submit">
