@@ -17,66 +17,58 @@ import {
     Typography,
 } from "@mui/material";
 
-import DeleteIcon from "@mui/icons-material/DeleteOutlined";
+import EditIcon from "@mui/icons-material/Edit";
+import SaveIcon from "@mui/icons-material/Save";
 
-import { deleteTimelineByName } from "../../../../api";
 
-const DeleteTimeline = ({ handleDeleteConfirmed, id, timeline_name }) => {
-    const [openDeleteDialog, setOpenDeleteDialog] = React.useState(false);
+const EditTimeline = ({ handleSaveEditConfirmed, id, timeline_name }) => {
+    const [openEditDialog, setOpenEditDialog] = React.useState(false);
     const [openSuccessDialog, setOpenSuccessDialog] = React.useState(false);
     const [openErrorDialog, setOpenErrorDialog] = React.useState(false);
 
-    const handleDeleteButtonClick = () => {
-        setOpenDeleteDialog(true);
+    const handleEditButtonClick = () => {
+        setOpenEditDialog(true);
     };
 
-    const handleDeleteDialogClose = () => {
-        setOpenDeleteDialog(false);
+    const handleEditDialogClose = () => {
+        setOpenEditDialog(false);
     };
 
     const handleSuccessDialogClose = () => {
         setOpenSuccessDialog(false);
-        handleDeleteConfirmed(id)
+        handleSaveEditConfirmed(id)
     };
 
     const handleErrorDialogClose = () => {
         setOpenErrorDialog(false);
     };
 
-    const handleConfirmDelete = () => {
-        deleteTimelineByName(timeline_name)
-            .then(() => {
-                setOpenSuccessDialog(true);
-            })
-            .catch((error) => {
-                console.log(error);
-                setOpenErrorDialog(true);
-            });
-        handleDeleteDialogClose();
+    const handleConfirmEdit = () => {
+        handleEditDialogClose();
     };
 
     return (
         <>
-            <IconButton  onClick={handleDeleteButtonClick}>
-                <DeleteIcon />
+            <IconButton  onClick={handleEditButtonClick}>
+                <EditIcon />
             </IconButton>
-            <Dialog open={openDeleteDialog} onClose={handleDeleteDialogClose}>
-                <DialogTitle>Confirm Delete</DialogTitle>
+            <Dialog open={openEditDialog} onClose={handleEditDialogClose}>
+                <DialogTitle>Confirm Save</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        Are you sure you want to delete this item?
+                        Are you sure you want to update this item?
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
                     <Button
-                        onClick={handleConfirmDelete}
+                        onClick={handleConfirmEdit}
                         color="primary"
                         variant="contained"
                     >
                         Confirm
                     </Button>
                     <Button
-                        onClick={handleDeleteDialogClose}
+                        onClick={handleEditDialogClose}
                         color="secondary"
                         variant="contained"
                     >
@@ -88,7 +80,7 @@ const DeleteTimeline = ({ handleDeleteConfirmed, id, timeline_name }) => {
                 <DialogTitle>Success</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        {timeline_name} was deleted successfully.
+                        {timeline_name} was updated successfully.
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
@@ -104,7 +96,7 @@ const DeleteTimeline = ({ handleDeleteConfirmed, id, timeline_name }) => {
             <Dialog open={openErrorDialog} onClose={handleErrorDialogClose}>
                 <DialogTitle>Error</DialogTitle>
                 <DialogContent>
-                    <DialogContentText>Delete unsuccessful.</DialogContentText>
+                    <DialogContentText>Edit unsuccessful.</DialogContentText>
                 </DialogContent>
                 <DialogActions>
                     <Button
@@ -120,4 +112,4 @@ const DeleteTimeline = ({ handleDeleteConfirmed, id, timeline_name }) => {
     );
 };
 
-export default DeleteTimeline;
+export default EditTimeline;

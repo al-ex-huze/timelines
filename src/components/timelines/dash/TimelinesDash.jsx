@@ -89,7 +89,7 @@ const TimelinesDash = ({ layout, setLayout }) => {
         if (width < 900) return 1;
         if (width < 1200) return 2;
         if (width < 1536) return 3;
-        return 4;
+        return 6;
     };
 
     const [cols, setCols] = React.useState(getCols(window.innerWidth));
