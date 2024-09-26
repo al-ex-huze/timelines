@@ -41,8 +41,8 @@ const Timelines = () => {
                             sx={{
                                 width: 300,
                                 maxWidth: 300,
-                                height: 300,
-                                maxHeight: 300,
+                                height: 200,
+                                maxHeight: 200,
                             }}
                         >
                             <CardHeader title={"Custom Timelines"} />

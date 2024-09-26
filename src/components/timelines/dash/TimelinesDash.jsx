@@ -33,18 +33,50 @@ const GrabHandle = styled(Box)(({ theme }) => ({
 }));
 
 const TimelinesDash = ({ layout, setLayout }) => {
+    const { timeline_name } = useParams();
     const [eventsData, setEventsData] = React.useState([]);
     const [isEventAdded, setIsEventAdded] = React.useState(false);
     const [isEventDeleted, setIsEventDeleted] = React.useState(false);
+    const [timelineHeight, setTimelineHeight] = React.useState("100%");
+    const [timelineWidth, setTimelineWidth] = React.useState("100%");
+    const [windowWidth, setWindowWidth] = React.useState(window.innerWidth);
 
-    const { timeline_name } = useParams();
+    const getCols = (width) => {
+        if (width < 600) return 1;
+        if (width < 900) return 1;
+        if (width < 1200) return 4;
+        if (width < 1536) return 8;
+        return 16;
+    };
+
+    const [cols, setCols] = React.useState(getCols(window.innerWidth));
+
+    const useForceUpdate = () => {
+        const [, setCount] = React.useState(0);
+        return () => setCount((count) => count + 1);
+    };
+
+    const forceUpdate = useForceUpdate();
+
+    React.useEffect(() => {
+        const handleResize = () => {
+            setWindowWidth(window.innerWidth);
+            setCols(getCols(window.innerWidth));
+        };
+
+        window.addEventListener("resize", handleResize);
+
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
+    }, []);
 
     const renderComponent = (componentType, componentData) => {
         switch (componentType.split(" - ")[0]) {
             case "Event Card":
                 return (
                     <>
-                        <GrabHandle className={"drag-handle"} />{" "}
+                        <GrabHandle className={"drag-handle"} />
                         <EventCard
                             eventCardData={componentData}
                             setLayout={setLayout}
@@ -84,31 +116,6 @@ const TimelinesDash = ({ layout, setLayout }) => {
         }
     };
 
-    const getCols = (width) => {
-        if (width < 600) return 1;
-        if (width < 900) return 1;
-        if (width < 1200) return 2;
-        if (width < 1536) return 3;
-        return 6;
-    };
-
-    const [cols, setCols] = React.useState(getCols(window.innerWidth));
-
-    const [windowWidth, setWindowWidth] = React.useState(window.innerWidth);
-
-    React.useEffect(() => {
-        const handleResize = () => {
-            setWindowWidth(window.innerWidth);
-            setCols(getCols(window.innerWidth));
-        };
-
-        window.addEventListener("resize", handleResize);
-
-        return () => {
-            window.removeEventListener("resize", handleResize);
-        };
-    }, []);
-
     const gridMarginProps = {
         margin: [75, 75],
         responsiveMargins: {
@@ -125,14 +132,7 @@ const TimelinesDash = ({ layout, setLayout }) => {
         breakpoints: { lg: 1536, md: 1200, sm: 900, xs: 600, xxs: 0 },
         cols: { lg: cols, md: cols, sm: cols, xs: cols, xxs: cols },
         containerPadding: [50, 50],
-        rowHeight: 200,
-        layouts: {
-            lg: [{ i: "Timeline", x: 0, y: 0, w: 8, h: 1 }],
-            md: [{ i: "Timeline", x: 0, y: 0, w: 8, h: 1 }],
-            sm: [{ i: "Timeline", x: 0, y: 0, w: 8, h: 1 }],
-            xs: [{ i: "Timeline", x: 0, y: 0, w: 8, h: 1 }],
-            xxs: [{ i: "Timeline", x: 0, y: 0, w: 8, h: 1 }],
-        },
+        rowHeight: 150,
         compactType: "vertical",
         isDraggable: true,
         isResizable: true,
@@ -164,16 +164,6 @@ const TimelinesDash = ({ layout, setLayout }) => {
         }
     };
 
-    const [timelineHeight, setTimelineHeight] = React.useState("100%");
-    const [timelineWidth, setTimelineWidth] = React.useState("100%");
-
-    const useForceUpdate = () => {
-        const [, setCount] = React.useState(0);
-        return () => setCount((count) => count + 1);
-    };
-
-    const forceUpdate = useForceUpdate();
-
     const updateTimelineSize = (newValue) => {
         setTimelineHeight(newValue);
         setTimelineWidth(newValue);
@@ -204,8 +194,8 @@ const TimelinesDash = ({ layout, setLayout }) => {
                     height: 25,
                     position: "absolute",
                     cursor: "nwse-resize",
-                    bottom: 0,
-                    right: 0,
+                    bottom: -3,
+                    right: -3,
                     zIndex: 10,
                     "& img": {
                         width: "100%",
@@ -242,6 +232,7 @@ const TimelinesDash = ({ layout, setLayout }) => {
                 <Offset sx={{ mb: 1 }} />
                 <ResponsiveReactGridLayout
                     {...responsiveProps}
+                    layout={layout}
                     onDragStart={handleDragStart}
                     onDragStop={handleDragStop}
                     onResizeStop={handleResizeStop}
@@ -253,7 +244,7 @@ const TimelinesDash = ({ layout, setLayout }) => {
                     }
                 >
                     {layout.map((item) => (
-                        <div key={item.i}>
+                        <div key={item.i} data-grid={item}>
                             {renderComponent(item.i, item.data)}
                         </div>
                     ))}

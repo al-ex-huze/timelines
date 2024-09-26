@@ -2,26 +2,10 @@ import * as React from "react";
 
 import { Routes, Route } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { isMobile } from "react-device-detect";
 
 import { experimentalStyled as styled } from "@mui/material/styles";
-
-import {
-    Box,
-    Button,
-    Card,
-    CardHeader,
-    CardContent,
-    CardMedia,
-    IconButton,
-    Menu,
-    MenuItem,
-    Dialog,
-    DialogActions,
-    DialogContent,
-    DialogContentText,
-    DialogTitle,
-    Typography,
-} from "@mui/material";
+import { Box, Button } from "@mui/material";
 
 import {
     GridRowModes,
@@ -31,7 +15,6 @@ import {
 } from "@mui/x-data-grid";
 
 import CancelIcon from "@mui/icons-material/Close";
-import DeleteIcon from "@mui/icons-material/DeleteOutlined";
 import EditIcon from "@mui/icons-material/Edit";
 import SaveIcon from "@mui/icons-material/Save";
 
@@ -64,7 +47,7 @@ const TimelinesDataGridCRUD = ({ layout, setLayout }) => {
     };
 
     const columns = [
-        { field: "id", headerName: "ID", hide: true, flex: 1 / 3 },
+        { field: "id", headerName: "ID" },
         {
             field: "View",
             renderCell: (cellValues) => {
@@ -117,7 +100,7 @@ const TimelinesDataGridCRUD = ({ layout, setLayout }) => {
             field: "actions",
             type: "actions",
             headerName: "Actions",
-            flex: 1 / 2,
+            flex: 1,
             cellClassName: "actions",
             getActions: ({ id, row }) => {
                 const isInEditMode =
@@ -130,7 +113,7 @@ const TimelinesDataGridCRUD = ({ layout, setLayout }) => {
                         //     sx={{
                         //         color: "primary.main",
                         //     }}
-                        //     onClick={handleSaveClick(id)}
+                        //     onClick={handleSaveClick}
                         // />,
                         <GridActionsCellItem
                             icon={<CancelIcon />}
@@ -182,7 +165,7 @@ const TimelinesDataGridCRUD = ({ layout, setLayout }) => {
             }
         };
         getTimelinesData();
-    }, []);
+    }, [isMobile]);
 
     const handleRowEditStop = (params, event) => {
         if (params.reason === GridRowEditStopReasons.rowFocusOut) {
@@ -300,7 +283,7 @@ const TimelinesDataGridCRUD = ({ layout, setLayout }) => {
                         <div> {error}</div>
                     ) : (
                         <>
-                            <Box style={{ height: "100%", width: "100%" }}>
+                            <Box style={{  width: "100%" }}>
                                 <Routes>
                                     <Route
                                         path="/"
@@ -334,7 +317,7 @@ const TimelinesDataGridCRUD = ({ layout, setLayout }) => {
                                                     handleRowEditStop
                                                 }
                                                 slots={{
-                                                    footer: AddNewRow,
+                                                    footer: isMobile ? () => null : AddNewRow,
                                                 }}
                                                 slotProps={{
                                                     footer: {

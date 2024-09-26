@@ -41,8 +41,8 @@ const Home = () => {
                             sx={{
                                 width: 300,
                                 maxWidth: 300,
-                                height: 300,
-                                maxHeight: 300,
+                                height: 200,
+                                maxHeight: 200,
                             }}
                         >
                             <CardHeader title={"Timelines"} />
@@ -67,8 +67,8 @@ const Home = () => {
                             sx={{
                                 width: 300,
                                 maxWidth: 300,
-                                height: 300,
-                                maxHeight: 300,
+                                height: 200,
+                                maxHeight: 200,
                             }}
                         >
                             <CardHeader title={"Calendar"} />
@@ -93,8 +93,8 @@ const Home = () => {
                             sx={{
                                 width: 300,
                                 maxWidth: 300,
-                                height: 300,
-                                maxHeight: 300,
+                                height: 200,
+                                maxHeight: 200,
                             }}
                         >
                             <CardHeader title={"Blog"} />
