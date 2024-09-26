@@ -5,8 +5,23 @@ import { useNavigate } from "react-router-dom";
 
 import { experimentalStyled as styled } from "@mui/material/styles";
 
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
+import {
+    Box,
+    Button,
+    Card,
+    CardHeader,
+    CardContent,
+    CardMedia,
+    IconButton,
+    Menu,
+    MenuItem,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle,
+    Typography,
+} from "@mui/material";
 
 import {
     GridRowModes,
@@ -31,7 +46,7 @@ import AddTimeline from "./AddTimeline";
 import CircularLoader from "../../CircularLoader";
 import DataGridDrawerController from "./drawers/DataGridDrawerController";
 import DeleteTimeline from "./DeleteTimeline";
-import EditTimeline from "./EditTimeline";
+import UpdateRowDialog from "./UpdateRowDialog";
 
 const TimelinesDataGridCRUD = ({ layout, setLayout }) => {
     const Offset = styled("div")(({ theme }) => theme.mixins.toolbar);
@@ -109,14 +124,14 @@ const TimelinesDataGridCRUD = ({ layout, setLayout }) => {
                     rowModesModel[id]?.mode === GridRowModes.Edit;
                 if (isInEditMode) {
                     return [
-                        <GridActionsCellItem
-                            icon={<SaveIcon />}
-                            label="Save"
-                            sx={{
-                                color: "primary.main",
-                            }}
-                            onClick={handleSaveClick(id)}
-                        />,
+                        // <GridActionsCellItem
+                        //     icon={<SaveIcon />}
+                        //     label="Save"
+                        //     sx={{
+                        //         color: "primary.main",
+                        //     }}
+                        //     onClick={handleSaveClick(id)}
+                        // />,
                         <GridActionsCellItem
                             icon={<CancelIcon />}
                             label="Cancel"
@@ -127,8 +142,6 @@ const TimelinesDataGridCRUD = ({ layout, setLayout }) => {
                     ];
                 }
                 return [
-                    // <EditTimeline
-                    // />,
                     <GridActionsCellItem
                         icon={<EditIcon />}
                         label="Edit"
@@ -190,19 +203,12 @@ const TimelinesDataGridCRUD = ({ layout, setLayout }) => {
         }));
     };
 
-    const handleSaveEditConfirmed = (id) => {
-        setRowModesModel({
-            ...rowModesModel,
-            [id]: { mode: GridRowModes.Edit },
-        });
-    };
-
-    const handleSaveClick = (id) => () => {
-        setRowModesModel({
-            ...rowModesModel,
-            [id]: { mode: GridRowModes.View },
-        });
-    };
+    // const handleSaveClick = (id) => () => {
+    //     setRowModesModel({
+    //         ...rowModesModel,
+    //         [id]: { mode: GridRowModes.View },
+    //     });
+    // };
 
     const handleCancelClick = (id) => () => {
         setIsRowEditable(false);
@@ -216,7 +222,10 @@ const TimelinesDataGridCRUD = ({ layout, setLayout }) => {
         }
     };
 
-    const processRowUpdate = (newRow) => {
+    const [openUpdateRowDialog, setOpenUpdateRowDialog] = React.useState(false);
+    const [pendingRow, setPendingRow] = React.useState(null);
+
+    const handleProcessRowUpdateConfirmation = (newRow) => {
         if (newRow.isNew) {
             const newTimeline = {
                 timeline_name: newRow.timeline_name,
@@ -227,21 +236,44 @@ const TimelinesDataGridCRUD = ({ layout, setLayout }) => {
             postTimeline(newTimeline)
                 .then(() => {})
                 .catch((error) => {});
+            const updatedRow = { ...newRow, isNew: false };
+            setRows(
+                rows.map((row) => (row.id === newRow.id ? updatedRow : row))
+            );
+            setIsRowEditable(false);
+            return updatedRow;
         } else {
-            const timelineUpdate = {
-                timeline_name_update: newRow.timeline_name,
-                description_update: newRow.description,
-                begin_date_update: newRow.begin_date,
-                finish_date_update: newRow.finish_date,
-            };
-            patchTimelineByName(timelineToEdit, timelineUpdate)
-                .then(() => {})
-                .catch((error) => {});
+            setPendingRow(newRow);
+            setOpenUpdateRowDialog(true);
+            return newRow;
         }
+    };
+
+    const handleConfirmUpdate = () => {
+        const timelineUpdate = {
+            timeline_name_update: pendingRow.timeline_name,
+            description_update: pendingRow.description,
+            begin_date_update: pendingRow.begin_date,
+            finish_date_update: pendingRow.finish_date,
+        };
+        patchTimelineByName(timelineToEdit, timelineUpdate)
+            .then(() => {})
+            .catch((error) => {});
+        setOpenUpdateRowDialog(false);
+        const updatedRow = { ...pendingRow, isNew: false };
+        setRows((prevRows) =>
+            prevRows.map((row) =>
+                row.id === pendingRow.id ? { ...row, ...pendingRow } : row
+            )
+        );
         setIsRowEditable(false);
-        const updatedRow = { ...newRow, isNew: false };
-        setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
+        setPendingRow(null);
         return updatedRow;
+    };
+
+    const handleCancelUpdate = () => {
+        setOpenUpdateRowDialog(false);
+        setPendingRow(null);
     };
 
     const handleRowModesModelChange = (newRowModesModel) => {
@@ -276,10 +308,17 @@ const TimelinesDataGridCRUD = ({ layout, setLayout }) => {
                                             <DataGrid
                                                 rows={rows}
                                                 columns={columns}
+                                                initialState={{
+                                                    columns: {
+                                                        columnVisibilityModel: {
+                                                            id: false,
+                                                        },
+                                                    },
+                                                }}
                                                 disableSelectionOnClick
                                                 editMode="row"
                                                 processRowUpdate={
-                                                    processRowUpdate
+                                                    handleProcessRowUpdateConfirmation
                                                 }
                                                 onProcessRowUpdateError={(
                                                     error
@@ -313,6 +352,11 @@ const TimelinesDataGridCRUD = ({ layout, setLayout }) => {
                                         element={<AddTimeline />}
                                     />
                                 </Routes>
+                                <UpdateRowDialog
+                                    handleCancelUpdate={handleCancelUpdate}
+                                    handleConfirmUpdate={handleConfirmUpdate}
+                                    openUpdateRowDialog={openUpdateRowDialog}
+                                />
                             </Box>
                         </>
                     )}

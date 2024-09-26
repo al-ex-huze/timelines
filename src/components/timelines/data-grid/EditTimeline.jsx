@@ -20,7 +20,6 @@ import {
 import EditIcon from "@mui/icons-material/Edit";
 import SaveIcon from "@mui/icons-material/Save";
 
-import { patchTimelineByName } from "../../../../api";
 
 const EditTimeline = ({ handleSaveEditConfirmed, id, timeline_name }) => {
     const [openEditDialog, setOpenEditDialog] = React.useState(false);
@@ -45,15 +44,6 @@ const EditTimeline = ({ handleSaveEditConfirmed, id, timeline_name }) => {
     };
 
     const handleConfirmEdit = () => {
-        console.log("debug handcofiurm")
-        // patchTimelineByName(timeline_name)
-        //     .then(() => {
-        //         setOpenSuccessDialog(true);
-        //     })
-        //     .catch((error) => {
-        //         console.log(error);
-        //         setOpenErrorDialog(true);
-        //     });
         handleEditDialogClose();
     };
 
