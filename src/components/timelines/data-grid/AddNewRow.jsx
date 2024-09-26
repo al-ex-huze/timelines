@@ -32,8 +32,9 @@ const AddNewRow = (props) => {
             variant="contained"
             startIcon={<AddIcon />}
             onClick={handleAddClick}
+            sx={{width:"fit-content", margin:1.2}}
         >
-            Add Timeline
+            Add New
         </Button>
     );
 };

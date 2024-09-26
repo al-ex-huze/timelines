@@ -31,10 +31,10 @@ const TimelineChart = ({
                 const newWidget = {
                     i: `Event Card - ${previousLayout.length + 1}`,
                     data: `${JSON.stringify(newEventItem)}`,
-                    x: Infinity,
-                    y: 1,
+                    x: 0,
+                    y: 0,
                     w: 2,
-                    h: 2,
+                    h: 1,
                 };
                 return [...previousLayout, newWidget];
             }
