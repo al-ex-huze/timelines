@@ -4,24 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 import { experimentalStyled as styled } from "@mui/material/styles";
-
-import {
-    Box,
-    Button,
-    Card,
-    CardHeader,
-    CardContent,
-    CardMedia,
-    IconButton,
-    Menu,
-    MenuItem,
-    Dialog,
-    DialogActions,
-    DialogContent,
-    DialogContentText,
-    DialogTitle,
-    Typography,
-} from "@mui/material";
+import { Box, Button } from "@mui/material";
 
 import {
     GridRowModes,
@@ -31,9 +14,7 @@ import {
 } from "@mui/x-data-grid";
 
 import CancelIcon from "@mui/icons-material/Close";
-import DeleteIcon from "@mui/icons-material/DeleteOutlined";
 import EditIcon from "@mui/icons-material/Edit";
-import SaveIcon from "@mui/icons-material/Save";
 
 import {
     getTimelines,
