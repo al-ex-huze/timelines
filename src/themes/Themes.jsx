@@ -31,15 +31,22 @@ export const themeLight = createTheme({
         },
         MuiCard: {
             styleOverrides: {
-                colorPrimary: {
-                    background: "#000d15",
-                },
-                text: {
-                    primary: "#000d15",
-                    secondary: "#00192a",
+                root: {
+                    backgroundColor: "transparent",
                 },
             },
         },
+        // MuiCard: {
+        //     styleOverrides: {
+        //         colorPrimary: {
+        //             background: "#000d15",
+        //         },
+        //         text: {
+        //             primary: "#000d15",
+        //             secondary: "#00192a",
+        //         },
+        //     },
+        // },
         MuiButton: {
             styleOverrides: {
                 root: {
@@ -121,8 +128,28 @@ export const themeDark = createTheme({
         },
         MuiCard: {
             styleOverrides: {
-                colorPrimary: {
-                    backgroundColor: "#00192A",
+                root: {
+                    backgroundColor: "transparent",
+                },
+            },
+        },
+        MuiContainer: {
+            styleOverrides: {
+                root: {
+                    backgroundColor: "transparent",
+                },
+            },
+        },
+        MuiGrid: {
+            styleOverrides: {
+                container: {
+                    backgroundColor: "transparent",
+                },
+                item: {
+                    backgroundColor: "transparent",
+                },
+                root: {
+                    backgroundColor: "transparent",
                 },
             },
         },
@@ -137,6 +164,13 @@ export const themeDark = createTheme({
                             },
                         },
                     ],
+                },
+            },
+        },
+        MuiPaper: {
+            styleOverrides: {
+                root: {
+                    backgroundColor: "transparent",
                 },
             },
         },

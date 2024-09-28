@@ -3,8 +3,7 @@ import { Box, useTheme } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 const GradientDeleteIcon = () => {
-
-    const theme = useTheme()
+    const theme = useTheme();
 
     return (
         <Box
@@ -53,8 +52,8 @@ const GradientDeleteIcon = () => {
             </svg>
             <DeleteIcon
                 sx={{
-                    width:28,
-                    height:28,
+                    width: 24,
+                    height: 24,
                     fill: "url(#gradient)",
                 }}
             />

@@ -61,8 +61,6 @@ const TimelinesDataGridCRUD = ({ layout, setLayout }) => {
                 }
                 return (
                     <GradientButton
-                        variant="contained"
-                        color="primary"
                         onClick={(event) => {
                             handleViewClick(event, cellValues);
                         }}
@@ -279,30 +277,6 @@ const TimelinesDataGridCRUD = ({ layout, setLayout }) => {
     const handleRowModesModelChange = (newRowModesModel) => {
         setRowModesModel(newRowModesModel);
     };
-
-    // const [editedRows, setEditedRows] = React.useState({});
-
-    // const handleCellEditCommit = (params) => {
-    //     console.log(params)
-    //     const updatedRows = rows.map((row) => {
-    //         console.log(row)
-    //         if(row.id === params.id) {
-    //             return{...row, [params.field]:params.value}
-    //         }
-    //         return row
-    //     })
-    //     setRows(updatedRows)
-    //     setEditedRows((prev) => ({
-    //         ...prev,
-    //         [params.id]: { ...prev[params.id], [params.field]: params.value },
-    //     }));
-    // };
-
-    // const handleSave = () => {
-    //     // Retrieve edited rows
-    //     console.log("Edited Rows:", editedRows);
-    //     // Here you can perform additional actions like saving to a server
-    // };
 
     return (
         <>

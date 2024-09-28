@@ -52,8 +52,8 @@ const GradientEditIcon = () => {
             </svg>
             <EditIcon
                 sx={{
-                    width: 28,
-                    height: 28,
+                    width: 24,
+                    height: 24,
                     fill: "url(#gradient)",
                 }}
             />

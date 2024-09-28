@@ -14,6 +14,8 @@ import { postEvent } from "../../../../api";
 
 import ErrorComponent from "../../ErrorComponent";
 
+import { GradientButton } from "../../styled/StyledComponents";
+
 const AddEvent = ({ setIsEventAdded, timeline_name }) => {
     const [error, setError] = React.useState(null);
     const [isCreating, setIsCreating] = React.useState(false);
@@ -58,6 +60,7 @@ const AddEvent = ({ setIsEventAdded, timeline_name }) => {
             <Card
                 component="form"
                 sx={{
+                    backgroundColor: "transparent",
                     flexGrow: 1,
                     width: "100%",
                     height: "100%",
@@ -137,9 +140,9 @@ const AddEvent = ({ setIsEventAdded, timeline_name }) => {
                         />
                     </Grid>
                     <Grid size={6}>
-                        <Button variant="contained" type="submit">
+                        <GradientButton type="submit">
                             Submit
-                        </Button>
+                        </GradientButton>
                     </Grid>
                 </Grid>
             </Card>

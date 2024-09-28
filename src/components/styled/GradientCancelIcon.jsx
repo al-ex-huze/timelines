@@ -53,8 +53,8 @@ const GradientCancelIcon = () => {
             </svg>
             <CancelIcon
                 sx={{
-                    width: 28,
-                    height: 28,
+                    width: 24,
+                    height: 24,
                     fill: "url(#gradient)",
                 }}
             />
