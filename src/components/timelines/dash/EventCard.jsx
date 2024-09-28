@@ -68,7 +68,6 @@ const EventCard = ({ eventCardData, setIsEventDeleted, setLayout }) => {
                 setOpenSuccessDialog(true);
             })
             .catch((error) => {
-                console.log(error)
                 setOpenErrorDialog(true);
             });
         handleDeleteDialogClose();

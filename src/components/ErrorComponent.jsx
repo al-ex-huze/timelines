@@ -1,9 +1,12 @@
 import Box from "@mui/material/Box";
+import { experimentalStyled as styled } from "@mui/material/styles";
 
 const ErrorComponent = ({ error }) => {
+    const Offset = styled("div")(({ theme }) => theme.mixins.toolbar);
     return (
         <Box>
-            <p>ERROR : {error.message}</p>
+            <Offset sx={{ mt: 1 }} />
+            <p>ERROR : {error.message ? error.message : error}</p>
         </Box>
     );
 };

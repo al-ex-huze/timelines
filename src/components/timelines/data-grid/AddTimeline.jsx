@@ -15,8 +15,8 @@ import { postTimeline } from "../../../../api";
 import ErrorComponent from "../../ErrorComponent";
 
 const AddTimeline = () => {
+    const [error, setError] = React.useState(null);
     const [isCreating, setIsCreating] = React.useState(false);
-    const [addTimelineError, setAddTimelineError] = React.useState("");
     const [timelineNameInput, setTimelineNameInput] = React.useState("");
     const [descriptionInput, setDescriptionInput] = React.useState("");
     const [beginDateInput, setBeginDateInput] = React.useState(new Date());
@@ -37,12 +37,16 @@ const AddTimeline = () => {
                 setIsCreating(false);
             })
             .catch((error) => {
-                setAddTimelineError("Unsuccessful - Something Went Wrong");
+                setError(error);
             });
     };
 
-    if (addTimelineError) return <ErrorComponent error={addTimelineError} />;
-    if (isCreating) return <p>Please Wait</p>;
+    if (error) {
+        return <ErrorComponent error={error} />;
+    }
+    if (isCreating) {
+        return <p>Please Wait</p>;
+    }
     return (
         <Card
             component="form"
@@ -50,13 +54,13 @@ const AddTimeline = () => {
                 flexGrow: 1,
                 width: "100%",
                 height: "100%",
-                padding: 5
+                padding: 5,
             }}
             noValidate
             autoComplete="off"
             onSubmit={handleSubmitNewTimeline}
         >
-            <Grid container spacing={1}>                
+            <Grid container spacing={1}>
                 <Grid size={6}>
                     <LocalizationProvider
                         dateAdapter={AdapterDayjs}
