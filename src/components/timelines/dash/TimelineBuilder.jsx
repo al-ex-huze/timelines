@@ -41,8 +41,13 @@ const TimelineBuilder = ({
             });
     }, [timeline_name, sortByQuery, sortByIsAsc, isEventAdded, isEventDeleted]);
 
-    if (error) return <ErrorComponent error={error} />
-    if (isLoading) return <CircularLoader />;
+
+    if (isLoading) {
+        return <CircularLoader />;
+    }
+    if (error) {
+        return <ErrorComponent error={error} />;
+    }
     return (
         <>
             {eventsData[0] !== undefined ? (

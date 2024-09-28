@@ -15,8 +15,8 @@ import { postEvent } from "../../../../api";
 import ErrorComponent from "../../ErrorComponent";
 
 const AddEvent = ({ setIsEventAdded, timeline_name }) => {
+    const [error, setError] = React.useState(null);
     const [isCreating, setIsCreating] = React.useState(false);
-    const [addEventError, setAddEventError] = React.useState("");
     const [eventTitleInput, setEventTitleInput] = React.useState("");
     const [eventBodyInput, setEventBodyInput] = React.useState("");
     const [eventSkillsInput, setEventSkillsInput] = React.useState("");
@@ -49,7 +49,9 @@ const AddEvent = ({ setIsEventAdded, timeline_name }) => {
             });
     };
 
-    if (addEventError) return <ErrorComponent error={addEventError} />;
+    if (error) {
+        return <ErrorComponent error={error} />;
+    }
     if (isCreating) return <p>Please Wait</p>;
     if (timeline_name !== "Not Set") {
         return (
