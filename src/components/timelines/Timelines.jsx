@@ -1,16 +1,17 @@
 import * as React from "react";
 
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Card from "@mui/material/Card";
-import CardHeader from "@mui/material/CardHeader";
-import CardContent from "@mui/material/CardContent";
-import CardActions from "@mui/material/CardActions";
 import Grid from "@mui/material/Grid2";
 import Link from "@mui/material/Link";
 import Typography from "@mui/material/Typography";
 
-import { experimentalStyled as styled } from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
+
+import {
+    GradientCard,
+    StyledCardContent,
+    StyledTypography,
+} from "../StyledComponents";
 
 const Timelines = () => {
     const Offset = styled("div")(({ theme }) => theme.mixins.toolbar);
@@ -34,32 +35,32 @@ const Timelines = () => {
                     display="flex"
                     justifyContent="center"
                     alignItems="stretch"
+                    sx={{ margin: 2 }}
                 >
-                    <Grid size="auto">
-                        <Card
-                            variant="outlined"
-                            sx={{
-                                width: 300,
-                                maxWidth: 300,
-                                height: 200,
-                                maxHeight: 200,
-                            }}
-                        >
-                            <CardHeader title={"Custom Timelines"} />
-                            <CardContent>
-                                <Typography
-                                    variant="body2"
-                                    sx={{ color: "text.secondary" }}
-                                >
-                                    View data grid of custom timelines
-                                </Typography>
-                            </CardContent>
-                            <CardActions disableSpacing>
-                                <Link href={`/timelines/grid`}>
-                                    <Button variant="contained">Select</Button>
-                                </Link>
-                            </CardActions>
-                        </Card>
+                    <Grid size={{ xs: 12, md: 4 }}>
+                        <Link href={`/timelines/grid`} underline="none">
+                            <GradientCard
+                                variant="outlined"
+                                sx={{ height: "100%" }}
+                            >
+                                <StyledCardContent>
+                                    <Typography
+                                        gutterBottom
+                                        variant="h6"
+                                        component="div"
+                                    >
+                                        Custom Timelines
+                                    </Typography>
+                                    <StyledTypography
+                                        variant="body2"
+                                        color="text.secondary"
+                                        gutterBottom
+                                    >
+                                        View and create timelines.
+                                    </StyledTypography>
+                                </StyledCardContent>
+                            </GradientCard>
+                        </Link>
                     </Grid>
                 </Grid>
             </Box>

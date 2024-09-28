@@ -31,6 +31,10 @@ import DataGridDrawerController from "./drawers/DataGridDrawerController";
 import DeleteTimeline from "./DeleteTimeline";
 import UpdateRowDialog from "./UpdateRowDialog";
 
+import {
+    GradientButton,
+} from "../../StyledComponents";
+
 const TimelinesDataGridCRUD = ({ layout, setLayout }) => {
     const Offset = styled("div")(({ theme }) => theme.mixins.toolbar);
     const [isLoading, setIsLoading] = React.useState(false);
@@ -57,7 +61,7 @@ const TimelinesDataGridCRUD = ({ layout, setLayout }) => {
                     return ["..."];
                 }
                 return (
-                    <Button
+                    <GradientButton
                         variant="contained"
                         color="primary"
                         onClick={(event) => {
@@ -65,7 +69,7 @@ const TimelinesDataGridCRUD = ({ layout, setLayout }) => {
                         }}
                     >
                         View
-                    </Button>
+                    </GradientButton>
                 );
             },
             flex: 1,

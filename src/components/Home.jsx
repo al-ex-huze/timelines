@@ -2,14 +2,14 @@ import * as React from "react";
 
 import Grid from "@mui/material/Grid2";
 
-import { Box, Link, Typography } from "@mui/material";
+import { Box, Link, Tooltip, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
 import {
     GradientCard,
     StyledCardContent,
     StyledTypography,
-} from "./StyledCards";
+} from "./StyledComponents";
 
 const Home = () => {
     const Offset = styled("div")(({ theme }) => theme.mixins.toolbar);
@@ -124,27 +124,29 @@ const Home = () => {
                         </Box>
                     </Grid>
                     <Grid size={{ xs: 12, md: 4 }}>
-                        <GradientCard
-                            variant="outlined"
-                            sx={{ height: "100%" }}
-                        >
-                            <StyledCardContent>
-                                <Typography
-                                    gutterBottom
-                                    variant="h6"
-                                    component="div"
-                                >
-                                    Account
-                                </Typography>
-                                <StyledTypography
-                                    variant="body2"
-                                    color="text.secondary"
-                                    gutterBottom
-                                >
-                                    Manage Account
-                                </StyledTypography>
-                            </StyledCardContent>
-                        </GradientCard>
+                        <Tooltip title="Coming soon">
+                            <GradientCard
+                                variant="outlined"
+                                sx={{ height: "100%" }}
+                            >
+                                <StyledCardContent>
+                                    <Typography
+                                        gutterBottom
+                                        variant="h6"
+                                        component="div"
+                                    >
+                                        Account
+                                    </Typography>
+                                    <StyledTypography
+                                        variant="body2"
+                                        color="text.secondary"
+                                        gutterBottom
+                                    >
+                                        Manage Account
+                                    </StyledTypography>
+                                </StyledCardContent>
+                            </GradientCard>
+                        </Tooltip>
                     </Grid>
                 </Grid>
             </Box>
