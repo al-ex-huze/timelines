@@ -3,20 +3,27 @@ import * as React from "react";
 import {
     Box,
     Typography,
-    CardMedia,
-    Chip,
     FormControl,
     InputAdornment,
     OutlinedInput,
 } from "@mui/material";
+import Grid from "@mui/material/Grid2";
+import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
+
 import { experimentalStyled as styled } from "@mui/material/styles";
 
+import { getEvents } from "../../../api";
 import BlogList from "./BlogList";
 import BlogFeatured from "./BlogFeatured";
-import { getEvents } from "../../../api";
 import CircularLoader from "../CircularLoader";
+import ErrorComponent from "../ErrorComponent";
+import TimelineFilter from "./TimelineFilter";
 
-import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
+import {
+    GradientCard,
+    StyledCardContent,
+    StyledTypography,
+} from "../StyledCards";
 
 export function Search() {
     return (
@@ -44,51 +51,61 @@ export function Search() {
         </FormControl>
     );
 }
+
 const Blog = () => {
     const Offset = styled("div")(({ theme }) => theme.mixins.toolbar);
 
     const [blogData, setBlogData] = React.useState([]);
+
     const [isLoading, setIsLoading] = React.useState(false);
     const [error, setError] = React.useState(null);
 
     const [sortByQuery] = React.useState("");
     const [sortByIsAsc] = React.useState(true);
+    const limit = 10;
+    const [pageNumber, setPageNumber] = React.useState(1);
+    const [totalCount, setTotalCount] = React.useState(0);
+    const [blogFilter, setBlogFilter] = React.useState("");
 
-    const handleClick = () => {
-        console.info("You clicked the filter chip.");
-    };
+    React.useEffect(() => {
+        setPageNumber(1);
+        setBlogFilter(blogFilter);
+    }, [blogFilter]);
 
     React.useEffect(() => {
         const fetchBlogData = async () => {
-            console.log("useeffect");
             setError(null);
             setIsLoading(true);
             try {
                 const eventsData = await getEvents(
-                    ``,
+                    `${blogFilter}`,
                     sortByQuery,
-                    sortByIsAsc
+                    sortByIsAsc,
+                    limit,
+                    pageNumber
                 );
                 setBlogData(eventsData);
+                if (eventsData[0].total_count === undefined) {
+                    setTotalCount(0);
+                } else {
+                    setTotalCount(eventsData[0].total_count);
+                }
             } catch (error) {
                 console.log(error);
-                setError(error.message);
+                setError(error);
             } finally {
                 setIsLoading(false);
             }
         };
         fetchBlogData();
-        console.log(blogData);
-    }, []);
+    }, [blogFilter, pageNumber]);
 
-    if (isLoading || blogData.length === 0) {
+    if (isLoading) {
         return <CircularLoader />;
     }
-
     if (error) {
-        return <div>Error: {error}</div>;
+        return <ErrorComponent error={error} />;
     }
-
     return (
         <Box
             sx={{
@@ -110,7 +127,6 @@ const Blog = () => {
                     padding: 2,
                 }}
             >
-                {" "}
                 <Box sx={{ display: "flex", flexDirection: "column", gap: 4 }}>
                     <div>
                         <Typography variant="h1" gutterBottom>
@@ -118,17 +134,6 @@ const Blog = () => {
                         </Typography>
                         <Typography>For blogging</Typography>
                     </div>
-                    <Box
-                        sx={{
-                            display: { xs: "flex", sm: "none" },
-                            flexDirection: "row",
-                            gap: 1,
-                            width: { xs: "100%", md: "fit-content" },
-                            overflow: "auto",
-                        }}
-                    >
-                        <Search />
-                    </Box>
                     <Box
                         sx={{
                             display: "flex",
@@ -140,43 +145,56 @@ const Blog = () => {
                             overflow: "auto",
                         }}
                     >
-                        <Box
-                            sx={{
-                                display: "inline-flex",
-                                flexDirection: "row",
-                                gap: 3,
-                                overflow: "auto",
-                            }}
-                        >
-                            <Chip
-                                onClick={handleClick}
-                                size="medium"
-                                label="All categories"
-                            />
-                            <Chip
-                                onClick={handleClick}
-                                size="medium"
-                                label="Projects"
-                                sx={{
-                                    backgroundColor: "transparent",
-                                    border: "none",
-                                }}
-                            />
-                        </Box>
-                        <Box
-                            sx={{
-                                display: { xs: "none", sm: "flex" },
-                                flexDirection: "row",
-                                gap: 1,
-                                width: { xs: "100%", md: "fit-content" },
-                                overflow: "auto",
-                            }}
-                        >
-                            <Search />
-                        </Box>
+                        <TimelineFilter
+                            blogFilter={blogFilter}
+                            setBlogFilter={setBlogFilter}
+                        />
                     </Box>
-                    <BlogFeatured blogData={blogData} />
-                    <BlogList blogData={blogData} />
+                    <BlogFeatured />
+                    <Grid container spacing={2} columns={12}>
+                        <Grid size={{ xs: 12, md: 7 }}>
+                            {blogData.length > 0 ? (
+                                <BlogList
+                                    blogData={blogData}
+                                    limit={limit}
+                                    pageNumber={pageNumber}
+                                    setPageNumber={setPageNumber}
+                                    totalCount={totalCount}
+                                    setTotalCount={setTotalCount}
+                                />
+                            ) : (
+                                "No items for this category"
+                            )}
+                        </Grid>
+                        <Grid size={{ xs: 12, md: 5 }}>
+                            <Offset sx={{ mt: 1 }} />
+                            <Box
+                                sx={{
+                                    height: "50vh",
+                                    color: "white",
+                                    position: "sticky",
+                                    right: 0,
+                                    top: 0,
+                                    zIndex: 1,
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                }}
+                            >
+                                <GradientCard>
+                                    <StyledCardContent>
+                                        <StyledTypography
+                                            variant="body2"
+                                            color="text.secondary"
+                                            gutterBottom
+                                        >
+                                            Categories
+                                        </StyledTypography>
+                                    </StyledCardContent>
+                                </GradientCard>
+                            </Box>
+                        </Grid>
+                    </Grid>
                 </Box>
             </Box>
         </Box>

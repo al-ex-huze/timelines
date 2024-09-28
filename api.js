@@ -10,15 +10,17 @@ export const deleteEventByID = (eventID) => {
     });
 };
 
-export const getEvents = (timelineFilter, sortByQuery, sortByIsAsc) => {
-    console.log(timelineFilter);
+export const getEvents = (timelineFilter, sortByQuery, sortByIsAsc, limit, pageNumber) => {
     let orderDirection = "";
     sortByIsAsc ? (orderDirection = "asc") : (orderDirection = "desc");
-    let params = { timeline: timelineFilter, order: orderDirection };
-
+    let params = {
+        timeline: timelineFilter,
+        order: orderDirection,
+        limit: limit,
+        p: pageNumber,
+    };
     if (sortByQuery) params.sort_by = sortByQuery;
     if (timelineFilter) params.timeline = timelineFilter;
-
     return beApi.get("/events", { params: params }).then((response) => {
         return response.data.events;
     });
@@ -61,10 +63,12 @@ export const getTimelineByName = (timelineName) => {
 };
 
 export const patchTimelineByName = (timelineName, update) => {
-    return beApi.patch(`/timelines/${timelineName}`, update).then((response) => {
-        return response.data
-    })
-}
+    return beApi
+        .patch(`/timelines/${timelineName}`, update)
+        .then((response) => {
+            return response.data;
+        });
+};
 
 export const postTimeline = (newTimeline) => {
     return beApi.post("/timelines", newTimeline).then((response) => {

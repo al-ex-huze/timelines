@@ -1,6 +1,7 @@
 import { Box, Link, Typography } from "@mui/material";
 
 import { experimentalStyled as styled } from "@mui/material/styles";
+
 import NavigateNextRoundedIcon from "@mui/icons-material/NavigateNextRounded";
 
 const StyledTypography = styled(Typography)({

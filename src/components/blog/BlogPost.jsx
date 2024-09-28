@@ -5,23 +5,15 @@ import { experimentalStyled as styled } from "@mui/material/styles";
 
 import {
     Box,
-    Button,
-    Link,
     Typography,
-    Card,
-    CardActions,
-    CardContent,
-    CardHeader,
-    CardMedia,
-    IconButton,
+    Paper,
+    Container,
 } from "@mui/material";
-
-import MoreVertIcon from "@mui/icons-material/MoreVert";
-import OpenWithIcon from "@mui/icons-material/OpenWith";
 
 import { getEventByID } from "../../../api";
 
 import CircularLoader from "../CircularLoader";
+import ErrorComponent from "../ErrorComponent";
 
 const BlogPost = ({}) => {
     const Offset = styled("div")(({ theme }) => theme.mixins.toolbar);
@@ -30,22 +22,26 @@ const BlogPost = ({}) => {
 
     const [blogPost, setBlogPost] = React.useState();
     const [isLoading, setIsLoading] = React.useState(false);
-
+    const [error, setError] = React.useState(null);
+    
     React.useEffect(() => {
-        setIsLoading(true);
-        console.log("BlogPost Use Effect()");
-        console.log(event_id);
-        if (event_id !== 0) {
-            getEventByID(event_id).then((event) => {
-                setBlogPost(event);
-                console.log(event.title);
+        const fetchBlogPostData = async () => {
+            setError(null);
+            setIsLoading(true);
+            try {
+                const eventData = await getEventByID(event_id);
+                setBlogPost(eventData);
+            } catch (error) {
+                setError(error);
+            } finally {
                 setIsLoading(false);
-            });
-        }
+            }
+        };
+        fetchBlogPostData();
     }, [event_id]);
 
-    if (event_id === 0) return null;
-    if (blogPost === undefined) return null;
+    if (error) return <ErrorComponent error={error} />
+    if (blogPost === undefined) return <ErrorComponent error={"undefined"} />;
     if (isLoading) return <CircularLoader />;
 
     return (
@@ -59,39 +55,50 @@ const BlogPost = ({}) => {
             }}
         >
             <Offset sx={{ mt: 1 }} />
-            <Card
-                variant="outlined"
-                sx={{ width: 300, maxWidth: 300, height: 300, maxHeight: 300 }}
-            >
-                <CardHeader title={`${blogPost.title}`} />
-                <CardMedia
-                    component="img"
-                    height="100"
-                    image={`${blogPost.event_img_url_1}`}
-                    alt="Blog Post Image"
-                />
-                <CardContent>
-                    <Typography
-                        variant="body2"
-                        sx={{ color: "text.secondary" }}
-                    >
-                        {blogPost.body}
+            <Container maxWidth="md">
+                <Paper elevation={3} sx={{ padding: 3, marginTop: 2 }}>
+                    <Typography variant="h4" component="h1" gutterBottom>
+                        {`${blogPost.title}`}
                     </Typography>
+                    <Box
+                        component="img"
+                        sx={{
+                            height: 300,
+                            maxHeight: { xs: 200, md: 400 },
+                        }}
+                        src={`${blogPost.event_img_url_1}`}
+                        alt="Blog Post Image"
+                    />
                     <Typography
-                        variant="body1"
-                        sx={{ color: "text.secondary" }}
+                        variant="subtitle1"
+                        color="textSecondary"
+                        gutterBottom
                     >
-                        {blogPost.skills}
+                        {new Date(blogPost.created_at).toLocaleDateString()}
                     </Typography>
-                    <Typography
-                        variant="body1"
-                        sx={{ color: "text.secondary" }}
-                    >
-                        {blogPost.topics}
-                    </Typography>
-                </CardContent>
-                <CardActions disableSpacing></CardActions>
-            </Card>
+                    <Box sx={{ marginTop: 2 }}>
+                        <Typography variant="body1">{blogPost.body}</Typography>
+                        <Typography
+                            variant="body2"
+                            sx={{ color: "text.secondary" }}
+                        >
+                            {blogPost.body}
+                        </Typography>
+                        <Typography
+                            variant="body1"
+                            sx={{ color: "text.secondary" }}
+                        >
+                            {blogPost.skills}
+                        </Typography>
+                        <Typography
+                            variant="body1"
+                            sx={{ color: "text.secondary" }}
+                        >
+                            {blogPost.topics}
+                        </Typography>
+                    </Box>
+                </Paper>
+            </Container>
         </Box>
     );
 };
