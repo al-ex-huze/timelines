@@ -1,6 +1,4 @@
 export const filterEventFromLayout = (previousLayout, eventID) => {
-    console.log(previousLayout)
-    console.log(eventID)
     let newLayout = [];
     if (previousLayout.length === 0) return newLayout
     newLayout = previousLayout.filter((widget) => {

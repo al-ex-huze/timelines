@@ -5,7 +5,8 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import "dayjs/locale/en-gb";
 
-import Button from "@mui/material/Button";
+import dayjs from "dayjs";
+
 import Card from "@mui/material/Card";
 import Grid from "@mui/material/Grid2";
 import TextField from "@mui/material/TextField";
@@ -23,8 +24,11 @@ const AddEvent = ({ setIsEventAdded, timeline_name }) => {
     const [eventBodyInput, setEventBodyInput] = React.useState("");
     const [eventSkillsInput, setEventSkillsInput] = React.useState("");
     const [eventTopicsInput, setEventTopicsInput] = React.useState("");
-    const [startDateInput, setStartDateInput] = React.useState(new Date());
-    const [endDateInput, setEndDateInput] = React.useState(new Date());
+
+    const today = dayjs();
+    const oneWeekAgo = today.subtract(7, "day");
+    const [startDateInput, setStartDateInput] = React.useState(oneWeekAgo);
+    const [endDateInput, setEndDateInput] = React.useState(today);
 
     const handleSubmitNewEvent = (event) => {
         setIsCreating(true);
@@ -35,20 +39,24 @@ const AddEvent = ({ setIsEventAdded, timeline_name }) => {
             body: eventBodyInput,
             skills: eventSkillsInput,
             topics: eventTopicsInput,
-            start_date: startDateInput,
-            end_date: endDateInput,
+            start_date: startDateInput.format(`YYYY-MM-DD`),
+            end_date: endDateInput.format(`YYYY-MM-DD`),
         };
-        postEvent(newEvent)
-            .then(() => {
+        const postNewEvent = async (newEvent) => {
+            setError(null);
+            setIsCreating(true);
+            try {
+                await postEvent(newEvent);
+            } catch (error) {
+                setError(error)
+            } finally {
                 setEventTitleInput("");
                 setEventBodyInput("");
                 setIsEventAdded(true);
                 setIsCreating(false);
-            })
-            .catch((error) => {
-                console.log(error);
-                setAddEventError("Unsuccessful - Something Went Wrong");
-            });
+            }
+        };
+        postNewEvent(newEvent)
     };
 
     if (error) {
@@ -60,7 +68,6 @@ const AddEvent = ({ setIsEventAdded, timeline_name }) => {
             <Card
                 component="form"
                 sx={{
-                    backgroundColor: "transparent",
                     flexGrow: 1,
                     width: "100%",
                     height: "100%",
@@ -87,9 +94,10 @@ const AddEvent = ({ setIsEventAdded, timeline_name }) => {
                                 }}
                                 label="Start Date"
                                 selected={startDateInput}
-                                onChange={(date) =>
-                                    date && setStartDateInput(date)
-                                }
+                                value={dayjs(startDateInput)}
+                                onChange={(date) => {
+                                    setStartDateInput(date.toDate());
+                                }}
                             />
                         </LocalizationProvider>
                     </Grid>
@@ -107,9 +115,10 @@ const AddEvent = ({ setIsEventAdded, timeline_name }) => {
                                 }}
                                 label="End Date"
                                 selected={endDateInput}
-                                onChange={(date) =>
-                                    date && setEndDateInput(date)
-                                }
+                                value={dayjs(endDateInput)}
+                                onChange={(date) => {
+                                    setEndDateInput(date.toDate());
+                                }}
                             />
                         </LocalizationProvider>
                     </Grid>
@@ -140,9 +149,7 @@ const AddEvent = ({ setIsEventAdded, timeline_name }) => {
                         />
                     </Grid>
                     <Grid size={6}>
-                        <GradientButton type="submit">
-                            Submit
-                        </GradientButton>
+                        <GradientButton type="submit">Submit</GradientButton>
                     </Grid>
                 </Grid>
             </Card>

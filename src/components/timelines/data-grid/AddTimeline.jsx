@@ -5,6 +5,8 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import "dayjs/locale/en-gb";
 
+import dayjs from "dayjs";
+
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import Grid from "@mui/material/Grid2";
@@ -19,26 +21,34 @@ const AddTimeline = () => {
     const [isCreating, setIsCreating] = React.useState(false);
     const [timelineNameInput, setTimelineNameInput] = React.useState("");
     const [descriptionInput, setDescriptionInput] = React.useState("");
-    const [beginDateInput, setBeginDateInput] = React.useState(new Date());
-    const [finishDateInput, setFinishDateInput] = React.useState(new Date());
+
+    const today = dayjs();
+    const oneWeekAgo = today.subtract(7, "day");
+    const [beginDateInput, setBeginDateInput] = React.useState(oneWeekAgo);
+    const [finishDateInput, setFinishDateInput] = React.useState(today);
 
     const handleSubmitNewTimeline = (event) => {
         setIsCreating(true);
         const newTimeline = {
             timeline_name: timelineNameInput,
             description: descriptionInput,
-            begin_date: beginDateInput,
-            finish_date: finishDateInput,
+            begin_date: beginDateInput.format(`YYYY-MM-DD`),
+            finish_date: finishDateInput.format(`YYYY-MM-DD`),
         };
-        postTimeline(newTimeline)
-            .then(() => {
+        const postNewTimeline = async (newTimeline) => {
+            setError(null);
+            setIsCreating(true);
+            try {
+                await postTimeline(newTimeline);
+            } catch (error) {
+                setError(error);
+            } finally {
                 setTimelineNameInput("");
                 setDescriptionInput("");
                 setIsCreating(false);
-            })
-            .catch((error) => {
-                setError(error);
-            });
+            }
+        };
+        postNewTimeline(newTimeline);
     };
 
     if (error) {
@@ -74,7 +84,10 @@ const AddTimeline = () => {
                             }}
                             label="Start Date"
                             selected={beginDateInput}
-                            onChange={(date) => date && setBeginDateInput(date)}
+                            value={dayjs(beginDateInput)}
+                            onChange={(date) => {
+                                setBeginDateInput(date.toDate());
+                            }}
                         />
                     </LocalizationProvider>
                 </Grid>
@@ -91,9 +104,10 @@ const AddTimeline = () => {
                             }}
                             label="End Date"
                             selected={finishDateInput}
-                            onChange={(date) =>
-                                date && setFinishDateInput(date)
-                            }
+                            value={dayjs(finishDateInput)}
+                            onChange={(date) => {
+                                setFinishDateInput(date.toDate());
+                            }}
                         />
                     </LocalizationProvider>
                 </Grid>

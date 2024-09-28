@@ -136,7 +136,6 @@ const TimelinesDash = ({ layout, setLayout }) => {
         e,
         element
     ) => {
-        console.log("Started dragging item with id:", oldItem.i);
     };
 
     const handleDragStop = (
@@ -147,7 +146,6 @@ const TimelinesDash = ({ layout, setLayout }) => {
         e,
         element
     ) => {
-        console.log("Stopped dragging item with id:", oldItem.i);
         if (oldItem.i === "Timeline") {
             updateTimelineSize("100%");
         }
@@ -167,7 +165,6 @@ const TimelinesDash = ({ layout, setLayout }) => {
         e,
         element
     ) => {
-        console.log("Resized item with id:", oldItem.i);
         if (oldItem.i === "Timeline") {
             setTimeout(function () {
                 updateTimelineSize("100%");

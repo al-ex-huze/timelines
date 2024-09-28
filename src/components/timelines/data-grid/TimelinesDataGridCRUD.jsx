@@ -5,8 +5,13 @@ import { useNavigate } from "react-router-dom";
 import { isMobile } from "react-device-detect";
 
 import { experimentalStyled as styled } from "@mui/material/styles";
-import { Box, Button, Icon } from "@mui/material";
+import { Box, Button, Icon, TextField } from "@mui/material";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
+import dayjs from "dayjs";
+
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import {
     GridRowModes,
     DataGrid,
@@ -30,6 +35,7 @@ import AddTimeline from "./AddTimeline";
 import CircularLoader from "../../CircularLoader";
 import DataGridDrawerController from "./drawers/DataGridDrawerController";
 import DeleteTimeline from "./DeleteTimeline";
+import ErrorComponent from "../../ErrorComponent";
 import UpdateRowDialog from "./UpdateRowDialog";
 
 import { GradientButton } from "../../styled/StyledComponents";
@@ -87,16 +93,20 @@ const TimelinesDataGridCRUD = ({ layout, setLayout }) => {
         {
             field: "begin_date",
             headerName: "Begin Date",
-            type: "date",
             editable: isRowEditable,
             flex: 1,
+            renderEditCell: (params) => {
+                return <DatePickerCell params={params} />;
+            },
         },
         {
             field: "finish_date",
             headerName: "Finish Date",
-            type: "date",
             editable: isRowEditable,
             flex: 1,
+            renderEditCell: (params) => {
+                return <DatePickerCell params={params} />;
+            },
         },
         {
             field: "actions",
@@ -144,6 +154,27 @@ const TimelinesDataGridCRUD = ({ layout, setLayout }) => {
         },
     ];
 
+    const DatePickerCell = ({ params }) => {
+        const [value, setValue] = React.useState(dayjs(params.value));
+        const handleDateChange = (newValue) => {
+            setValue(newValue);
+            params.api.setEditCellValue({
+                id: params.id,
+                field: "date",
+                value: newValue,
+            });
+        };
+        return (
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DesktopDatePicker
+                    value={value}
+                    onChange={handleDateChange}
+                    textField={(params) => <TextField {...params} />}
+                />
+            </LocalizationProvider>
+        );
+    };
+
     React.useEffect(() => {
         const getTimelinesData = async () => {
             setError(null);
@@ -189,7 +220,6 @@ const TimelinesDataGridCRUD = ({ layout, setLayout }) => {
     };
 
     const handleSaveClick = (id) => () => {
-        console.log("debug");
         setRowModesModel({
             ...rowModesModel,
             [id]: { mode: GridRowModes.View },
@@ -247,14 +277,11 @@ const TimelinesDataGridCRUD = ({ layout, setLayout }) => {
             begin_date_update: pendingRow.begin_date,
             finish_date_update: pendingRow.finish_date,
         };
-        console.log(timelineToEdit);
-        console.log(timelineUpdate);
         patchTimelineByName(timelineToEdit, timelineUpdate)
             .then(() => {
                 setOpenRowUpdateSuccessDialog(true);
             })
             .catch((error) => {
-                console.log(error);
                 setOpenRowUpdateErrorDialog(true);
             });
         setOpenUpdateRowDialog(false);
@@ -278,6 +305,9 @@ const TimelinesDataGridCRUD = ({ layout, setLayout }) => {
         setRowModesModel(newRowModesModel);
     };
 
+    if (error) {
+        return <ErrorComponent error={error} />;
+    }
     return (
         <>
             <DataGridDrawerController layout={layout} setLayout={setLayout} />
@@ -314,11 +344,12 @@ const TimelinesDataGridCRUD = ({ layout, setLayout }) => {
                                             }}
                                             disableSelectionOnClick
                                             editMode="row"
+                                            
                                             processRowUpdate={
                                                 handleProcessRowUpdateConfirmation
                                             }
                                             onProcessRowUpdateError={(error) =>
-                                                console.log(error)
+                                                setError(error)
                                             }
                                             experimentalFeatures={{
                                                 newEditingApi: true,
