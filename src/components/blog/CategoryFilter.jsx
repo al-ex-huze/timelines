@@ -2,36 +2,21 @@ import * as React from "react";
 
 import {
     Box,
-    Typography,
-    CardMedia,
     Chip,
-    FormControl,
-    InputAdornment,
-    OutlinedInput,
 } from "@mui/material";
-import Grid from "@mui/material/Grid2";
-import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
-
-import { experimentalStyled as styled } from "@mui/material/styles";
 
 import { getTimelines } from "../../../api";
-import BlogList from "./BlogList";
-import BlogFeatured from "./BlogFeatured";
 import CircularLoader from "../CircularLoader";
 
-import {
-    GradientCard,
-    StyledCardContent,
-    StyledTypography,
-} from "../StyledCards";
-
-const TimelineFilter = ({ blogFilter, setBlogFilter }) => {
-    const [timelineFilterList, setTimelineFilterList] = React.useState([]);
+const CategoryFilter = ({ blogFilter, setBlogFilter }) => {
     const [isLoading, setIsLoading] = React.useState(false);
     const [error, setError] = React.useState(null);
-    const handleClick = (category) => {
+    const [timelineFilterList, setTimelineFilterList] = React.useState([]);
+
+    const handleChipClick = (category) => {
         setBlogFilter(category);
     };
+
     React.useEffect(() => {
         const getTimelinesData = async () => {
             setError(null);
@@ -51,6 +36,12 @@ const TimelineFilter = ({ blogFilter, setBlogFilter }) => {
         getTimelinesData();
     }, []);
 
+    if (isLoading) {
+        return <CircularLoader />;
+    }
+    if (error) {
+        return <ErrorComponent error={error} />;
+    }
     return (
         <Box
             sx={{
@@ -61,7 +52,7 @@ const TimelineFilter = ({ blogFilter, setBlogFilter }) => {
             }}
         >
             <Chip
-                onClick={() => handleClick("")}
+                onClick={() => handleChipClick("")}
                 size="medium"
                 label="All categories"
                 variant={blogFilter === "" ? "" : "outlined"}
@@ -70,7 +61,7 @@ const TimelineFilter = ({ blogFilter, setBlogFilter }) => {
                 return (
                     <Chip
                         key={index}
-                        onClick={() => handleClick(`${timelineFilterItem}`)}
+                        onClick={() => handleChipClick(`${timelineFilterItem}`)}
                         size="medium"
                         label={`${timelineFilterItem}`}
                         variant={blogFilter === timelineFilterItem ? "" : "outlined"}
@@ -81,4 +72,4 @@ const TimelineFilter = ({ blogFilter, setBlogFilter }) => {
     );
 };
 
-export default TimelineFilter;
+export default CategoryFilter;

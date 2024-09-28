@@ -3,12 +3,7 @@ import * as React from "react";
 import { useParams } from "react-router-dom";
 import { experimentalStyled as styled } from "@mui/material/styles";
 
-import {
-    Box,
-    Typography,
-    Paper,
-    Container,
-} from "@mui/material";
+import { Box, Typography, Paper, Container } from "@mui/material";
 
 import { getEventByID } from "../../../api";
 
@@ -17,13 +12,13 @@ import ErrorComponent from "../ErrorComponent";
 
 const BlogPost = ({}) => {
     const Offset = styled("div")(({ theme }) => theme.mixins.toolbar);
+    const [isLoading, setIsLoading] = React.useState(false);
+    const [error, setError] = React.useState(null);
 
     const { event_id } = useParams();
 
     const [blogPost, setBlogPost] = React.useState();
-    const [isLoading, setIsLoading] = React.useState(false);
-    const [error, setError] = React.useState(null);
-    
+
     React.useEffect(() => {
         const fetchBlogPostData = async () => {
             setError(null);
@@ -40,10 +35,13 @@ const BlogPost = ({}) => {
         fetchBlogPostData();
     }, [event_id]);
 
-    if (error) return <ErrorComponent error={error} />
     if (blogPost === undefined) return <ErrorComponent error={"undefined"} />;
-    if (isLoading) return <CircularLoader />;
-
+    if (isLoading) {
+        return <CircularLoader />;
+    }
+    if (error) {
+        return <ErrorComponent error={error} />;
+    }
     return (
         <Box
             sx={{

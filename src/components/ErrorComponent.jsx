@@ -6,7 +6,7 @@ const ErrorComponent = ({ error }) => {
     return (
         <Box>
             <Offset sx={{ mt: 1 }} />
-            <p>ERROR : {error.message}</p>
+            <p>ERROR : {error.message ? error.message : error}</p>
         </Box>
     );
 };

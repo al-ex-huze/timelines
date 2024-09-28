@@ -18,10 +18,10 @@ import {
 } from "../StyledCards";
 
 const BlogFeatured = () => {
-    const [featuredBlogData, setFeaturedBlogData] = React.useState([]);
-
     const [isLoading, setIsLoading] = React.useState(false);
     const [error, setError] = React.useState(null);
+    
+    const [featuredBlogData, setFeaturedBlogData] = React.useState([]);
 
     React.useEffect(() => {
         const fetchBlogData = async () => {

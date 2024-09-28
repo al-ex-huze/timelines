@@ -1,14 +1,7 @@
 import * as React from "react";
 
-import {
-    Box,
-    Typography,
-    FormControl,
-    InputAdornment,
-    OutlinedInput,
-} from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import Grid from "@mui/material/Grid2";
-import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 
 import { experimentalStyled as styled } from "@mui/material/styles";
 
@@ -17,40 +10,13 @@ import BlogList from "./BlogList";
 import BlogFeatured from "./BlogFeatured";
 import CircularLoader from "../CircularLoader";
 import ErrorComponent from "../ErrorComponent";
-import TimelineFilter from "./TimelineFilter";
+import CategoryFilter from "./CategoryFilter";
 
 import {
     GradientCard,
     StyledCardContent,
     StyledTypography,
 } from "../StyledCards";
-
-export function Search() {
-    return (
-        <FormControl
-            sx={{ width: { xs: "100%", md: "25ch" } }}
-            variant="outlined"
-        >
-            <OutlinedInput
-                size="small"
-                id="search"
-                placeholder="Search…"
-                sx={{ flexGrow: 1 }}
-                startAdornment={
-                    <InputAdornment
-                        position="start"
-                        sx={{ color: "text.primary" }}
-                    >
-                        <SearchRoundedIcon fontSize="small" />
-                    </InputAdornment>
-                }
-                inputProps={{
-                    "aria-label": "search",
-                }}
-            />
-        </FormControl>
-    );
-}
 
 const Blog = () => {
     const Offset = styled("div")(({ theme }) => theme.mixins.toolbar);
@@ -85,13 +51,16 @@ const Blog = () => {
                     pageNumber
                 );
                 setBlogData(eventsData);
-                if (eventsData[0].total_count === undefined) {
-                    setTotalCount(0);
+                if (eventsData.length === 0) {
+                    setBlogData([]);
                 } else {
-                    setTotalCount(eventsData[0].total_count);
+                    if (eventsData[0].total_count === undefined) {
+                        setTotalCount(0);
+                    } else {
+                        setTotalCount(eventsData[0].total_count);
+                    }
                 }
             } catch (error) {
-                console.log(error);
                 setError(error);
             } finally {
                 setIsLoading(false);
@@ -145,7 +114,7 @@ const Blog = () => {
                             overflow: "auto",
                         }}
                     >
-                        <TimelineFilter
+                        <CategoryFilter
                             blogFilter={blogFilter}
                             setBlogFilter={setBlogFilter}
                         />

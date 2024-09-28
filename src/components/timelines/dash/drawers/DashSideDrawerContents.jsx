@@ -21,11 +21,9 @@ const DashSideDrawerContents = ({ open, layout, setLayout }) => {
             if (itemExists) {
                 return previousLayout.filter((item) => item.i !== listItem);
             } else {
+                //
                 const lastItem = previousLayout[previousLayout.length - 1];
-                console.log(previousLayout.length);
-                console.log(lastItem);
-                console.log(previousLayout);
-
+                //
                 let newWidget = {}
                 switch (listItem) {
                     case "Timeline":
