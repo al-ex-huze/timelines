@@ -1,4 +1,4 @@
-import { Button, Card, CardContent, Typography } from "@mui/material";
+import { Box, Button, Card, CardContent, Typography } from "@mui/material";
 
 import { styled } from "@mui/material/styles";
 
@@ -65,4 +65,21 @@ export const GradientButton = styled(Button)(({ theme }) => ({
         "0%": { left: "-100%" },
         "100%": { left: "100%" },
     },
+}));
+
+export const GrabHandle = styled(Box)(({ theme }) => ({
+    background:
+        "linear-gradient(135deg, rgba(0, 19, 32, 1), rgba(0, 25, 42, 1))",
+    transition: "background 0.3s ease",
+    "&:hover": {
+        background:
+        "linear-gradient(135deg, rgba(0, 25, 42, 1), rgba(0, 37, 63, 1))",
+    },
+    position: "fixed",
+    width: "100%",
+    height: "25px",
+    top: -25,
+    borderTopLeftRadius: "4px",
+    borderTopRightRadius: "4px",
+    cursor: "move",
 }));

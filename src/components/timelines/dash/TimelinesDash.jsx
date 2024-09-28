@@ -10,27 +10,16 @@ import Box from "@mui/material/Box";
 import { experimentalStyled as styled } from "@mui/material/styles";
 
 import AddEvent from "./AddEvent";
+import CustomResizeHandle from "../../CustomResizeHandle";
 import DashDrawerController from "./drawers/DashDrawerController";
 import EventCard from "./EventCard";
 import TimelineBuilder from "./TimelineBuilder";
+import {
+    GrabHandle,
+} from "../../StyledComponents";
 
 const Offset = styled("div")(({ theme }) => theme.mixins.toolbar);
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
-
-const GrabHandle = styled(Box)(({ theme }) => ({
-    backgroundColor: theme.palette.primary.main,
-    transition: "background-color 0.3s ease",
-    "&:hover": {
-        backgroundColor: theme.palette.secondary.main,
-    },
-    position: "fixed",
-    width: "100%",
-    height: "25px",
-    top: -25,
-    borderTopLeftRadius: "4px",
-    borderTopRightRadius: "4px",
-    cursor: "move",
-}));
 
 const TimelinesDash = ({ layout, setLayout }) => {
     const { timeline_name } = useParams();
@@ -184,38 +173,6 @@ const TimelinesDash = ({ layout, setLayout }) => {
                 updateTimelineSize("100%");
             }, 200);
         }
-    };
-
-    const CustomResizeHandle = () => {
-        return (
-            <Box
-                sx={{
-                    width: 25,
-                    height: 25,
-                    position: "absolute",
-                    cursor: "nwse-resize",
-                    bottom: -3,
-                    right: -3,
-                    zIndex: 10,
-                    "& img": {
-                        width: "100%",
-                        height: "100%",
-                        objectFit: "contain",
-                        transition: "filter 0.3s ease",
-                        filter: "invert(14%) sepia(46%) saturate(1743%) hue-rotate(173deg) brightness(107%) contrast(103%)",
-                    },
-                    "&:hover img": {
-                        filter: "invert(40%) sepia(8%) saturate(1988%) hue-rotate(161deg) brightness(90%) contrast(93%)",
-                    },
-                }}
-            >
-                <img
-                    src="https://alimageexbuckhuetzepub.s3.eu-north-1.amazonaws.com/dblarw.svg"
-                    height={25}
-                    width={25}
-                />
-            </Box>
-        );
     };
 
     return (
