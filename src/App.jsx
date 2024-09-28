@@ -9,8 +9,9 @@ import Box from "@mui/material/Box";
 import { ThemeContext } from "./contexts/ThemeContext";
 
 import AppBarTop from "./components/AppBarTop";
-import Blog from "./components/Blog";
-import Calendar from "./components/Calendar";
+import Blog from "./components/blog/Blog";
+import BlogPost from "./components/blog/BlogPost";
+import Calendar from "./components/calendar/Calendar";
 import Home from "./components/Home";
 import Timelines from "./components/timelines/Timelines";
 import TimelinesDash from "./components/timelines/dash/TimelinesDash";
@@ -50,6 +51,7 @@ const App = () => {
                     />
                     <Route path="/calendar" element={<Calendar />} />
                     <Route path="/blog" element={<Blog />} />
+                    <Route path="/blog/:event_id" element={<BlogPost />} />
                 </Routes>
             </Box>
         </ThemeProvider>

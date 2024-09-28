@@ -1,6 +1,10 @@
 import { createTheme } from "@mui/material/styles";
 
 export const themeLight = createTheme({
+    typography: {
+        fontFamily: '"Poppins", "Roboto", "Arial", "sans-serif"',
+        body1: { fontWeight: 200 },
+    },
     palette: {
         mode: "light",
         background: {
@@ -78,6 +82,10 @@ export const themeLight = createTheme({
 });
 
 export const themeDark = createTheme({
+    typography: {
+        fontFamily: '"Poppins", "Roboto", "Arial", "sans-serif"',
+        body1: { fontWeight: 200 },
+    },
     palette: {
         mode: "dark",
         background: {
@@ -92,6 +100,7 @@ export const themeDark = createTheme({
         },
         text: {
             primary: "#ffffff",
+            secondary: "#C0C4C8"
         },
     },
     components: {

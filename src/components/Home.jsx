@@ -1,16 +1,15 @@
 import * as React from "react";
 
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Card from "@mui/material/Card";
-import CardHeader from "@mui/material/CardHeader";
-import CardContent from "@mui/material/CardContent";
-import CardActions from "@mui/material/CardActions";
 import Grid from "@mui/material/Grid2";
-import Link from "@mui/material/Link";
-import Typography from "@mui/material/Typography";
 
-import { experimentalStyled as styled } from "@mui/material/styles";
+import { Box, Link, Typography } from "@mui/material";
+import { styled } from "@mui/material/styles";
+
+import {
+    GradientCard,
+    StyledCardContent,
+    StyledTypography,
+} from "./StyledCards";
 
 const Home = () => {
     const Offset = styled("div")(({ theme }) => theme.mixins.toolbar);
@@ -20,98 +19,132 @@ const Home = () => {
             <Box
                 sx={{
                     flexGrow: 1,
-                    height: "99vh",
+                    height: "100vh",
                     width: "100%",
                     display: "flex",
                     flexDirection: "column",
                 }}
             >
                 <Offset sx={{ mt: 1 }} />
-                <Grid
-                    container
-                    spacing={{ xs: 1 }}
-                    columns={{ xs: 4, sm: 8, md: 12 }}
-                    display="flex"
-                    justifyContent="center"
-                    alignItems="stretch"
-                >
-                    <Grid size="auto">
-                        <Card
-                            variant="outlined"
-                            sx={{
-                                width: 300,
-                                maxWidth: 300,
-                                height: 200,
-                                maxHeight: 200,
-                            }}
-                        >
-                            <CardHeader title={"Timelines"} />
-                            <CardContent>
-                                <Typography
-                                    variant="body2"
-                                    sx={{ color: "text.secondary" }}
-                                >
-                                    View and create timelines.
-                                </Typography>
-                            </CardContent>
-                            <CardActions disableSpacing>
-                                <Link href={`/timelines`}>
-                                    <Button variant="contained">Select</Button>
-                                </Link>
-                            </CardActions>
-                        </Card>
+                <Grid container spacing={2} columns={12} sx={{ margin: 2 }}>
+                    <Grid size={{ xs: 12, md: 4 }}>
+                        <Link href={`/timelines`} underline="none">
+                            <GradientCard
+                                variant="outlined"
+                                sx={{ height: "100%" }}
+                            >
+                                <StyledCardContent>
+                                    <Typography
+                                        gutterBottom
+                                        variant="h6"
+                                        component="div"
+                                    >
+                                        Timelines
+                                    </Typography>
+                                    <StyledTypography
+                                        variant="body2"
+                                        color="text.secondary"
+                                        gutterBottom
+                                    >
+                                        View and create timelines.
+                                    </StyledTypography>
+                                </StyledCardContent>
+                            </GradientCard>
+                        </Link>
                     </Grid>
-                    <Grid size="auto">
-                        <Card
-                            variant="outlined"
+                    <Grid size={{ xs: 12, md: 4 }}>
+                        <Box
                             sx={{
-                                width: 300,
-                                maxWidth: 300,
-                                height: 200,
-                                maxHeight: 200,
+                                display: "flex",
+                                flexDirection: "column",
+                                gap: 2,
+                                height: "100%",
                             }}
                         >
-                            <CardHeader title={"Calendar"} />
-                            <CardContent>
-                                <Typography
-                                    variant="body2"
-                                    sx={{ color: "text.secondary" }}
+                            <Link href={`/calendar`} underline="none">
+                                <GradientCard
+                                    variant="outlined"
+                                    sx={{ height: "100%" }}
                                 >
-                                    View and schedule events.
-                                </Typography>
-                            </CardContent>
-                            <CardActions disableSpacing>
-                                <Link href={`/calendar`}>
-                                    <Button variant="contained">Select</Button>
-                                </Link>
-                            </CardActions>
-                        </Card>
+                                    <StyledCardContent
+                                        sx={{
+                                            display: "flex",
+                                            flexDirection: "column",
+                                            justifyContent: "space-between",
+                                            height: "100%",
+                                        }}
+                                    >
+                                        <Typography
+                                            gutterBottom
+                                            variant="h6"
+                                            component="div"
+                                        >
+                                            Calendar
+                                        </Typography>
+                                        <StyledTypography
+                                            variant="body2"
+                                            color="text.secondary"
+                                            gutterBottom
+                                        >
+                                            View Calendar
+                                        </StyledTypography>
+                                    </StyledCardContent>
+                                </GradientCard>
+                            </Link>
+                            <Link href={`/blog`} underline="none">
+                                <GradientCard
+                                    variant="outlined"
+                                    sx={{ height: "100%" }}
+                                >
+                                    <StyledCardContent
+                                        sx={{
+                                            display: "flex",
+                                            flexDirection: "column",
+                                            justifyContent: "space-between",
+                                            height: "100%",
+                                        }}
+                                    >
+                                        <Typography
+                                            gutterBottom
+                                            variant="h6"
+                                            component="div"
+                                        >
+                                            Blog
+                                        </Typography>
+                                        <StyledTypography
+                                            variant="body2"
+                                            color="text.secondary"
+                                            gutterBottom
+                                        >
+                                            View blog
+                                        </StyledTypography>
+                                    </StyledCardContent>
+                                </GradientCard>
+                            </Link>
+                        </Box>
                     </Grid>
-                    <Grid size="auto">
-                        <Card
+                    <Grid size={{ xs: 12, md: 4 }}>
+                        <GradientCard
                             variant="outlined"
-                            sx={{
-                                width: 300,
-                                maxWidth: 300,
-                                height: 200,
-                                maxHeight: 200,
-                            }}
+                            sx={{ height: "100%" }}
                         >
-                            <CardHeader title={"Blog"} />
-                            <CardContent>
+                            <StyledCardContent>
                                 <Typography
-                                    variant="body2"
-                                    sx={{ color: "text.secondary" }}
+                                    gutterBottom
+                                    variant="h6"
+                                    component="div"
                                 >
-                                    View or create timelines
+                                    Account
                                 </Typography>
-                            </CardContent>
-                            <CardActions disableSpacing>
-                                <Link href={`/blog`}>
-                                    <Button variant="contained">Select</Button>
-                                </Link>
-                            </CardActions>
-                        </Card>
+                                <StyledTypography
+                                    variant="body2"
+                                    color="text.secondary"
+                                    gutterBottom
+                                >
+                                    Manage Account
+                                </StyledTypography>
+                            </StyledCardContent>
+                        </GradientCard>
                     </Grid>
                 </Grid>
             </Box>
