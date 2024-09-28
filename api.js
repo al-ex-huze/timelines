@@ -63,9 +63,11 @@ export const getTimelineByName = (timelineName) => {
 };
 
 export const patchTimelineByName = (timelineName, update) => {
+    console.log(timelineName, update)
     return beApi
         .patch(`/timelines/${timelineName}`, update)
         .then((response) => {
+            console.log(response)
             return response.data;
         });
 };

@@ -9,7 +9,7 @@ import {
     GradientCard,
     StyledCardContent,
     StyledTypography,
-} from "./StyledComponents";
+} from "./styled/StyledComponents";
 
 const Home = () => {
     const Offset = styled("div")(({ theme }) => theme.mixins.toolbar);

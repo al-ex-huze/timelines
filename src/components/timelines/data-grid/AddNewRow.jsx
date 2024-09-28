@@ -6,7 +6,7 @@ import AddIcon from "@mui/icons-material/Add";
 
 import {
     GradientButton,
-} from "../../StyledComponents";
+} from "../../styled/StyledComponents";
 
 const AddNewRow = (props) => {
     const { setIsRowEditable, rows, setRows, setRowModesModel } = props;

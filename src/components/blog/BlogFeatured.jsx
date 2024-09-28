@@ -15,7 +15,7 @@ import {
     GradientCard,
     StyledCardContent,
     StyledTypography,
-} from "../StyledComponents";
+} from "../styled/StyledComponents";
 
 const BlogFeatured = () => {
     const [isLoading, setIsLoading] = React.useState(false);

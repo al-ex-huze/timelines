@@ -10,7 +10,7 @@ import {
     Button,
 } from "@mui/material";
 
-import DeleteIcon from "@mui/icons-material/DeleteOutlined";
+import GradientDeleteIcon from "../../styled/GradientDeleteIcon";
 
 import { deleteTimelineByName } from "../../../../api";
 
@@ -50,9 +50,8 @@ const DeleteTimeline = ({ handleDeleteConfirmed, id, timeline_name }) => {
 
     return (
         <>
-            <IconButton  onClick={handleDeleteButtonClick}>
-                <DeleteIcon />
-            </IconButton>
+        
+            <GradientDeleteIcon onClick={handleDeleteButtonClick} />
             <Dialog open={openDeleteDialog} onClose={handleDeleteDialogClose}>
                 <DialogTitle>Confirm Delete</DialogTitle>
                 <DialogContent>

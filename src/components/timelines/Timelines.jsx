@@ -11,7 +11,7 @@ import {
     GradientCard,
     StyledCardContent,
     StyledTypography,
-} from "../StyledComponents";
+} from "../styled/StyledComponents";
 
 const Timelines = () => {
     const Offset = styled("div")(({ theme }) => theme.mixins.toolbar);

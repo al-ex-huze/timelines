@@ -16,7 +16,7 @@ import EventCard from "./EventCard";
 import TimelineBuilder from "./TimelineBuilder";
 import {
     GrabHandle,
-} from "../../StyledComponents";
+} from "../../styled/StyledComponents";
 
 const Offset = styled("div")(({ theme }) => theme.mixins.toolbar);
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
