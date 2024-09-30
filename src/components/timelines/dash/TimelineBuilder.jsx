@@ -21,26 +21,56 @@ const TimelineBuilder = ({
     timelineWidth,
 }) => {
     const [isLoading, setIsLoading] = React.useState(false);
-    const [error, setError] = React.useState(null)
+    const [error, setError] = React.useState(null);
+    const limit = 100;
+    const [pageNumber, setPageNumber] = React.useState(1);
+    const [totalCount, setTotalCount] = React.useState(0);
     const [sortByQuery] = React.useState("");
     const [sortByIsAsc] = React.useState(true);
     const [groupRowsState, setGroupRowsState] = React.useState(false);
     const [groupNames, setGroupNames] = React.useState(true);
 
     React.useEffect(() => {
-        setIsLoading(true);
-        getEvents(`${timeline_name}`, sortByQuery, sortByIsAsc)
-            .then((events) => {
-                setEventsData(events);
-                setIsEventAdded(false)
-                setIsEventDeleted(false)
+        const fetchEventData = async () => {
+            setError(null);
+            setIsLoading(true);
+            try {
+                const eventsData = await getEvents(
+                    `${timeline_name}`,
+                    sortByQuery,
+                    sortByIsAsc,
+                    limit,
+                    pageNumber
+                );
+                setEventsData(eventsData);
+                setIsEventAdded(false);
+                setIsEventDeleted(false);
                 setIsLoading(false);
-            })
-            .catch((error) => {
-                setError(error)
-            });
-    }, [timeline_name, sortByQuery, sortByIsAsc, isEventAdded, isEventDeleted]);
-
+                if (eventsData.length === 0) {
+                    setEventsData([]);
+                } else {
+                    if (eventsData[0].total_count === undefined) {
+                        setTotalCount(0);
+                    } else {
+                        setTotalCount(eventsData[0].total_count);
+                    }
+                }
+            } catch (error) {
+                setError(error);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+        fetchEventData();
+    }, [
+        timeline_name,
+        pageNumber,
+        sortByQuery,
+        sortByIsAsc,
+        limit,
+        isEventAdded,
+        isEventDeleted,
+    ]);
 
     if (isLoading) {
         return <CircularLoader />;
@@ -51,24 +81,24 @@ const TimelineBuilder = ({
     return (
         <>
             {eventsData[0] !== undefined ? (
-                    <TimelineChart
-                        eventsData={eventsData}
-                        timelineHeight={timelineHeight}
-                        timelineWidth={timelineWidth}
+                <TimelineChart
+                    eventsData={eventsData}
+                    timelineHeight={timelineHeight}
+                    timelineWidth={timelineWidth}
+                    groupRowsState={groupRowsState}
+                    setGroupRowsState={setGroupRowsState}
+                    groupNames={groupNames}
+                    setGroupNames={setGroupNames}
+                    layout={layout}
+                    setLayout={setLayout}
+                >
+                    <TimelineChartTogglePanel
                         groupRowsState={groupRowsState}
                         setGroupRowsState={setGroupRowsState}
                         groupNames={groupNames}
                         setGroupNames={setGroupNames}
-                        layout={layout}
-                        setLayout={setLayout}
-                    >
-                        <TimelineChartTogglePanel
-                            groupRowsState={groupRowsState}
-                            setGroupRowsState={setGroupRowsState}
-                            groupNames={groupNames}
-                            setGroupNames={setGroupNames}
-                        />
-                    </TimelineChart>
+                    />
+                </TimelineChart>
             ) : (
                 <p>No Events For This Timeline Yet</p>
             )}
