@@ -1,49 +1,31 @@
 import * as React from "react";
 
 import { Global } from "@emotion/react";
-import { styled } from "@mui/material/styles";
-import { grey } from "@mui/material/colors";
+import { Box, Skeleton, SwipeableDrawer } from "@mui/material";
 
-import Skeleton from "@mui/material/Skeleton";
-import SwipeableDrawer from "@mui/material/SwipeableDrawer";
-
-import BottomDrawerContents from "./DataGridBottomDrawerContents";
+import DataGridBottomDrawerContents from "./DataGridBottomDrawerContents";
+import { StyledPuller } from "../../../styled/StyledComponents";
 
 const drawerBleeding = 56;
 
-const StyledBox = styled("div")(({ theme }) => ({
-    backgroundColor: "#fff",
-    ...theme.applyStyles("dark", {
-        backgroundColor: grey[800],
-    }),
-}));
-
-const Puller = styled("div")(({ theme }) => ({
-    width: 30,
-    height: 6,
-    backgroundColor: grey[300],
-    borderRadius: 3,
-    position: "absolute",
-    top: 8,
-    left: "calc(50% - 15px)",
-    ...theme.applyStyles("dark", {
-        backgroundColor: grey[900],
-    }),
-}));
-
-const ListBox = styled("div")(({ theme }) => ({
-    backgroundColor: "#fff",
-    ...theme.applyStyles("dark", {
-        backgroundColor: grey[800],
-    }),
-    overflow: "scroll",
-}));
-
-const BottomDrawer = ({ }) => {
+const BottomDrawer = ({}) => {
     const [openMobileBottom, setOpenMobileBottom] = React.useState(false);
+    const [animate, setAnimate] = React.useState(false);
+
     const toggleDrawer = (newOpen) => () => {
         setOpenMobileBottom(newOpen);
     };
+
+    React.useEffect(() => {
+        const timer = setTimeout(() => {
+            setAnimate(true);
+            const interval = setInterval(() => {
+                setAnimate((prev) => !prev);
+            }, 7000);
+            return () => clearInterval(interval);
+        }, 1000);
+        return () => clearTimeout(timer);
+    }, []);
 
     return (
         <>
@@ -66,8 +48,9 @@ const BottomDrawer = ({ }) => {
                     keepMounted: true,
                 }}
             >
-                <StyledBox
+                <Box
                     sx={{
+                        backgroundColor: "transparent",
                         position: "relative",
                         top: -drawerBleeding,
                         borderTopLeftRadius: 8,
@@ -77,13 +60,12 @@ const BottomDrawer = ({ }) => {
                         left: 0,
                     }}
                 >
-                    <Puller />
-                </StyledBox>
-                <ListBox>
-                    <BottomDrawerContents
-                    />
+                    <StyledPuller className={animate ? "animate" : ""} />
+                </Box>
+                <Box sx={{ overflow: "scroll" }}>
+                    <DataGridBottomDrawerContents />
                     <Skeleton variant="rectangular" height="auto" />
-                </ListBox>
+                </Box>
             </SwipeableDrawer>
         </>
     );
