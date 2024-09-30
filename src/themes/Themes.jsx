@@ -172,6 +172,7 @@ export const themeDark = createTheme({
     rich black blue : #00192A;
     prussian blue darker: #00253F;
     prussian blue: #003153;
+    indigo dye: #204B69;
     paynes gray: #40657E;
     cadet grey: #8098A9;
     french grey: #C0CCD4; */
@@ -183,38 +184,3 @@ export const themeDark = createTheme({
     slate grey: #808990;
     very french grey: #C0C4C8;
     */
-
-//     MuiCard: {
-//     styleOverrides: {
-//         root: {
-//             backgroundColor: "transparent",
-//         },
-//     },
-// },
-// MuiContainer: {
-//     styleOverrides: {
-//         root: {
-//             backgroundColor: "transparent",
-//         },
-//     },
-// },
-// MuiGrid: {
-//     styleOverrides: {
-//         container: {
-//             backgroundColor: "transparent",
-//         },
-//         item: {
-//             backgroundColor: "transparent",
-//         },
-//         root: {
-//             backgroundColor: "transparent",
-//         },
-//     },
-// },
-// MuiPaper: {
-//     styleOverrides: {
-//         root: {
-//             backgroundColor: "transparent",
-//         },
-//     },
-// },
