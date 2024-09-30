@@ -11,7 +11,7 @@ import ListItemText from "@mui/material/ListItemText";
 import AddIcon from "@mui/icons-material/Add";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
-const BottomDrawerContents = ({}) => {
+const DataGridBottomDrawerContents = ({}) => {
     return (
         <List>
             <ListItem disablePadding>
@@ -39,4 +39,4 @@ const BottomDrawerContents = ({}) => {
     );
 };
 
-export default BottomDrawerContents;
+export default DataGridBottomDrawerContents;
