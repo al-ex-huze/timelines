@@ -4,12 +4,12 @@ const CustomResizeHandle = () => {
     return (
         <Box
             sx={{
-                width: 25,
-                height: 25,
+                width: 64,
+                height:64,
                 position: "absolute",
                 cursor: "nwse-resize",
-                bottom: -3,
-                right: -3,
+                bottom: -18,
+                right: -19,
                 zIndex: 10,
                 "& img": {
                     width: "100%",
@@ -24,9 +24,8 @@ const CustomResizeHandle = () => {
             }}
         >
             <img
-                src="https://alimageexbuckhuetzepub.s3.eu-north-1.amazonaws.com/dblarw.svg"
-                height={25}
-                width={25}
+                src="https://alimageexbuckhuetzepub.s3.eu-north-1.amazonaws.com/chvdnr.svg"
+
             />
         </Box>
     );
