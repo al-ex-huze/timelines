@@ -72,7 +72,7 @@ const TimelinesDataGridCRUD = ({ layout, setLayout }) => {
                         }}
                         startIcon={<VisibilityIcon />}
                         sx={{
-                            padding: { xs: "4px 0px 4px 12px", md: "4px 12px" },
+                            padding: { xs: "6px 0px 5px 12px", md: "4px 12px" },
                         }}
                     >
                         <Typography

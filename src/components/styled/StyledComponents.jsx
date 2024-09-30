@@ -4,7 +4,7 @@ import { styled } from "@mui/material/styles";
 
 export const GradientButton = styled(Button)(({ theme }) => ({
     minWidth: 0,
-    padding: "4px 16px",
+    padding: "6px 16px 5px 0px 16px",
     position: "relative",
     overflow: "hidden",
     color: "white",

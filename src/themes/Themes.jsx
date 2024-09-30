@@ -107,7 +107,6 @@ export const themeDark = createTheme({
         },
     },
     components: {
-
         MuiAppBar: {
             styleOverrides: {
                 colorPrimary: {
@@ -120,7 +119,10 @@ export const themeDark = createTheme({
                 root: {
                     variants: [
                         {
-
+                            props: { variant: "cardButton" },
+                            style: {
+                                color: "#003153",
+                            },
                         },
                     ],
                 },
