@@ -85,3 +85,38 @@ export const GrabHandle = styled(Box)(({ theme }) => ({
     borderTopRightRadius: "4px",
     cursor: "move",
 }));
+
+export const StyledPuller = styled("div")(({ theme }) => ({
+    width: 40,
+    height: 8,
+    borderRadius: 3,
+    position: "relative",
+    top: 8,
+    left: "calc(50% - 20px)",
+    color: "white",
+    background:
+        "linear-gradient(135deg, rgba(0, 37, 63, 1), rgba(0, 49 , 83, 1))",
+    border: "none",
+    animation: "none",
+    "&:before": {
+        content: '""',
+        position: "absolute",
+        top: 0,
+        left: "-100%",
+        width: "100%",
+        height: "100%",
+        background:
+            "linear-gradient(90deg, rgba(255,255,255,0.05), rgba(255,255,255,0.1), rgba(255,255,255,0.05), rgba(255,255,255,0.1), rgba(255,255,255,0.05))",
+        transition: "left 0.2s ease",
+        opacity: 0,
+    },
+    "&.animate:before": {
+        left: "100%",
+        opacity: 1,
+        animation: "sheen-animation 0.2s forwards",
+    },
+    "@keyframes sheen-animation": {
+        "0%": { left: "0%" },
+        "100%": { left: "100%", width: "0%" },
+    },
+}));

@@ -29,24 +29,6 @@ export const themeLight = createTheme({
                 },
             },
         },
-        MuiCard: {
-            styleOverrides: {
-                root: {
-                    backgroundColor: "transparent",
-                },
-            },
-        },
-        // MuiCard: {
-        //     styleOverrides: {
-        //         colorPrimary: {
-        //             background: "#000d15",
-        //         },
-        //         text: {
-        //             primary: "#000d15",
-        //             secondary: "#00192a",
-        //         },
-        //     },
-        // },
         MuiButton: {
             styleOverrides: {
                 root: {
@@ -58,6 +40,20 @@ export const themeLight = createTheme({
                             },
                         },
                     ],
+                },
+            },
+        },
+        MuiCard: {
+            styleOverrides: {
+                root: {
+                    backgroundColor: "transparent",
+                },
+            },
+        },
+        MuiDrawer: {
+            styleOverrides: {
+                paper: {
+                    background: "#ffffff",
                 },
             },
         },
@@ -111,13 +107,7 @@ export const themeDark = createTheme({
         },
     },
     components: {
-        MuiMenu: {
-            styleOverrides: {
-                paper: {
-                    background: "#00192A",
-                },
-            },
-        },
+
         MuiAppBar: {
             styleOverrides: {
                 colorPrimary: {
@@ -130,12 +120,30 @@ export const themeDark = createTheme({
                 root: {
                     variants: [
                         {
-                            props: { variant: "cardButton" },
-                            style: {
-                                color: "#40657e",
-                            },
+
                         },
                     ],
+                },
+            },
+        },
+        MuiCard: {
+            styleOverrides: {
+                root: {
+                    backgroundColor: "transparent",
+                },
+            },
+        },
+        MuiDrawer: {
+            styleOverrides: {
+                paper: {
+                    background: "#000d15",
+                },
+            },
+        },
+        MuiMenu: {
+            styleOverrides: {
+                paper: {
+                    background: "#00192A",
                 },
             },
         },
