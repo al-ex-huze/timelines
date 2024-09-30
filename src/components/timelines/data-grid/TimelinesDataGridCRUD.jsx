@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { isMobile } from "react-device-detect";
 
 import { experimentalStyled as styled } from "@mui/material/styles";
-import { Box, Button, Icon, TextField } from "@mui/material";
+import { Box, TextField, Typography } from "@mui/material";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 import dayjs from "dayjs";
@@ -71,9 +71,19 @@ const TimelinesDataGridCRUD = ({ layout, setLayout }) => {
                             handleViewClick(event, cellValues);
                         }}
                         startIcon={<VisibilityIcon />}
-                        sx={{ width: "100%" }}
+                        sx={{
+                            padding: { xs: "4px 0px 4px 12px", md: "4px 12px" },
+                        }}
                     >
-                        {isMobile ? "" : "View"}
+                        <Typography
+                            sx={[
+                                isMobile
+                                    ? { display: "none" }
+                                    : { display: { xs: "none", md: "flex" } },
+                            ]}
+                        >
+                            View
+                        </Typography>
                     </GradientButton>
                 );
             },
