@@ -146,7 +146,7 @@ const AddEvent = ({ setIsEventAdded, timeline_name }) => {
                         />
                     </Grid>
                     <Grid size={6}>
-                        <GradientButton type="submit" sx={{ width: "100%" }}>
+                        <GradientButton type="submit">
                             Submit
                         </GradientButton>
                     </Grid>

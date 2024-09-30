@@ -135,7 +135,7 @@ const AddTimeline = () => {
                     />
                 </Grid>
                 <Grid size={6}>
-                    <GradientButton variant="contained" type="submit" sx={{ width: "100%" }}>
+                    <GradientButton variant="contained" type="submit">
                         Submit
                     </GradientButton>
                 </Grid>

@@ -10,7 +10,7 @@ import Box from "@mui/material/Box";
 import { experimentalStyled as styled } from "@mui/material/styles";
 
 import AddEvent from "./AddEvent";
-import CustomResizeHandle from "../../CustomResizeHandle";
+import DashItemResizeHandle from "../../styled/DashItemResizeHandle";
 import DashDrawerController from "./drawers/DashDrawerController";
 import EventCard from "./EventCard";
 import TimelineBuilder from "./TimelineBuilder";
@@ -193,7 +193,7 @@ const TimelinesDash = ({ layout, setLayout }) => {
                     draggableHandle=".drag-handle"
                     resizeHandle={
                         <div>
-                            <CustomResizeHandle />
+                            <DashItemResizeHandle />
                         </div>
                     }
                 >
