@@ -79,7 +79,10 @@ const TimelinesDataGridCRUD = ({ layout, setLayout }) => {
                             sx={[
                                 isMobile
                                     ? { display: "none" }
-                                    : { display: { xs: "none", md: "flex" } },
+                                    : {
+                                          display: { xs: "none", md: "flex" },
+                                          fontWeight: 400,
+                                      },
                             ]}
                         >
                             View

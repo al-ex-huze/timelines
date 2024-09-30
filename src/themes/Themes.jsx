@@ -4,6 +4,7 @@ export const themeLight = createTheme({
     typography: {
         fontFamily: '"Poppins", "Roboto", "Arial", "sans-serif"',
         body1: { fontWeight: 200 },
+        button: { fontFamily: '"Poppins", "Roboto", "Arial", "sans-serif"' },
     },
     palette: {
         mode: "light",
@@ -88,6 +89,7 @@ export const themeDark = createTheme({
     typography: {
         fontFamily: '"Poppins", "Roboto", "Arial", "sans-serif"',
         body1: { fontWeight: 200 },
+        button: { fontFamily: '"Poppins", "Roboto", "Arial", "sans-serif"' },
     },
     palette: {
         mode: "dark",

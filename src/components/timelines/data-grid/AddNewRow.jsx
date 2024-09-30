@@ -1,12 +1,11 @@
 import PropTypes from "prop-types";
 
 import { GridRowModes } from "@mui/x-data-grid";
+import { Typography } from "@mui/material";
 
 import AddIcon from "@mui/icons-material/Add";
 
-import {
-    GradientButton,
-} from "../../styled/StyledComponents";
+import { GradientButton } from "../../styled/StyledComponents";
 
 const AddNewRow = (props) => {
     const { setIsRowEditable, rows, setRows, setRowModesModel } = props;
@@ -34,9 +33,9 @@ const AddNewRow = (props) => {
             variant="contained"
             startIcon={<AddIcon />}
             onClick={handleAddClick}
-            sx={{width:"fit-content", margin:1.2}}
+            sx={{ width: "fit-content", margin: 1.2 }}
         >
-            Add New
+            <Typography sx={{ fontWeight: 400 }}>Add New</Typography>
         </GradientButton>
     );
 };
