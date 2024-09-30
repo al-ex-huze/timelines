@@ -48,6 +48,7 @@ const TitleTypography = styled(Typography)(({ theme }) => ({
         width: "100%",
     },
 }));
+
 const BlogListCard = ({ postData }) => {
     return (
         <Box

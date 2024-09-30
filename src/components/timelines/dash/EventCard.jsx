@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import {
+    Box,
     Card,
     CardHeader,
     CardContent,
@@ -22,12 +23,67 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { deleteEventByID } from "../../../../api";
 import { filterEventFromLayout } from "../../../utils/utils";
 
+import { styled } from "@mui/system";
+
+const smallCardWidth = 128;
+const StyledCard = styled(Card)({
+    position: "relative",
+    height: "100%",
+    overflow: "hidden",
+    color: "white",
+    borderTopLeftRadius: "0px",
+    borderTopRightRadius: "0px",
+});
+
+const TopContainer = styled(Box)({
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    height: "50%",
+    background:
+        "linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.1))",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "flex-start",
+    borderTopLeftRadius: "0px",
+    borderTopRightRadius: "0px",
+});
+
+const BottomContainer = styled(Box)({
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    right: 0,
+    height: "50%",
+    background: "linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.1))",
+    overflow: "auto",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "flex-end",
+    padding: "16px",
+});
+
+const TitleTypography = styled(Typography)({
+    display: "block",
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    maxWidth: "calc(100% - 48px)",
+});
+
+const BodyTypography = styled(Typography)({
+    textAlign: "justify",
+});
+
 const EventCard = ({ eventCardData, setIsEventDeleted, setLayout }) => {
     eventCardData = JSON.parse(eventCardData);
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [openDeleteDialog, setOpenDeleteDialog] = React.useState(false);
     const [openSuccessDialog, setOpenSuccessDialog] = React.useState(false);
     const [openErrorDialog, setOpenErrorDialog] = React.useState(false);
+    const [isCardSmall, setIsCardSmall] = React.useState(false);
+    const cardRef = React.useRef(null);
 
     const handleMenuClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -72,38 +128,58 @@ const EventCard = ({ eventCardData, setIsEventDeleted, setLayout }) => {
             });
         handleDeleteDialogClose();
     };
+
+    React.useEffect(() => {
+        const resizeObserver = new ResizeObserver((entries) => {
+            for (let entry of entries) {
+                if (entry.contentRect.width < smallCardWidth) {
+                    setIsCardSmall(true);
+                } else {
+                    setIsCardSmall(false);
+                }
+            }
+        });
+        if (cardRef.current) {
+            resizeObserver.observe(cardRef.current);
+        }
+        return () => {
+            resizeObserver.disconnect();
+        };
+    }, []);
+
     return (
-        <Card
-            sx={{
-                width: "100%",
-                height: "100%",
-                borderTopLeftRadius: "0px",
-                borderTopRightRadius: "0px",
-            }}
-        >
-            <CardHeader
-                action={
-                    <IconButton onClick={handleMenuClick}>
+        <>
+            <StyledCard ref={cardRef}>
+                <CardMedia
+                    component="img"
+                    height="100%"
+                    image={`${eventCardData.image_url_1}`}
+                    alt="Event image"
+                />
+                <TopContainer
+                    sx={{ padding: isCardSmall ? "8px 6px" : "8px 16px" }}
+                >
+                    {!isCardSmall && (
+                        <TitleTypography variant="h6">
+                            {eventCardData.title}
+                        </TitleTypography>
+                    )}
+                    <IconButton
+                        size="small"
+                        edge="end"
+                        onClick={handleMenuClick}
+                    >
                         <MoreVertIcon />
                     </IconButton>
-                }
-                title={`${eventCardData.title}`}
-                titleTypographyProps={{ textAlign: "left" }}
-            />
-            <CardMedia
-                component="img"
-                height="50"
-                image={`${eventCardData.image_url_1}`}
-                alt="Event image"
-            />
-            <CardContent>
-                <Typography
-                    variant="body2"
-                    sx={{ color: "text.secondary", textAlign: "justify" }}
-                >
-                    {eventCardData.body}
-                </Typography>
-            </CardContent>
+                </TopContainer>
+                <BottomContainer>
+                    {!isCardSmall && (
+                        <BodyTypography variant="body2">
+                            {eventCardData.body}
+                        </BodyTypography>
+                    )}
+                </BottomContainer>
+            </StyledCard>
             <Menu
                 anchorEl={anchorEl}
                 open={Boolean(anchorEl)}
@@ -169,8 +245,47 @@ const EventCard = ({ eventCardData, setIsEventDeleted, setLayout }) => {
                     </Button>
                 </DialogActions>
             </Dialog>
-        </Card>
+        </>
     );
 };
 
 export default EventCard;
+
+{
+    /* <Card
+            sx={{
+                width: "100%",
+                height: "100%",
+                borderTopLeftRadius: "0px",
+                borderTopRightRadius: "0px",
+            }}
+        >
+            <CardMedia
+                component="img"
+                height="100%"
+                image={`${eventCardData.image_url_1}`}
+                alt="Event image"
+            />
+            <GradientOverlayTop>
+                <StyledCardHeader
+                    action={
+                        <IconButton onClick={handleMenuClick}>
+                            <MoreVertIcon />
+                        </IconButton>
+                    }
+                    title={`${eventCardData.title}`}
+                    titleTypographyProps={{ textAlign: "left" }}
+                />
+            </GradientOverlayTop>
+            <GradientOverlayBottom>
+                <CardContent>
+                    <Typography
+                        variant="body2"
+                        sx={{ color: "text.secondary", textAlign: "justify" }}
+                    >
+                        {eventCardData.body}
+                    </Typography>
+                </CardContent>
+            </GradientOverlayBottom>
+            </Card> */
+}

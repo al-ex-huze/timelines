@@ -10,7 +10,7 @@ import {
     Button,
 } from "@mui/material";
 
-import DeleteIcon from "@mui/icons-material/DeleteOutlined";
+import GradientDeleteIcon from "../../styled/GradientDeleteIcon";
 
 import { deleteTimelineByName } from "../../../../api";
 
@@ -29,7 +29,7 @@ const DeleteTimeline = ({ handleDeleteConfirmed, id, timeline_name }) => {
 
     const handleSuccessDialogClose = () => {
         setOpenSuccessDialog(false);
-        handleDeleteConfirmed(id)
+        handleDeleteConfirmed(id);
     };
 
     const handleErrorDialogClose = () => {
@@ -42,7 +42,6 @@ const DeleteTimeline = ({ handleDeleteConfirmed, id, timeline_name }) => {
                 setOpenSuccessDialog(true);
             })
             .catch((error) => {
-                console.log(error);
                 setOpenErrorDialog(true);
             });
         handleDeleteDialogClose();
@@ -50,8 +49,8 @@ const DeleteTimeline = ({ handleDeleteConfirmed, id, timeline_name }) => {
 
     return (
         <>
-            <IconButton  onClick={handleDeleteButtonClick}>
-                <DeleteIcon />
+            <IconButton onClick={handleDeleteButtonClick}>
+                <GradientDeleteIcon  />
             </IconButton>
             <Dialog open={openDeleteDialog} onClose={handleDeleteDialogClose}>
                 <DialogTitle>Confirm Delete</DialogTitle>

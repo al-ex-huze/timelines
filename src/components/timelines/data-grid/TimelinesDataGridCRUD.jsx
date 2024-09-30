@@ -5,8 +5,13 @@ import { useNavigate } from "react-router-dom";
 import { isMobile } from "react-device-detect";
 
 import { experimentalStyled as styled } from "@mui/material/styles";
-import { Box, Button } from "@mui/material";
+import { Box, Button, Icon, TextField } from "@mui/material";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
+import dayjs from "dayjs";
+
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import {
     GridRowModes,
     DataGrid,
@@ -14,9 +19,10 @@ import {
     GridRowEditStopReasons,
 } from "@mui/x-data-grid";
 
-import CancelIcon from "@mui/icons-material/Close";
-import EditIcon from "@mui/icons-material/Edit";
-import SaveIcon from "@mui/icons-material/Save";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import GradientCancelIcon from "../../styled/GradientCancelIcon";
+import GradientEditIcon from "../../styled/GradientEditIcon";
+import GradientSaveIcon from "../../styled/GradientSaveIcon";
 
 import {
     getTimelines,
@@ -29,7 +35,10 @@ import AddTimeline from "./AddTimeline";
 import CircularLoader from "../../CircularLoader";
 import DataGridDrawerController from "./drawers/DataGridDrawerController";
 import DeleteTimeline from "./DeleteTimeline";
+import ErrorComponent from "../../ErrorComponent";
 import UpdateRowDialog from "./UpdateRowDialog";
+
+import { GradientButton } from "../../styled/StyledComponents";
 
 const TimelinesDataGridCRUD = ({ layout, setLayout }) => {
     const Offset = styled("div")(({ theme }) => theme.mixins.toolbar);
@@ -57,18 +66,18 @@ const TimelinesDataGridCRUD = ({ layout, setLayout }) => {
                     return ["..."];
                 }
                 return (
-                    <Button
-                        variant="contained"
-                        color="primary"
+                    <GradientButton
                         onClick={(event) => {
                             handleViewClick(event, cellValues);
                         }}
+                        startIcon={<VisibilityIcon />}
+                        sx={{ width: "100%" }}
                     >
-                        View
-                    </Button>
+                        {isMobile ? "" : "View"}
+                    </GradientButton>
                 );
             },
-            flex: 1,
+            flex: 2 / 3,
         },
         {
             field: "timeline_name",
@@ -85,16 +94,20 @@ const TimelinesDataGridCRUD = ({ layout, setLayout }) => {
         {
             field: "begin_date",
             headerName: "Begin Date",
-            type: "date",
             editable: isRowEditable,
             flex: 1,
+            renderEditCell: (params) => {
+                return <DatePickerCell params={params} />;
+            },
         },
         {
             field: "finish_date",
             headerName: "Finish Date",
-            type: "date",
             editable: isRowEditable,
             flex: 1,
+            renderEditCell: (params) => {
+                return <DatePickerCell params={params} />;
+            },
         },
         {
             field: "actions",
@@ -107,16 +120,16 @@ const TimelinesDataGridCRUD = ({ layout, setLayout }) => {
                     rowModesModel[id]?.mode === GridRowModes.Edit;
                 if (isInEditMode) {
                     return [
-                        // <GridActionsCellItem
-                        //     icon={<SaveIcon />}
-                        //     label="Save"
-                        //     sx={{
-                        //         color: "primary.main",
-                        //     }}
-                        //     onClick={handleSaveClick}
-                        // />,
                         <GridActionsCellItem
-                            icon={<CancelIcon />}
+                            icon={<GradientSaveIcon />}
+                            label="Save"
+                            sx={{
+                                color: "primary.main",
+                            }}
+                            onClick={handleSaveClick(id)}
+                        />,
+                        <GridActionsCellItem
+                            icon={<GradientCancelIcon />}
                             label="Cancel"
                             className="textPrimary"
                             onClick={handleCancelClick(id)}
@@ -126,7 +139,7 @@ const TimelinesDataGridCRUD = ({ layout, setLayout }) => {
                 }
                 return [
                     <GridActionsCellItem
-                        icon={<EditIcon />}
+                        icon={<GradientEditIcon />}
                         label="Edit"
                         className="textPrimary"
                         onClick={handleEditClick(id, row.timeline_name)}
@@ -141,6 +154,27 @@ const TimelinesDataGridCRUD = ({ layout, setLayout }) => {
             },
         },
     ];
+
+    const DatePickerCell = ({ params }) => {
+        const [value, setValue] = React.useState(dayjs(params.value));
+        const handleDateChange = (newValue) => {
+            setValue(newValue);
+            params.api.setEditCellValue({
+                id: params.id,
+                field: "date",
+                value: newValue,
+            });
+        };
+        return (
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DesktopDatePicker
+                    value={value}
+                    onChange={handleDateChange}
+                    textField={(params) => <TextField {...params} />}
+                />
+            </LocalizationProvider>
+        );
+    };
 
     React.useEffect(() => {
         const getTimelinesData = async () => {
@@ -186,12 +220,12 @@ const TimelinesDataGridCRUD = ({ layout, setLayout }) => {
         }));
     };
 
-    // const handleSaveClick = (id) => () => {
-    //     setRowModesModel({
-    //         ...rowModesModel,
-    //         [id]: { mode: GridRowModes.View },
-    //     });
-    // };
+    const handleSaveClick = (id) => () => {
+        setRowModesModel({
+            ...rowModesModel,
+            [id]: { mode: GridRowModes.View },
+        });
+    };
 
     const handleCancelClick = (id) => () => {
         setIsRowEditable(false);
@@ -206,6 +240,10 @@ const TimelinesDataGridCRUD = ({ layout, setLayout }) => {
     };
 
     const [openUpdateRowDialog, setOpenUpdateRowDialog] = React.useState(false);
+    const [openRowUpdateSuccessDialog, setOpenRowUpdateSuccessDialog] =
+        React.useState(false);
+    const [openRowUpdateErrorDialog, setOpenRowUpdateErrorDialog] =
+        React.useState(false);
     const [pendingRow, setPendingRow] = React.useState(null);
 
     const handleProcessRowUpdateConfirmation = (newRow) => {
@@ -233,6 +271,7 @@ const TimelinesDataGridCRUD = ({ layout, setLayout }) => {
     };
 
     const handleConfirmUpdate = () => {
+        console.log("update confirm debug");
         const timelineUpdate = {
             timeline_name_update: pendingRow.timeline_name,
             description_update: pendingRow.description,
@@ -240,8 +279,12 @@ const TimelinesDataGridCRUD = ({ layout, setLayout }) => {
             finish_date_update: pendingRow.finish_date,
         };
         patchTimelineByName(timelineToEdit, timelineUpdate)
-            .then(() => {})
-            .catch((error) => {});
+            .then(() => {
+                setOpenRowUpdateSuccessDialog(true);
+            })
+            .catch((error) => {
+                setOpenRowUpdateErrorDialog(true);
+            });
         setOpenUpdateRowDialog(false);
         const updatedRow = { ...pendingRow, isNew: false };
         setRows((prevRows) =>
@@ -263,6 +306,9 @@ const TimelinesDataGridCRUD = ({ layout, setLayout }) => {
         setRowModesModel(newRowModesModel);
     };
 
+    if (error) {
+        return <ErrorComponent error={error} />;
+    }
     return (
         <>
             <DataGridDrawerController layout={layout} setLayout={setLayout} />
@@ -282,66 +328,73 @@ const TimelinesDataGridCRUD = ({ layout, setLayout }) => {
                     ) : error ? (
                         <div> {error}</div>
                     ) : (
-                        <>
-                            <Box style={{  width: "100%" }}>
-                                <Routes>
-                                    <Route
-                                        path="/"
-                                        element={
-                                            <DataGrid
-                                                rows={rows}
-                                                columns={columns}
-                                                initialState={{
-                                                    columns: {
-                                                        columnVisibilityModel: {
-                                                            id: false,
-                                                        },
+                        <Box style={{ width: "100%" }}>
+                            <Routes>
+                                <Route
+                                    path="/"
+                                    element={
+                                        <DataGrid
+                                            rows={rows}
+                                            columns={columns}
+                                            initialState={{
+                                                columns: {
+                                                    columnVisibilityModel: {
+                                                        id: false,
                                                     },
-                                                }}
-                                                disableSelectionOnClick
-                                                editMode="row"
-                                                processRowUpdate={
-                                                    handleProcessRowUpdateConfirmation
-                                                }
-                                                onProcessRowUpdateError={(
-                                                    error
-                                                ) => console.log(error)}
-                                                experimentalFeatures={{
-                                                    newEditingApi: true,
-                                                }}
-                                                rowModesModel={rowModesModel}
-                                                onRowModesModelChange={
-                                                    handleRowModesModelChange
-                                                }
-                                                onRowEditStop={
-                                                    handleRowEditStop
-                                                }
-                                                slots={{
-                                                    footer: isMobile ? () => null : AddNewRow,
-                                                }}
-                                                slotProps={{
-                                                    footer: {
-                                                        setIsRowEditable,
-                                                        rows,
-                                                        setRows,
-                                                        setRowModesModel,
-                                                    },
-                                                }}
-                                            />
-                                        }
-                                    />
-                                    <Route
-                                        path="/add"
-                                        element={<AddTimeline />}
-                                    />
-                                </Routes>
-                                <UpdateRowDialog
-                                    handleCancelUpdate={handleCancelUpdate}
-                                    handleConfirmUpdate={handleConfirmUpdate}
-                                    openUpdateRowDialog={openUpdateRowDialog}
+                                                },
+                                            }}
+                                            disableSelectionOnClick
+                                            editMode="row"
+                                            processRowUpdate={
+                                                handleProcessRowUpdateConfirmation
+                                            }
+                                            onProcessRowUpdateError={(error) =>
+                                                setError(error)
+                                            }
+                                            experimentalFeatures={{
+                                                newEditingApi: true,
+                                            }}
+                                            rowModesModel={rowModesModel}
+                                            onRowModesModelChange={
+                                                handleRowModesModelChange
+                                            }
+                                            onRowEditStop={handleRowEditStop}
+                                            slots={{
+                                                footer: isMobile
+                                                    ? () => null
+                                                    : AddNewRow,
+                                            }}
+                                            slotProps={{
+                                                footer: {
+                                                    setIsRowEditable,
+                                                    rows,
+                                                    setRows,
+                                                    setRowModesModel,
+                                                },
+                                            }}
+                                        />
+                                    }
                                 />
-                            </Box>
-                        </>
+                                <Route path="/add" element={<AddTimeline />} />
+                            </Routes>
+                            <UpdateRowDialog
+                                handleCancelUpdate={handleCancelUpdate}
+                                handleConfirmUpdate={handleConfirmUpdate}
+                                openRowUpdateSuccessDialog={
+                                    openRowUpdateSuccessDialog
+                                }
+                                setOpenRowUpdateSuccessDialog={
+                                    setOpenRowUpdateSuccessDialog
+                                }
+                                openRowUpdateErrorDialog={
+                                    openRowUpdateErrorDialog
+                                }
+                                setOpenRowUpdateErrorDialog={
+                                    setOpenRowUpdateErrorDialog
+                                }
+                                openUpdateRowDialog={openUpdateRowDialog}
+                            />
+                        </Box>
                     )}
                 </Box>
             </Box>
