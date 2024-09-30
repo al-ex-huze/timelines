@@ -4,7 +4,6 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import "dayjs/locale/en-gb";
-
 import dayjs from "dayjs";
 
 import Button from "@mui/material/Button";
@@ -13,8 +12,8 @@ import Grid from "@mui/material/Grid2";
 import TextField from "@mui/material/TextField";
 
 import { postTimeline } from "../../../../api";
-
 import ErrorComponent from "../../ErrorComponent";
+import { GradientButton } from "../../styled/StyledComponents";
 
 const AddTimeline = () => {
     const [error, setError] = React.useState(null);
@@ -136,9 +135,9 @@ const AddTimeline = () => {
                     />
                 </Grid>
                 <Grid size={6}>
-                    <Button variant="contained" type="submit">
+                    <GradientButton variant="contained" type="submit" sx={{ width: "100%" }}>
                         Submit
-                    </Button>
+                    </GradientButton>
                 </Grid>
             </Grid>
         </Card>

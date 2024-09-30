@@ -4,7 +4,6 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import "dayjs/locale/en-gb";
-
 import dayjs from "dayjs";
 
 import Card from "@mui/material/Card";
@@ -12,9 +11,7 @@ import Grid from "@mui/material/Grid2";
 import TextField from "@mui/material/TextField";
 
 import { postEvent } from "../../../../api";
-
 import ErrorComponent from "../../ErrorComponent";
-
 import { GradientButton } from "../../styled/StyledComponents";
 
 const AddEvent = ({ setIsEventAdded, timeline_name }) => {
@@ -48,7 +45,7 @@ const AddEvent = ({ setIsEventAdded, timeline_name }) => {
             try {
                 await postEvent(newEvent);
             } catch (error) {
-                setError(error)
+                setError(error);
             } finally {
                 setEventTitleInput("");
                 setEventBodyInput("");
@@ -56,7 +53,7 @@ const AddEvent = ({ setIsEventAdded, timeline_name }) => {
                 setIsCreating(false);
             }
         };
-        postNewEvent(newEvent)
+        postNewEvent(newEvent);
     };
 
     if (error) {
@@ -149,7 +146,9 @@ const AddEvent = ({ setIsEventAdded, timeline_name }) => {
                         />
                     </Grid>
                     <Grid size={6}>
-                        <GradientButton type="submit">Submit</GradientButton>
+                        <GradientButton type="submit" sx={{ width: "100%" }}>
+                            Submit
+                        </GradientButton>
                     </Grid>
                 </Grid>
             </Card>

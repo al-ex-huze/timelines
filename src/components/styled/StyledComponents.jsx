@@ -38,6 +38,8 @@ export const StyledTypography = styled(Typography)({
 });
 
 export const GradientButton = styled(Button)(({ theme }) => ({
+    minWidth:0,
+    padding: "4px 16px",
     position: "relative",
     overflow: "hidden",
     color: "white",

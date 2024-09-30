@@ -71,12 +71,13 @@ const TimelinesDataGridCRUD = ({ layout, setLayout }) => {
                             handleViewClick(event, cellValues);
                         }}
                         startIcon={<VisibilityIcon />}
+                        sx={{ width: "100%" }}
                     >
-                        View
+                        {isMobile ? "" : "View"}
                     </GradientButton>
                 );
             },
-            flex: 1,
+            flex: 2 / 3,
         },
         {
             field: "timeline_name",
@@ -344,7 +345,6 @@ const TimelinesDataGridCRUD = ({ layout, setLayout }) => {
                                             }}
                                             disableSelectionOnClick
                                             editMode="row"
-                                            
                                             processRowUpdate={
                                                 handleProcessRowUpdateConfirmation
                                             }
