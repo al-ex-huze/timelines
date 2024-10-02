@@ -51,13 +51,19 @@ export const GradientCard = styled(Card)(({ theme }) => ({
 }));
 
 export const GrabHandle = styled(Box)(({ theme }) => ({
+    // background:
+    //     "linear-gradient(135deg, rgba(0, 37, 63, 1), rgba(0, 49 , 83, 1))",
+    // "&:hover": {
+    //     background:
+    //         "linear-gradient(135deg, rgba(0, 49 , 83, 1), rgba(32, 75, 105, 1))",
+    // },
     background:
-        "linear-gradient(135deg, rgba(0, 37, 63, 1), rgba(0, 49 , 83, 1))",
-    transition: "background 0.3s ease",
+        "rgba(0, 37, 63, 1)",
     "&:hover": {
         background:
             "linear-gradient(135deg, rgba(0, 49 , 83, 1), rgba(32, 75, 105, 1))",
     },
+    transition: "background 0.3s ease",
     position: "fixed",
     width: "100%",
     height: "25px",

@@ -19,23 +19,21 @@ describe("checkIfEventIsInLayout", () => {
     });
     test("doesnt mutate array", () => {
         const layoutInput = [
-            
-                {
-                    "i": "Timeline",
-                    "x": 0,
-                    "y": 0,
-                    "w": 8,
-                    "h": 1
-                },
-                {
-                    "i": "Event Card - 2",
-                    "data": "{\"id\":\"59\",\"title\":\"ergergerg\",\"body\":\"ergergreg\",\"image_url_1\":\"https://images.pexels.com/photos/97050/pexels-photo-97050.jpeg?w=700&h=700\"}",
-                    "x": null,
-                    "y": 1,
-                    "w": 2,
-                    "h": 2
-                }
-            
+            {
+                i: "Timeline",
+                x: 0,
+                y: 0,
+                w: 8,
+                h: 1,
+            },
+            {
+                i: "Event Card - 2",
+                data: '{"id":"59","title":"ergergerg","body":"ergergreg","image_url_1":"https://images.pexels.com/photos/97050/pexels-photo-97050.jpeg?w=700&h=700"}',
+                x: null,
+                y: 1,
+                w: 2,
+                h: 2,
+            },
         ];
         const newEventInput = {
             id: "59",
@@ -46,44 +44,40 @@ describe("checkIfEventIsInLayout", () => {
         };
         const actual = checkIfEventIsInLayout(layoutInput, newEventInput);
         expect(layoutInput).toEqual([
-            
-                {
-                    "i": "Timeline",
-                    "x": 0,
-                    "y": 0,
-                    "w": 8,
-                    "h": 1
-                },
-                {
-                    "i": "Event Card - 2",
-                    "data": "{\"id\":\"59\",\"title\":\"ergergerg\",\"body\":\"ergergreg\",\"image_url_1\":\"https://images.pexels.com/photos/97050/pexels-photo-97050.jpeg?w=700&h=700\"}",
-                    "x": null,
-                    "y": 1,
-                    "w": 2,
-                    "h": 2
-                }
-            
+            {
+                i: "Timeline",
+                x: 0,
+                y: 0,
+                w: 8,
+                h: 1,
+            },
+            {
+                i: "Event Card - 2",
+                data: '{"id":"59","title":"ergergerg","body":"ergergreg","image_url_1":"https://images.pexels.com/photos/97050/pexels-photo-97050.jpeg?w=700&h=700"}',
+                x: null,
+                y: 1,
+                w: 2,
+                h: 2,
+            },
         ]);
     });
     test("returns true if event exists", () => {
         const layoutInput = [
-            
-                {
-                    i: "Timeline",
-                    x: 0,
-                    y: 0,
-                    w: 8,
-                    h: 1,
-                },
-                {
-                    i: "Event Card - 2",
-                    data: '{"id":"59","title":"ergergerg","body":"ergergreg","image_url_1":"https://images.pexels.com/photos/97050/pexels-photo-97050.jpeg?w=700&h=700"}',
-                    x: null,
-                    y: 1,
-                    w: 2,
-                    h: 2,
-                },
-            
+            {
+                i: "Timeline",
+                x: 0,
+                y: 0,
+                w: 8,
+                h: 1,
+            },
+            {
+                i: "Event Card - 2",
+                data: '{"id":"59","title":"ergergerg","body":"ergergreg","image_url_1":"https://images.pexels.com/photos/97050/pexels-photo-97050.jpeg?w=700&h=700"}',
+                x: null,
+                y: 1,
+                w: 2,
+                h: 2,
+            },
         ];
         const newEventInput = {
             id: "59",
@@ -98,15 +92,13 @@ describe("checkIfEventIsInLayout", () => {
     });
     test("returns false if event doesnt exist", () => {
         const layoutInput = [
-            
-                {
-                    i: "Timeline",
-                    x: 0,
-                    y: 0,
-                    w: 8,
-                    h: 1,
-                },
-            
+            {
+                i: "Timeline",
+                x: 0,
+                y: 0,
+                w: 8,
+                h: 1,
+            },
         ];
         const newEventInput = {
             id: "59",
