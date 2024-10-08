@@ -10,9 +10,6 @@ import CircularLoader from "../../CircularLoader";
 import ErrorComponent from "../../ErrorComponent";
 import TimelineChart from "./TimelineChart";
 
-import RestoreIcon from "@mui/icons-material/Restore";
-import ViewColumnIcon from "@mui/icons-material/ViewColumn";
-
 const TimelineBuilder = ({
     eventsData,
     setEventsData,
@@ -100,7 +97,7 @@ const TimelineBuilder = ({
             events: {
                 dataPointSelection: function (_event, _chartContext, opts) {
                     const newEvent = {
-                        id: String(
+                        event_id: String(
                             opts.w.globals.initialSeries[opts.seriesIndex].data[
                                 opts.dataPointIndex
                             ].Id
@@ -296,6 +293,8 @@ const TimelineBuilder = ({
                 newEventItem
             );
             if (isEventAlreadyInLayout) {
+                console.log(newEventItem.id)
+
                 return filterEventFromLayout(previousLayout, newEventItem.id);
             } else {
                 const newWidget = {

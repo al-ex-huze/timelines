@@ -3,8 +3,6 @@ import * as React from "react";
 import {
     Box,
     Card,
-    CardHeader,
-    CardContent,
     CardMedia,
     IconButton,
     Menu,
@@ -17,8 +15,10 @@ import {
     Button,
     Typography,
 } from "@mui/material";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
+
+import CloseIcon from '@mui/icons-material/Close';
 import DeleteIcon from "@mui/icons-material/Delete";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 import { deleteEventByID } from "../../../../api";
 import { filterEventFromLayout } from "../../../utils/utils";
@@ -185,6 +185,9 @@ const EventCard = ({ eventCardData, setIsEventDeleted, setLayout }) => {
                 open={Boolean(anchorEl)}
                 onClose={handleMenuClose}
             >
+                                <MenuItem onClick={removeEventFromLayout}>
+                    <CloseIcon /> Close
+                </MenuItem>
                 <MenuItem onClick={handleDeleteClick}>
                     <DeleteIcon /> Delete
                 </MenuItem>
