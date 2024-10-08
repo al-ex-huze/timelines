@@ -68,6 +68,7 @@ const TimelinesDash = ({ layout, setLayout }) => {
                         <GrabHandle className={"drag-handle"} />
                         <EventCard
                             eventCardData={componentData}
+                            eventCardLayoutID={componentType.split(" - ")[1]}
                             setLayout={setLayout}
                             setIsEventDeleted={setIsEventDeleted}
                         />
