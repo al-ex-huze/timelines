@@ -26,13 +26,14 @@ import { filterEventFromLayout } from "../../../utils/utils";
 import { styled } from "@mui/system";
 
 const smallCardWidth = 128;
+
 const StyledCard = styled(Card)({
     position: "relative",
     height: "100%",
     overflow: "hidden",
-    color: "white",
     borderTopLeftRadius: "0px",
     borderTopRightRadius: "0px",
+    padding: "1px"
 });
 
 const TopContainer = styled(Box)({
@@ -196,7 +197,7 @@ const EventCard = ({ eventCardData, setIsEventDeleted, setLayout }) => {
                 <DialogTitle>Confirm Delete</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        Are you sure you want to delete this item?
+                        Are you sure you want to delete this event?
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
@@ -253,42 +254,3 @@ const EventCard = ({ eventCardData, setIsEventDeleted, setLayout }) => {
 };
 
 export default EventCard;
-
-{
-    /* <Card
-            sx={{
-                width: "100%",
-                height: "100%",
-                borderTopLeftRadius: "0px",
-                borderTopRightRadius: "0px",
-            }}
-        >
-            <CardMedia
-                component="img"
-                height="100%"
-                image={`${eventCardData.image_url_1}`}
-                alt="Event image"
-            />
-            <GradientOverlayTop>
-                <StyledCardHeader
-                    action={
-                        <IconButton onClick={handleMenuClick}>
-                            <MoreVertIcon />
-                        </IconButton>
-                    }
-                    title={`${eventCardData.title}`}
-                    titleTypographyProps={{ textAlign: "left" }}
-                />
-            </GradientOverlayTop>
-            <GradientOverlayBottom>
-                <CardContent>
-                    <Typography
-                        variant="body2"
-                        sx={{ color: "text.secondary", textAlign: "justify" }}
-                    >
-                        {eventCardData.body}
-                    </Typography>
-                </CardContent>
-            </GradientOverlayBottom>
-            </Card> */
-}
