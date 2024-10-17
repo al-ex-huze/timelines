@@ -16,7 +16,7 @@ import {
     Typography,
 } from "@mui/material";
 
-import CloseIcon from '@mui/icons-material/Close';
+import CloseIcon from "@mui/icons-material/Close";
 import DeleteIcon from "@mui/icons-material/Delete";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 
@@ -33,7 +33,7 @@ const StyledCard = styled(Card)({
     overflow: "hidden",
     borderTopLeftRadius: "0px",
     borderTopRightRadius: "0px",
-    padding: "1px"
+    padding: "1px",
 });
 
 const TopContainer = styled(Box)({
@@ -59,13 +59,22 @@ const BottomContainer = styled(Box)({
     height: "50%",
     background: "linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.1))",
     overflow: "auto",
-    display: "flex",
+    display: "block",
+    flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "flex-end",
     padding: "16px",
 });
 
 const TitleTypography = styled(Typography)({
+    display: "block",
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    maxWidth: "calc(100% - 48px)",
+});
+
+const DatesTypography = styled(Typography)({
     display: "block",
     whiteSpace: "nowrap",
     overflow: "hidden",
@@ -113,12 +122,15 @@ const EventCard = ({ eventCardData, setIsEventDeleted, setLayout }) => {
 
     const removeEventFromLayout = () => {
         setLayout((previousLayout) => {
-            return filterEventFromLayout(previousLayout, eventCardData.id);
+            return filterEventFromLayout(
+                previousLayout,
+                eventCardData.event_id
+            );
         });
     };
 
     const handleConfirmDelete = () => {
-        deleteEventByID(eventCardData.id)
+        deleteEventByID(eventCardData.event_id)
             .then(() => {
                 setIsEventDeleted(true);
                 removeEventFromLayout();
@@ -161,9 +173,9 @@ const EventCard = ({ eventCardData, setIsEventDeleted, setLayout }) => {
                     sx={{ padding: isCardSmall ? "8px 6px" : "8px 16px" }}
                 >
                     {!isCardSmall && (
-                        <TitleTypography variant="h6">
-                            {eventCardData.title}
-                        </TitleTypography>
+                            <TitleTypography variant="h6">
+                                {eventCardData.title}
+                            </TitleTypography>
                     )}
                     <IconButton
                         size="small"
@@ -175,9 +187,13 @@ const EventCard = ({ eventCardData, setIsEventDeleted, setLayout }) => {
                 </TopContainer>
                 <BottomContainer>
                     {!isCardSmall && (
-                        <BodyTypography variant="body2">
-                            {eventCardData.body}
-                        </BodyTypography>
+                        <><DatesTypography variant="h6">
+                            {eventCardData.start_date}
+                            {" to "}
+                            {eventCardData.end_date}
+                        </DatesTypography><BodyTypography variant="body2">
+                                {eventCardData.body}
+                            </BodyTypography></>
                     )}
                 </BottomContainer>
             </StyledCard>
@@ -186,7 +202,7 @@ const EventCard = ({ eventCardData, setIsEventDeleted, setLayout }) => {
                 open={Boolean(anchorEl)}
                 onClose={handleMenuClose}
             >
-                                <MenuItem onClick={removeEventFromLayout}>
+                <MenuItem onClick={removeEventFromLayout}>
                     <CloseIcon /> Close
                 </MenuItem>
                 <MenuItem onClick={handleDeleteClick}>

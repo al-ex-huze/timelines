@@ -119,7 +119,7 @@ const AddEvent = ({ setIsEventAdded, timeline_name }) => {
                             />
                         </LocalizationProvider>
                     </Grid>
-                    <Grid size={6}>
+                    <Grid size={12}>
                         <TextField
                             size="small"
                             fullWidth
@@ -132,7 +132,7 @@ const AddEvent = ({ setIsEventAdded, timeline_name }) => {
                             }}
                         />
                     </Grid>
-                    <Grid size={6}>
+                    <Grid size={12}>
                         <TextField
                             size="small"
                             fullWidth

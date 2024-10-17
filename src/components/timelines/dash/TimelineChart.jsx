@@ -24,6 +24,8 @@ const TimelineChart = ({ eventsData, groupNames, children, options }) => {
                         Title: event.title,
                         Body: event.body,
                         Image: event.event_img_url_1,
+                        Start: event.start_date,
+                        End: event.end_date,
                     },
                 ],
             };

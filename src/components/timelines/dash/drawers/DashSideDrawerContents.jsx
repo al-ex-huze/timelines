@@ -21,16 +21,14 @@ const DashSideDrawerContents = ({ open, layout, setLayout }) => {
             if (itemExists) {
                 return previousLayout.filter((item) => item.i !== listItem);
             } else {
-                //
                 const lastItem = previousLayout[previousLayout.length - 1];
-                //
                 let newWidget = {}
                 switch (listItem) {
                     case "Timeline":
                         newWidget = { i: "Timeline", x: 0, y: 0, w: 16, h: 1 };
                         break;
                     case "Add Event":
-                        newWidget = { i: "Add Event", x: 0, y: 0, w: 4, h: 1 };
+                        newWidget = { i: "Add Event", x: 0, y: 0, w: 16, h: 1 };
                         break;
                     default:
                         newWidget = {

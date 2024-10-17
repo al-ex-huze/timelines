@@ -11,6 +11,7 @@ import ErrorComponent from "../../ErrorComponent";
 import TimelineChart from "./TimelineChart";
 
 const TimelineBuilder = ({
+    cols,
     eventsData,
     setEventsData,
     isEventAdded,
@@ -117,6 +118,16 @@ const TimelineBuilder = ({
                                 opts.dataPointIndex
                             ].Image
                         ),
+                        start_date: String(
+                            opts.w.globals.initialSeries[opts.seriesIndex].data[
+                                opts.dataPointIndex
+                            ].Start
+                        ),
+                        end_date: String(
+                            opts.w.globals.initialSeries[opts.seriesIndex].data[
+                                opts.dataPointIndex
+                            ].End
+                        ),
                     };
                     handleAddToList(newEvent);
                 },
@@ -149,7 +160,7 @@ const TimelineBuilder = ({
             type: "rangeBar",
             zoom: {
                 enabled: true,
-                allowMouseWheelZoom: false
+                allowMouseWheelZoom: false,
             },
         },
         colors: [
@@ -294,16 +305,48 @@ const TimelineBuilder = ({
                 newEventItem
             );
             if (isEventAlreadyInLayout) {
-                return filterEventFromLayout(previousLayout, newEventItem.event_id);
+                return filterEventFromLayout(
+                    previousLayout,
+                    newEventItem.event_id
+                );
             } else {
-                const newWidget = {
-                    i: `Event Card - ${previousLayout.length + 1}`,
-                    data: `${JSON.stringify(newEventItem)}`,
-                    x: 0,
-                    y: 0,
-                    w: 2,
-                    h: 1,
-                };
+                const lastItem = previousLayout[previousLayout.length - 1];
+                console.log(lastItem)
+                let newWidget = {};
+                if (previousLayout.length === 1) {
+                    newWidget = {
+                        i: `Event Card - ${previousLayout.length + 1}`,
+                        data: `${JSON.stringify(newEventItem)}`,
+                        x: 0,
+                        y: 0,
+                        w: 2,
+                        h: 1,
+                    };
+                } else {
+                    if (lastItem.x === (cols - 2)) {
+                        newWidget = {
+                            i: `Event Card - ${previousLayout.length + 1}`,
+                            data: `${JSON.stringify(newEventItem)}`,
+                            x: 0,
+                            y: 0,
+                            w: 2,
+                            h: 1,
+                        };
+                    } else {
+                        {
+                            newWidget = {
+                                i: `Event Card - ${previousLayout.length + 1}`,
+                                data: `${JSON.stringify(newEventItem)}`,
+                                x:
+                                    lastItem
+                                        .x + 2,
+                                y: 0,
+                                w: 2,
+                                h: 1,
+                            };
+                        }
+                    }
+                }
                 return [...previousLayout, newWidget];
             }
         });

@@ -14,9 +14,7 @@ import DashItemResizeHandle from "../../styled/DashItemResizeHandle";
 import DashDrawerController from "./drawers/DashDrawerController";
 import EventCard from "./EventCard";
 import TimelineBuilder from "./TimelineBuilder";
-import {
-    GrabHandle,
-} from "../../styled/StyledComponents";
+import { GrabHandle } from "../../styled/StyledComponents";
 
 const Offset = styled("div")(({ theme }) => theme.mixins.toolbar);
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
@@ -79,6 +77,7 @@ const TimelinesDash = ({ layout, setLayout }) => {
                     <>
                         <GrabHandle className={"drag-handle"} />
                         <TimelineBuilder
+                            cols={cols}
                             eventsData={eventsData}
                             setEventsData={setEventsData}
                             isEventAdded={isEventAdded}
@@ -107,7 +106,7 @@ const TimelinesDash = ({ layout, setLayout }) => {
     };
 
     const gridMarginProps = {
-        margin: [75, 75],
+        margin: [25, 50],
         responsiveMargins: {
             lg: [1, 1],
             md: [1, 1],
@@ -121,8 +120,7 @@ const TimelinesDash = ({ layout, setLayout }) => {
         className: "responsive-grid",
         breakpoints: { lg: 1536, md: 1200, sm: 900, xs: 600, xxs: 0 },
         cols: { lg: cols, md: cols, sm: cols, xs: cols, xxs: cols },
-        containerPadding: [50, 50],
-        rowHeight: 180,
+        rowHeight: 200,
         compactType: "vertical",
         isDraggable: true,
         isResizable: true,
@@ -136,8 +134,7 @@ const TimelinesDash = ({ layout, setLayout }) => {
         placeholder,
         e,
         element
-    ) => {
-    };
+    ) => {};
 
     const handleDragStop = (
         layout,
