@@ -149,6 +149,7 @@ const TimelineBuilder = ({
             type: "rangeBar",
             zoom: {
                 enabled: true,
+                allowMouseWheelZoom: false
             },
         },
         colors: [
@@ -293,9 +294,7 @@ const TimelineBuilder = ({
                 newEventItem
             );
             if (isEventAlreadyInLayout) {
-                console.log(newEventItem.id)
-
-                return filterEventFromLayout(previousLayout, newEventItem.id);
+                return filterEventFromLayout(previousLayout, newEventItem.event_id);
             } else {
                 const newWidget = {
                     i: `Event Card - ${previousLayout.length + 1}`,

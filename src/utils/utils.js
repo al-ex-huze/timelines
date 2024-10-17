@@ -6,7 +6,7 @@ export const filterEventFromLayout = (previousLayout, eventID) => {
             return true;
         } else {
             const widgetData = JSON.parse(widget.data);
-            if (widgetData.id === eventID) {
+            if (widgetData.event_id === eventID) {
                 return false;
             } else {
                 return true;
@@ -23,7 +23,7 @@ export const checkIfEventIsInLayout = (previousLayout, newEventItem) => {
             return false;
         } else {
             const widgetData = JSON.parse(widget.data);
-            return widgetData.id === newEventItem.id;
+            if(widgetData.event_id === newEventItem.event_id) return true;
         }
     });
     return eventExists;
