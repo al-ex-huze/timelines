@@ -1,4 +1,5 @@
 import * as React from "react";
+import { format } from "date-fns";
 
 import {
     Box,
@@ -13,6 +14,7 @@ import {
     DialogContentText,
     DialogTitle,
     Button,
+    Tooltip,
     Typography,
 } from "@mui/material";
 
@@ -44,11 +46,18 @@ const TopContainer = styled(Box)({
     height: "50%",
     background:
         "linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.1))",
+    display: "block",
+    justifyContent: "space-between",
+    borderTopLeftRadius: "0px",
+    borderTopRightRadius: "0px",
+    padding: "0px",
+});
+
+const TitleAndMoreContainer = styled(Box)({
     display: "flex",
     justifyContent: "space-between",
     alignItems: "flex-start",
-    borderTopLeftRadius: "0px",
-    borderTopRightRadius: "0px",
+    padding: "0px",
 });
 
 const BottomContainer = styled(Box)({
@@ -59,14 +68,15 @@ const BottomContainer = styled(Box)({
     height: "50%",
     background: "linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.1))",
     overflow: "auto",
-    display: "block",
+    display: "flex",
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "flex-end",
     alignItems: "flex-end",
-    padding: "16px",
+    padding: "8px",
 });
 
 const TitleTypography = styled(Typography)({
+    color: "white",
     display: "block",
     whiteSpace: "nowrap",
     overflow: "hidden",
@@ -75,6 +85,7 @@ const TitleTypography = styled(Typography)({
 });
 
 const DatesTypography = styled(Typography)({
+    color: "white",
     display: "block",
     whiteSpace: "nowrap",
     overflow: "hidden",
@@ -83,6 +94,7 @@ const DatesTypography = styled(Typography)({
 });
 
 const BodyTypography = styled(Typography)({
+    color: "white",
     textAlign: "justify",
 });
 
@@ -172,28 +184,45 @@ const EventCard = ({ eventCardData, setIsEventDeleted, setLayout }) => {
                 <TopContainer
                     sx={{ padding: isCardSmall ? "8px 6px" : "8px 16px" }}
                 >
-                    {!isCardSmall && (
+                    <TitleAndMoreContainer>
+                        {!isCardSmall && (
                             <TitleTypography variant="h6">
                                 {eventCardData.title}
                             </TitleTypography>
+                        )}
+                        <IconButton
+                            size="small"
+                            edge="end"
+                            onClick={handleMenuClick}
+                        >
+                            <MoreVertIcon sx={{ color: "white" }} />
+                        </IconButton>
+                    </TitleAndMoreContainer>
+                    {!isCardSmall && (
+                        <Tooltip
+                            title={`${format(
+                                new Date(eventCardData.start_date),
+                                "dd MMMM yyyy"
+                            )} to ${format(
+                                new Date(eventCardData.end_date),
+                                "dd MMMM yyyy"
+                            )}`}
+                        >
+                            <DatesTypography variant="body2">
+                                {new Date(
+                                    eventCardData.start_date
+                                ).getFullYear()}
+                                {" to "}
+                                {new Date(eventCardData.end_date).getFullYear()}
+                            </DatesTypography>
+                        </Tooltip>
                     )}
-                    <IconButton
-                        size="small"
-                        edge="end"
-                        onClick={handleMenuClick}
-                    >
-                        <MoreVertIcon />
-                    </IconButton>
                 </TopContainer>
                 <BottomContainer>
                     {!isCardSmall && (
-                        <><DatesTypography variant="h6">
-                            {eventCardData.start_date}
-                            {" to "}
-                            {eventCardData.end_date}
-                        </DatesTypography><BodyTypography variant="body2">
-                                {eventCardData.body}
-                            </BodyTypography></>
+                        <BodyTypography variant="body2">
+                            {eventCardData.body}
+                        </BodyTypography>
                     )}
                 </BottomContainer>
             </StyledCard>
