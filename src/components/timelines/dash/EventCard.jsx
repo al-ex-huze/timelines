@@ -200,13 +200,13 @@ const EventCard = ({ eventCardData, setIsEventDeleted, setLayout }) => {
                     </TitleAndMoreContainer>
                     {!isCardSmall && (
                         <Tooltip
-                            title={`${format(
+                            title={`${eventCardData.start_date ? format(
                                 new Date(eventCardData.start_date),
                                 "dd MMMM yyyy"
-                            )} to ${format(
+                            ) : " "} to ${eventCardData.end_date ? format(
                                 new Date(eventCardData.end_date),
                                 "dd MMMM yyyy"
-                            )}`}
+                            ) : " "}`}
                         >
                             <DatesTypography variant="body2">
                                 {new Date(
