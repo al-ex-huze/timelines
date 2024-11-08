@@ -9,6 +9,7 @@ import { Box, TextField, Typography } from "@mui/material";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 import dayjs from "dayjs";
+import { format } from "date-fns";
 
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
@@ -106,7 +107,7 @@ const TimelinesDataGridCRUD = ({ layout, setLayout }) => {
         },
         {
             field: "begin_date",
-            headerName: "Begin Date",
+            headerName: "Start Date",
             editable: isRowEditable,
             flex: 1,
             renderEditCell: (params) => {
@@ -115,7 +116,7 @@ const TimelinesDataGridCRUD = ({ layout, setLayout }) => {
         },
         {
             field: "finish_date",
-            headerName: "Finish Date",
+            headerName: "Edit Date",
             editable: isRowEditable,
             flex: 1,
             renderEditCell: (params) => {
@@ -183,6 +184,13 @@ const TimelinesDataGridCRUD = ({ layout, setLayout }) => {
                 <DesktopDatePicker
                     value={value}
                     onChange={handleDateChange}
+                    slotProps={{
+                        style: { marginTop: 20 },
+                        textField: {
+                            error: false,
+                            variant: "filled",
+                        },
+                    }}
                     textField={(params) => <TextField {...params} />}
                 />
             </LocalizationProvider>
@@ -200,8 +208,18 @@ const TimelinesDataGridCRUD = ({ layout, setLayout }) => {
                         id: index + 1,
                         timeline_name: timeline.timeline_name,
                         description: timeline.description,
-                        begin_date: new Date(timeline.begin_date),
-                        finish_date: new Date(timeline.finish_date),
+                        begin_date: timeline.begin_date
+                            ? format(
+                                  new Date(timeline.begin_date),
+                                  "dd MMMM yyyy"
+                              )
+                            : "",
+                        finish_date: timeline.finish_date
+                            ? format(
+                                  new Date(timeline.finish_date),
+                                  "dd MMMM yyyy"
+                              )
+                            : "",
                     })
                 );
                 setRows(timelinesDataWithID);

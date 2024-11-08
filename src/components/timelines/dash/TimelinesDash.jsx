@@ -120,7 +120,7 @@ const TimelinesDash = ({ layout, setLayout }) => {
         className: "responsive-grid",
         breakpoints: { lg: 1536, md: 1200, sm: 900, xs: 600, xxs: 0 },
         cols: { lg: cols, md: cols, sm: cols, xs: cols, xxs: cols },
-        rowHeight: 200,
+        rowHeight: 360,
         compactType: "vertical",
         isDraggable: true,
         isResizable: true,

@@ -1,5 +1,7 @@
 import * as React from "react";
 
+import { format } from "date-fns";
+
 import { getEvents } from "../../../../api";
 import {
     checkIfEventIsInLayout,
@@ -85,7 +87,7 @@ const TimelineBuilder = ({
             animations: {
                 enabled: true,
                 easing: "easeinout",
-                speed: 1000,
+                speed: 500,
                 animateGradually: {
                     enabled: true,
                     delay: 150,
@@ -264,11 +266,26 @@ const TimelineBuilder = ({
                 return (
                     '<div style="color:black;padding:5px 5px 5px 5px;width:25%;">' +
                     "<span>" +
-                    data.Timeline +
-                    "<br>" +
                     "<b>" +
                     data.Title +
                     "</b>" +
+                    "<br>" +
+                    `${
+                        data.Start
+                            ? format(
+                                  new Date(data.Start),
+                                  "dd MMMM yyyy"
+                              )
+                            : " "
+                    } to ${
+                        data.End
+                            ? format(
+                                  new Date(data.End),
+                                  "dd MMMM yyyy"
+                              )
+                            : " "
+                    }` +
+                    "<br>" +
                     "</span>" +
                     "</div>"
                 );
@@ -311,7 +328,6 @@ const TimelineBuilder = ({
                 );
             } else {
                 const lastItem = previousLayout[previousLayout.length - 1];
-                console.log(lastItem)
                 let newWidget = {};
                 if (previousLayout.length === 1) {
                     newWidget = {
@@ -323,7 +339,7 @@ const TimelineBuilder = ({
                         h: 1,
                     };
                 } else {
-                    if (lastItem.x === (cols - 2)) {
+                    if (lastItem.x === cols - 2) {
                         newWidget = {
                             i: `Event Card - ${previousLayout.length + 1}`,
                             data: `${JSON.stringify(newEventItem)}`,
@@ -337,10 +353,8 @@ const TimelineBuilder = ({
                             newWidget = {
                                 i: `Event Card - ${previousLayout.length + 1}`,
                                 data: `${JSON.stringify(newEventItem)}`,
-                                x:
-                                    lastItem
-                                        .x + 2,
-                                y: 0,
+                                x: lastItem.x + 2,
+                                y: lastItem.y + 1,
                                 w: 2,
                                 h: 1,
                             };
